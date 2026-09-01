@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "check:routes": "node scripts/check-static-routes.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.2.0",
