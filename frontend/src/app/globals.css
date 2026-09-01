@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: var(--font-rethink-regular), sans-serif;
+  background-color: #FFFFFF;
+  margin: 0;
+}
