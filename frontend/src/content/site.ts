@@ -1,7 +1,6 @@
 import type {
   Award,
   BannerSlot,
-  BulletinPost,
   Cohort,
   CohortYear,
   Organization,
@@ -134,7 +133,6 @@ export const visualAssetSpecs: VisualAssetSpec[] = [
 ];
 
 // Phase 1 intentionally keeps unconfirmed 2026 content unpublished.
-export const bulletinPosts: BulletinPost[] = [];
 export const projects: Project[] = [];
 export const awards: Award[] = [];
 export const people: Person[] = [];

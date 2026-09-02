@@ -1,4 +1,9 @@
 import { notFound } from "next/navigation";
-import ArchiveSkeleton from "@/components/cohort/ArchiveSkeleton";
+import BulletinList from "@/components/cohort/BulletinList";
 import { isLocale } from "@/data/content";
-export default async function Page({ params }: { params: Promise<{ locale: string }> }) { const { locale } = await params; if (!isLocale(locale)) notFound(); return <ArchiveSkeleton slug="bulletin" locale={locale} />; }
+
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  return <BulletinList locale={locale} />;
+}

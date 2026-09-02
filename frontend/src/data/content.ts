@@ -1,6 +1,5 @@
 import {
   awards,
-  bulletinPosts,
   bannerSlots,
   cohorts,
   organizationRoles,
@@ -19,6 +18,7 @@ import type {
   OrganizationRoleType,
   PersonRoleType,
 } from "@/domain/content";
+import { getPublishedBulletins } from "./bulletins";
 
 export function isLocale(value: string): value is Locale {
   return value === "ko" || value === "en";
@@ -52,12 +52,7 @@ export function getVisualAssetSpecs(year: CohortYear) {
 }
 
 export function getBulletins(year: CohortYear) {
-  return bulletinPosts
-    .filter((post) => post.cohort === year && post.published)
-    .sort((a, b) => {
-      if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
-      return (b.publishedAt ?? "").localeCompare(a.publishedAt ?? "");
-    });
+  return getPublishedBulletins(year);
 }
 
 export function getProjects(year: CohortYear) {

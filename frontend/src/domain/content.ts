@@ -81,9 +81,12 @@ export interface BulletinPost {
   title: LocalizedText;
   summary: LocalizedText;
   category: "REGISTRATION" | "TEAM" | "EVENT" | "SUBMISSION" | "AWARDS" | "NOTICE";
-  publishedAt: string | null;
+  publishedAt: string;
+  updatedAt: string;
   pinned: boolean;
   published: boolean;
+  thumbnail: string | null;
+  body: string;
 }
 
 export interface Project {

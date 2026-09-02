@@ -24,6 +24,7 @@ NASA Space Apps Seoul의 연도별 공개 웹사이트와 정적 배포 설정�
 - `frontend/src/domain/`: 공개 콘텐츠 type과 relation
 - `frontend/src/data/`: component가 사용하는 data access layer
 - `frontend/src/components/cohort/`: 2026+ 공통 layout과 UI
+- `frontend/content/cohorts/{year}/bulletin/`: 운영자가 작성하는 Markdown 공지
 - `infra/`: CloudFront root redirect source와 test
 - `docs/`: deployment 및 architecture 문서
 

@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "framer-motion": "^11.2.0",
+    "gray-matter": "^4.0.3",
     "next": "^15.5.4",
     "react": "^19.0.0-rc",
-    "react-dom": "^19.0.0-rc"
+    "react-dom": "^19.0.0-rc",
+    "react-markdown": "^10.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^8.57.0",

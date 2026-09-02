@@ -9,6 +9,7 @@ import {
 } from "@/data/content";
 import type { Locale } from "@/domain/content";
 import BannerSlider from "./BannerSlider";
+import BulletinCard from "./BulletinCard";
 import CohortPage from "./CohortPage";
 import EmptyState from "./EmptyState";
 import { cohortPath } from "./navigation";
@@ -190,7 +191,11 @@ export default function CohortHome({ locale }: { locale: Locale }) {
           <div><p className="section-label">LATEST UPDATES</p><h2>{locale === "ko" ? "최근 공지" : "Latest bulletin"}</h2></div>
           <Link href={cohortPath(2026, locale, "bulletin")}>{locale === "ko" ? "전체 보기" : "View all"}</Link>
         </div>
-        {bulletins.length ? null : <EmptyState title={locale === "ko" ? "Coming Soon" : "Updates Coming Soon"} />}
+        {bulletins.length ? (
+          <div className="bulletin-grid bulletin-grid--latest">
+            {bulletins.map((post) => <BulletinCard key={post.id} post={post} locale={locale} />)}
+          </div>
+        ) : <EmptyState title={locale === "ko" ? "Coming Soon" : "Updates Coming Soon"} />}
       </section>
 
       <section className="cohort-section two-column-section">
