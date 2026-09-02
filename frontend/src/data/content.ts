@@ -1,13 +1,17 @@
 import {
   awards,
   bulletinPosts,
+  bannerSlots,
   cohorts,
   organizationRoles,
   organizations,
   people,
   personRoles,
+  preparationItems,
   projects,
   registrationConfigs,
+  timelineItems,
+  visualAssetSpecs,
 } from "@/content/site";
 import type {
   CohortYear,
@@ -26,6 +30,25 @@ export function getCohort(year: CohortYear) {
 
 export function getRegistrationConfig(year: CohortYear) {
   return registrationConfigs.find((config) => config.cohort === year);
+}
+
+export function getTimeline(year: CohortYear) {
+  return timelineItems.filter((item) => item.cohort === year && item.state === "CONFIRMED");
+}
+
+export function getPreparationItems(year: CohortYear) {
+  return preparationItems.filter((item) => item.cohort === year && item.state !== "UNPUBLISHED");
+}
+
+export function getPublishedBanners(year: CohortYear) {
+  return bannerSlots
+    .filter((banner) => banner.cohort === year && banner.published && banner.image)
+    .sort((a, b) => a.displayOrder - b.displayOrder)
+    .slice(0, 5);
+}
+
+export function getVisualAssetSpecs(year: CohortYear) {
+  return visualAssetSpecs.filter((asset) => asset.cohort === year);
 }
 
 export function getBulletins(year: CohortYear) {

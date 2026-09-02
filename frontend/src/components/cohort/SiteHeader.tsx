@@ -42,7 +42,7 @@ export default function SiteHeader({ year, locale, activeSlug = "" }: SiteHeader
                   <span>{cohort.year}</span>
                   <small>
                     {cohort.isCurrent
-                      ? locale === "ko" ? "현재 준비 중" : "Current · preparing"
+                      ? locale === "ko" ? "현재 행사" : "Current cohort"
                       : locale === "ko" ? "지난 행사" : "Past cohort"}
                   </small>
                 </Link>

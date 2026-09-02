@@ -6,7 +6,8 @@ export const metadata: Metadata = {
     default: "NASA Space Apps Seoul 2026",
     template: "%s | NASA Space Apps Seoul 2026",
   },
-  description: "NASA Space Apps Seoul 2026 public event website. Confirmed information will be published as it becomes available.",
+  description:
+    "Join NASA's global hackathon from Seoul on November 14–15, 2026. Use NASA and Space Agency Partner open data to tackle challenges on Earth and in space.",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

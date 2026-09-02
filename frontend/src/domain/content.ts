@@ -3,8 +3,9 @@ export const SUPPORTED_LOCALES = ["ko", "en"] as const;
 export type Locale = (typeof SUPPORTED_LOCALES)[number];
 export type CohortYear = 2025 | 2026;
 export type LocalizedText = Record<Locale, string>;
+export type ContentState = "CONFIRMED" | "COMING_SOON" | "UNPUBLISHED";
 
-export type CohortStatus = "PREPARING" | "ARCHIVED";
+export type CohortStatus = "REGISTRATION_OPEN" | "PREPARING" | "ARCHIVED";
 
 export interface Cohort {
   year: CohortYear;
@@ -12,6 +13,17 @@ export interface Cohort {
   status: CohortStatus;
   isCurrent: boolean;
   publicMainPath: Record<Locale, string>;
+  officialName?: LocalizedText;
+  shortName?: string;
+  location?: LocalizedText;
+  displayDates?: LocalizedText;
+  eventStartDate?: string;
+  eventEndDate?: string;
+  participationFee?: LocalizedText;
+  eventStatus?: "REGISTRATION_OPEN";
+  eventType?: string;
+  format?: LocalizedText;
+  heroImage?: string | null;
 }
 
 export interface RegistrationConfig {
@@ -20,6 +32,46 @@ export interface RegistrationConfig {
   published: boolean;
   nasaRegistrationUrl: string | null;
   seoulParticipationUrl: string | null;
+}
+
+export interface TimelineItem {
+  id: string;
+  cohort: CohortYear;
+  title: LocalizedText;
+  displayDate: LocalizedText;
+  date: string;
+  state: ContentState;
+}
+
+export interface PreparationItem {
+  id: string;
+  cohort: CohortYear;
+  title: LocalizedText;
+  displayPeriod: LocalizedText;
+  description: LocalizedText;
+  state: ContentState;
+}
+
+export interface BannerSlot {
+  id: string;
+  cohort: CohortYear;
+  title: LocalizedText;
+  image: string | null;
+  plannedFilename: string;
+  displayOrder: number;
+  published: boolean;
+  startDate: string | null;
+  endDate: string | null;
+}
+
+export interface VisualAssetSpec {
+  id: string;
+  cohort: CohortYear;
+  filename: string;
+  dimensions: string;
+  aspectRatio: string;
+  component: string;
+  state: ContentState;
 }
 
 export interface BulletinPost {

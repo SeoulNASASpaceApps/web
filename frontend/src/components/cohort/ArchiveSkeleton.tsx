@@ -37,12 +37,25 @@ export type ArchiveSlug = keyof typeof pageCopy;
 
 export default function ArchiveSkeleton({ slug, locale }: { slug: ArchiveSlug; locale: Locale }) {
   const [eyebrow, title, description] = pageCopy[slug][locale];
-  const emptyDescription =
-    slug === "hall-of-fame"
-      ? locale === "ko"
-        ? "2026 결과는 행사 이후 확인된 정보만 공개됩니다. 2025 기록은 기존 아카이브에서 유지됩니다."
-        : "Verified 2026 results will be published after the event. The 2025 archive remains available."
-      : undefined;
+  const emptyCopy = {
+    bulletin: {
+      ko: { title: "Coming Soon", description: undefined },
+      en: { title: "Updates Coming Soon", description: undefined },
+    },
+    "hall-of-fame": {
+      ko: { title: "Coming Soon", description: "2026 수상 결과는 행사 종료 후 공개됩니다." },
+      en: { title: "Coming Soon", description: "2026 results will be announced after the event." },
+    },
+    projects: {
+      ko: { title: "Coming Soon", description: "2026 프로젝트는 해커톤 이후 공개됩니다." },
+      en: { title: "Coming Soon", description: "2026 projects will be published after the hackathon." },
+    },
+    judges: { ko: { title: "Coming Soon", description: undefined }, en: { title: "Coming Soon", description: undefined } },
+    partners: { ko: { title: "Coming Soon", description: undefined }, en: { title: "Coming Soon", description: undefined } },
+    team: { ko: { title: "Coming Soon", description: undefined }, en: { title: "Coming Soon", description: undefined } },
+    mentors: { ko: { title: "Coming Soon", description: undefined }, en: { title: "Coming Soon", description: undefined } },
+  } as const;
+  const empty = emptyCopy[slug][locale];
 
   return (
     <CohortPage
@@ -52,7 +65,7 @@ export default function ArchiveSkeleton({ slug, locale }: { slug: ArchiveSlug; l
       title={title}
       description={description}
     >
-      <EmptyState locale={locale} description={emptyDescription} />
+      <EmptyState title={empty.title} description={empty.description} />
     </CohortPage>
   );
 }

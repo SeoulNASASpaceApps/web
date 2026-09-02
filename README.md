@@ -6,7 +6,7 @@ NASA Space Apps Seoul의 연도별 공개 웹사이트와 정적 배포 설정�
 
 - Production root: `https://nasaspaceappskr.org/` → `/2025/`
 - 2025 archive: 기존 source와 URL을 그대로 유지
-- 2026: Multi-Cohort architecture 기반 skeleton만 구현, production 미배포
+- 2026: Multi-Cohort architecture와 확정 행사 콘텐츠 기반 public skeleton 구현, production 미배포
 - 회원가입, 로그인, dashboard, authentication backend 없음
 - 2026 Seoul Participation Confirmation은 향후 승인된 외부 Form URL을 연결
 

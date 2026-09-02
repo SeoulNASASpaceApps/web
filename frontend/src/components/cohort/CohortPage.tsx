@@ -9,6 +9,7 @@ interface CohortPageProps {
   eyebrow: string;
   title: string;
   description: string;
+  introMeta?: string;
   children: ReactNode;
 }
 
@@ -18,6 +19,7 @@ export default function CohortPage({
   eyebrow,
   title,
   description,
+  introMeta,
   children,
 }: CohortPageProps) {
   return (
@@ -27,6 +29,7 @@ export default function CohortPage({
         <header className="page-intro">
           <p>{eyebrow}</p>
           <h1>{title}</h1>
+          {introMeta ? <strong className="page-intro__meta">{introMeta}</strong> : null}
           <span>{description}</span>
         </header>
         {children}
