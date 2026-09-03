@@ -39,7 +39,7 @@ export const cohorts: Cohort[] = [
     eventEndDate: "2026-11-15",
     participationFee: { ko: "무료", en: "Free" },
     eventStatus: "REGISTRATION_OPEN",
-    eventType: "NASA International Space Apps Challenge Local Event",
+    eventType: "NASA International Space Apps Challenge",
     format: {
       ko: "온라인 중심 + 일부 오프라인 프로그램",
       en: "Virtual + Selected Offline Programs",
