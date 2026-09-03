@@ -4,8 +4,8 @@ NASA Space Apps Seoul의 연도별 공개 웹사이트와 정적 배포 설정�
 
 ## 현재 공개 상태
 
-- Vercel production root: `https://nasa-space-apps-seoul.vercel.app/` → `/2026/ko/`
-- Official domain: `https://nasaspaceappskr.org/`의 Vercel 연결은 별도 DNS 전환 필요
+- Production root: `https://nasaspaceappskr.org/` → `/2026/ko/`
+- Hosting: Vercel production (`https://nasa-space-apps-seoul.vercel.app/`)
 - 2025 archive: 기존 source와 URL을 그대로 유지
 - 2026: Multi-Cohort architecture와 확정 행사 콘텐츠 기반 public skeleton 배포
 - 회원가입, 로그인, dashboard, authentication backend 없음
