@@ -55,6 +55,7 @@
 .hero-slider__dots button:focus-visible, .hero-slider__toggle:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 .hero-skeleton h2 { margin: 0 0 18px; font: clamp(36px, 5vw, 64px)/1 var(--font-rethink-extrabold), sans-serif; }
 .hero-skeleton p { max-width: 620px; color: #dce4ff; font-size: 18px; line-height: 1.6; }
+.hero-skeleton .section-label { color: #ffe46b; text-shadow: 0 0 16px rgba(255,215,48,.5); }
 .event-facts { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .event-facts div { padding: 18px 20px; border: 1px solid rgba(255,224,72,.96); border-radius: 16px; background: rgba(7,17,45,.5); color: #fff; backdrop-filter: blur(6px); box-shadow: 0 0 22px rgba(255,215,48,.48), 0 0 46px rgba(255,191,0,.2), inset 0 1px 0 rgba(255,247,168,.18); }
 .event-facts dt { color: #ffe46b; font: 12px var(--font-rethink-bold), sans-serif; letter-spacing: .12em; text-transform: uppercase; }
