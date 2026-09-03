@@ -52,8 +52,8 @@ for (const filename of fs.readdirSync(bulletinDirectory).filter((name) => name.e
 }
 
 const rootHtml = fs.readFileSync(path.join("out", "index.html"), "utf8");
-assert.match(rootHtml, /url=\/2025\//, "Root fallback must continue to target /2025/");
+assert.match(rootHtml, /url=\/2026\/ko\//, "Root fallback must target /2026/ko/");
 
 process.stdout.write(
-  `Verified ${routes.length} static routes, Markdown bulletins, and the /2025/ root fallback.\n`,
+  `Verified ${routes.length} static routes, Markdown bulletins, and the /2026/ko/ root fallback.\n`,
 );

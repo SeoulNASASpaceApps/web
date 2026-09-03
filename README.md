@@ -4,15 +4,15 @@ NASA Space Apps Seoul의 연도별 공개 웹사이트와 정적 배포 설정�
 
 ## 현재 공개 상태
 
-- Production root: `https://nasaspaceappskr.org/` → `/2025/`
+- Vercel production root: `https://nasa-space-apps-seoul.vercel.app/` → `/2026/ko/`
+- Official domain: `https://nasaspaceappskr.org/`의 Vercel 연결은 별도 DNS 전환 필요
 - 2025 archive: 기존 source와 URL을 그대로 유지
-- 2026: Multi-Cohort architecture와 확정 행사 콘텐츠 기반 public skeleton 구현, production 미배포
+- 2026: Multi-Cohort architecture와 확정 행사 콘텐츠 기반 public skeleton 배포
 - 회원가입, 로그인, dashboard, authentication backend 없음
 - 2026 Seoul Participation Confirmation은 향후 승인된 외부 Form URL을 연결
 
-`CURRENT_COHORT`는 콘텐츠 설계상 2026이지만, production entry cohort는 2025로
-분리되어 있습니다. 공개 전환 승인 전에는 다음 파일의 `/2025/` 목적지를 변경하지
-않습니다.
+`CURRENT_COHORT`와 Vercel production entry cohort는 2026입니다. 루트 이동
+목적지를 변경할 때는 다음 두 파일을 함께 갱신합니다.
 
 - `frontend/src/app/page.tsx`
 - `infra/cloudfront-functions/redirect-root.js`

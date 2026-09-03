@@ -1,3 +1,3 @@
 export default function Home() {
-  return <meta httpEquiv="refresh" content="0;url=/2025/" />;
+  return <meta httpEquiv="refresh" content="0;url=/2026/ko/" />;
 }
