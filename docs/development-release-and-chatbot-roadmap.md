@@ -93,6 +93,21 @@ git push -u origin codex/<작업명>
 현재 저장소에는 GitHub Actions 기반 production deploy가 없다. 따라서 branch
 push와 PR merge는 source 변경이며, S3/CloudFront 배포와는 별도다.
 
+## 3.1 Vercel 무료 미리보기
+
+Vercel 프로젝트의 Root Directory는 `frontend`로 설정한다. 해당 디렉터리의
+`vercel.json`이 Next.js build와 `out/` 정적 결과물을 명시하므로 Dashboard에서
+Build Command, Output Directory와 환경변수를 별도로 입력하지 않는다.
+
+- Framework: Next.js
+- Install: `yarn install --frozen-lockfile`
+- Build: `yarn build`
+- Output: `out`
+- Environment Variables: 없음
+
+Vercel 배포는 AWS, 기존 CloudFront와 공식 도메인을 변경하지 않는다. 공식 도메인
+DNS는 별도 승인 전까지 Vercel 프로젝트에 연결하지 않는다.
+
 ## 4. 릴리스 단계 구분
 
 ### Stage A — Local development
@@ -199,4 +214,3 @@ Static public website
 - [ ] CloudFront invalidation 범위 승인
 - [ ] `/2026/**` 공개와 `/` root cutover를 별도 결정
 - [ ] rollback 담당자와 복구 파일 확인
-
