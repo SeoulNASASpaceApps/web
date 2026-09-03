@@ -44,3 +44,6 @@ git diff --check
 
 배포는 GitHub push로 자동 실행되지 않습니다. `docs/deployment-playbook.md`의 S3와
 CloudFront 수동 절차는 별도의 production 승인 후에만 수행합니다.
+
+AWS 없이 진행하는 개발·PR 흐름과 향후 챗봇 도입 기준은
+`docs/development-release-and-chatbot-roadmap.md`를 참고합니다.
