@@ -108,9 +108,9 @@ export const preparationItems: PreparationItem[] = [
 ];
 
 export const bannerSlots: BannerSlot[] = [
-  { id: "earth-data", cohort: 2026, title: { ko: "지구 관측 데이터", en: "Earth observation data" }, image: null, plannedFilename: "2026-event-01-earth-data.webp", displayOrder: 1, published: false, startDate: null, endDate: null },
-  { id: "seoul-collaboration", cohort: 2026, title: { ko: "서울의 협업", en: "Collaboration in Seoul" }, image: null, plannedFilename: "2026-event-02-seoul-collaboration.webp", displayOrder: 2, published: false, startDate: null, endDate: null },
-  { id: "space-innovation", cohort: 2026, title: { ko: "우주를 향한 혁신", en: "Innovation for space" }, image: null, plannedFilename: "2026-event-03-space-innovation.webp", displayOrder: 3, published: false, startDate: null, endDate: null },
+  { id: "earth-data", cohort: 2026, title: { ko: "지구 관측 데이터", en: "Earth observation data" }, image: "/images/2026/hero/2026-event-01-earth-data.webp", plannedFilename: "2026-event-01-earth-data.webp", displayOrder: 1, published: true, startDate: null, endDate: null },
+  { id: "seoul-collaboration", cohort: 2026, title: { ko: "서울의 협업", en: "Collaboration in Seoul" }, image: "/images/2026/hero/2026-event-02-seoul-collaboration.webp", plannedFilename: "2026-event-02-seoul-collaboration.webp", displayOrder: 2, published: true, startDate: null, endDate: null },
+  { id: "space-innovation", cohort: 2026, title: { ko: "서울 행사 기록", en: "Seoul event archive" }, image: "/images/2026/hero/2026-event-03-space-innovation.webp", plannedFilename: "2026-event-03-space-innovation.webp", displayOrder: 3, published: true, startDate: null, endDate: null },
 ];
 
 export const visualAssetSpecs: VisualAssetSpec[] = [
@@ -124,7 +124,7 @@ export const visualAssetSpecs: VisualAssetSpec[] = [
     dimensions: "2400 × 1000",
     aspectRatio: "12:5",
     component: "Event hero background slider",
-    state: "COMING_SOON" as const,
+    state: "CONFIRMED" as const,
   })),
 ];
 
