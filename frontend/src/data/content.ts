@@ -44,7 +44,7 @@ export function getPublishedBanners(year: CohortYear) {
   return bannerSlots
     .filter((banner) => banner.cohort === year && banner.published && banner.image)
     .sort((a, b) => a.displayOrder - b.displayOrder)
-    .slice(0, 5);
+    .slice(0, 3);
 }
 
 export function getVisualAssetSpecs(year: CohortYear) {

@@ -1,4 +1,9 @@
-# NASA Space Apps Seoul 웹 배포 플레이북
+# NASA Space Apps Seoul AWS Legacy 배포 플레이북
+
+> 현재 공식 사이트는 Vercel에서 운영되며 `main` merge/push가 Production을 자동
+> 배포한다. 일상적인 콘텐츠 배포는 `docs/vercel-release-formula.md`를 따른다.
+> 이 문서는 이전 S3/CloudFront 환경을 복구하거나 별도 승인하에 재사용할 때만
+> 참고하며, 현재 운영 배포 절차가 아니다.
 
 이 문서는 정적 Next.js 사이트를 S3에 올리고 CloudFront 캐시를 갱신한 뒤,
 루트 도메인을 최신 연도 경로로 리디렉트하는 절차를 설명한다.

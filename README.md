@@ -42,8 +42,11 @@ node infra/cloudfront-functions/redirect-root.test.js
 git diff --check
 ```
 
-배포는 GitHub push로 자동 실행되지 않습니다. `docs/deployment-playbook.md`의 S3와
-CloudFront 수동 절차는 별도의 production 승인 후에만 수행합니다.
+현재 Vercel은 feature branch push를 Preview로, `main` push/merge를 Production으로
+자동 배포합니다. 표준 절차는 `docs/vercel-release-formula.md`를 따릅니다.
+
+`docs/deployment-playbook.md`의 S3/CloudFront 절차는 이전 AWS 호스팅을 위한
+legacy 참고 자료이며 현재 일반 콘텐츠 배포에는 사용하지 않습니다.
 
 AWS 없이 진행하는 개발·PR 흐름과 향후 챗봇 도입 기준은
 `docs/development-release-and-chatbot-roadmap.md`를 참고합니다.

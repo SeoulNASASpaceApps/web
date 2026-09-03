@@ -4,6 +4,7 @@ import {
   getCohort,
   getOrganizationsByRole,
   getPreparationItems,
+  getPublishedBanners,
   getRegistrationConfig,
   getTimeline,
 } from "@/data/content";
@@ -29,6 +30,7 @@ export default function CohortHome({ locale }: { locale: Locale }) {
   const registration = getRegistrationConfig(2026);
   const timeline = getTimeline(2026);
   const preparation = getPreparationItems(2026);
+  const banners = getPublishedBanners(2026);
   const bulletins = getBulletins(2026).slice(0, 3);
   const partners = getOrganizationsByRole(2026);
 
@@ -90,7 +92,7 @@ export default function CohortHome({ locale }: { locale: Locale }) {
           : "Join NASA's global hackathon from Seoul.\nUse NASA and Space Agency Partner open data to tackle real-world challenges on Earth and in space."
       }
     >
-      <section className="hero-skeleton" aria-labelledby="event-information-title">
+      <BannerSlider banners={banners} locale={locale}>
         <div>
           <p className="section-label">REGISTRATION OPEN</p>
           <h2 id="event-information-title">2026 SEOUL EVENT</h2>
@@ -101,9 +103,7 @@ export default function CohortHome({ locale }: { locale: Locale }) {
           <div><dt>{locale === "ko" ? "방식 및 장소" : "Format & place"}</dt><dd>{cohort.format[locale]}<br />{cohort.location[locale]}</dd></div>
           <div><dt>{locale === "ko" ? "참가비" : "Participation"}</dt><dd>{cohort.participationFee[locale]}</dd></div>
         </dl>
-      </section>
-
-      <BannerSlider locale={locale} />
+      </BannerSlider>
 
       <section className="cohort-section split-copy-section">
         <div className="section-heading">

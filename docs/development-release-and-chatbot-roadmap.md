@@ -86,27 +86,29 @@ git push -u origin codex/<작업명>
 - 한국어와 영어 화면
 - desktop과 mobile 화면
 - `/2025/**` 회귀 여부
-- `/`가 아직 `/2025/`를 향하는지
+- `/`가 `/2026/ko/`를 향하는지
 - 미확정 콘텐츠와 `published: false` Bulletin이 노출되지 않는지
-- production 배포 또는 AWS 변경이 포함되지 않았는지
+- 의도하지 않은 production 또는 인프라 변경이 포함되지 않았는지
 
-현재 저장소에는 GitHub Actions 기반 production deploy가 없다. 따라서 branch
-push와 PR merge는 source 변경이며, S3/CloudFront 배포와는 별도다.
+GitHub Actions 기반 production deploy는 없지만 Vercel의 Git integration이
+연결되어 있다. feature branch push는 Preview, `main` merge/push는 Production을
+자동 배포한다.
 
 ## 3.1 Vercel 무료 미리보기
 
 Vercel 프로젝트의 Root Directory는 `frontend`로 설정한다. 해당 디렉터리의
-`vercel.json`이 Next.js build와 `out/` 정적 결과물을 명시하므로 Dashboard에서
-Build Command, Output Directory와 환경변수를 별도로 입력하지 않는다.
+`vercel.json`이 Next.js build 설정을 제공하므로 Dashboard에서 Build Command,
+Output Directory와 환경변수를 별도로 입력하지 않는다. 정적 export는 Vercel의
+Next.js framework builder가 처리한다.
 
 - Framework: Next.js
 - Install: `yarn install --frozen-lockfile`
 - Build: `yarn build`
-- Output: `out`
+- Output: framework default
 - Environment Variables: 없음
 
-Vercel 배포는 AWS, 기존 CloudFront와 공식 도메인을 변경하지 않는다. 공식 도메인
-DNS는 별도 승인 전까지 Vercel 프로젝트에 연결하지 않는다.
+공식 도메인은 현재 Vercel Production에 연결되어 있다. 일반 콘텐츠 릴리스 중에는
+Squarespace DNS, AWS 또는 기존 CloudFront 설정을 변경하지 않는다.
 
 ## 4. 릴리스 단계 구분
 
@@ -127,20 +129,19 @@ DNS는 별도 승인 전까지 Vercel 프로젝트에 연결하지 않는다.
 
 - 승인된 콘텐츠, 외부 Form URL, 이미지와 접근성 검수 완료
 - `main` merge 가능
-- merge만으로 production은 변경되지 않음
-- 루트는 계속 `/2025/`
+- merge 시 Vercel Production 자동 배포
+- 루트는 `/2026/ko/`, `/2025/**`는 archive로 유지
 
-### Stage D — 2026 path publication
+### Stage D — Production verification
 
-- 명시적 production 승인 후 `frontend/out/`을 기존 S3에 업로드
-- `/2026/**`를 직접 접속할 수 있게 하되 루트 redirect는 아직 `/2025/` 유지 가능
-- 배포 절차는 `docs/deployment-playbook.md`를 따른다.
+- Vercel Production이 `Ready`인지 확인
+- 공식 도메인의 `/2026/ko/`, `/2026/en/`, `/2025/`를 확인
+- 배포 절차는 `docs/vercel-release-formula.md`를 따른다.
 
-### Stage E — Root cutover
+### Stage E — Optional infrastructure change
 
-- 별도 승인 후에만 `/` 목적지를 `/2026/`으로 변경
-- `frontend/src/app/page.tsx`와 CloudFront Function을 함께 변경
-- `/2025/**`는 archive URL로 계속 보존
+- DNS, 인증서, AWS 또는 CloudFront를 다시 변경해야 하는 경우 별도 승인을 받는다.
+- 일상적인 사이트 업데이트에서는 이 단계가 필요하지 않다.
 
 ## 5. 2026 챗봇 도입 원칙
 

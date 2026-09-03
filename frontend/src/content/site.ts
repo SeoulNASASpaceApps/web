@@ -16,9 +16,7 @@ import type {
 
 export const CURRENT_COHORT: CohortYear = 2026;
 
-// Production still enters through /2025/. Do not couple the published entry
-// point to CURRENT_COHORT until the user approves the public launch.
-export const PUBLISHED_ENTRY_COHORT: CohortYear = 2025;
+export const PUBLISHED_ENTRY_COHORT: CohortYear = 2026;
 
 export const cohorts: Cohort[] = [
   {
@@ -110,11 +108,9 @@ export const preparationItems: PreparationItem[] = [
 ];
 
 export const bannerSlots: BannerSlot[] = [
-  { id: "registration", cohort: 2026, title: { ko: "Registration / Join Seoul", en: "Registration / Join Seoul" }, image: null, plannedFilename: "2026-banner-registration.webp", displayOrder: 1, published: false, startDate: null, endDate: null },
-  { id: "welcome-benefits", cohort: 2026, title: { ko: "Welcome Benefits / Participant Preparation", en: "Welcome Benefits / Participant Preparation" }, image: null, plannedFilename: "2026-banner-welcome-benefits.webp", displayOrder: 2, published: false, startDate: null, endDate: null },
-  { id: "team-formation", cohort: 2026, title: { ko: "Challenge & Team Formation", en: "Challenge & Team Formation" }, image: null, plannedFilename: "2026-banner-team-formation.webp", displayOrder: 3, published: false, startDate: null, endDate: null },
-  { id: "hackathon", cohort: 2026, title: { ko: "Hackathon Weekend", en: "Hackathon Weekend" }, image: null, plannedFilename: "2026-banner-hackathon.webp", displayOrder: 4, published: false, startDate: null, endDate: null },
-  { id: "celebration", cohort: 2026, title: { ko: "Celebration / Awards / Networking", en: "Celebration / Awards / Networking" }, image: null, plannedFilename: "2026-banner-celebration.webp", displayOrder: 5, published: false, startDate: null, endDate: null },
+  { id: "earth-data", cohort: 2026, title: { ko: "지구 관측 데이터", en: "Earth observation data" }, image: null, plannedFilename: "2026-event-01-earth-data.webp", displayOrder: 1, published: false, startDate: null, endDate: null },
+  { id: "seoul-collaboration", cohort: 2026, title: { ko: "서울의 협업", en: "Collaboration in Seoul" }, image: null, plannedFilename: "2026-event-02-seoul-collaboration.webp", displayOrder: 2, published: false, startDate: null, endDate: null },
+  { id: "space-innovation", cohort: 2026, title: { ko: "우주를 향한 혁신", en: "Innovation for space" }, image: null, plannedFilename: "2026-event-03-space-innovation.webp", displayOrder: 3, published: false, startDate: null, endDate: null },
 ];
 
 export const visualAssetSpecs: VisualAssetSpec[] = [
@@ -125,9 +121,9 @@ export const visualAssetSpecs: VisualAssetSpec[] = [
     id: `banner-${slot.id}`,
     cohort: 2026 as const,
     filename: slot.plannedFilename,
-    dimensions: "1920 × 720",
-    aspectRatio: "8:3",
-    component: "BannerSlider",
+    dimensions: "2400 × 1000",
+    aspectRatio: "12:5",
+    component: "Event hero background slider",
     state: "COMING_SOON" as const,
   })),
 ];
