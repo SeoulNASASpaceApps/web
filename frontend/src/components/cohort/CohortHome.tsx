@@ -235,8 +235,7 @@ export default function CohortHome({ locale }: { locale: Locale }) {
                 <path d="M 0 0 L 10 5 L 0 10 z" />
               </marker>
             </defs>
-            <path className="project-journey__arrow-path project-journey__arrow-path--desktop" d="M 42 910 C 8 790, 35 670, 105 565 C 180 450, 135 310, 220 205 C 252 164, 275 124, 316 82" />
-            <path className="project-journey__arrow-path project-journey__arrow-path--mobile" d="M 35 70 C 8 220, 48 350, 22 500 C 2 650, 48 785, 65 930" />
+            <path className="project-journey__arrow-path" d="M 170 925 C 30 790, 250 660, 80 520 C -20 430, 80 250, 418 82" />
           </svg>
           <ol className="project-journey__steps">
             {projectJourneySteps.map((step, index) => (
@@ -245,13 +244,8 @@ export default function CohortHome({ locale }: { locale: Locale }) {
                 <div className="project-journey__copy">
                   <div className="project-journey__labels">
                     <span className="project-journey__stage">
-                      {index === 2 ? "LOCAL AWARDS" : index === 3 ? "LOCAL → GLOBAL" : step.stage === "local" ? "LOCAL STAGE" : "GLOBAL STAGE"}
+                      {index === 3 ? "LOCAL → GLOBAL" : step.stage === "local" ? "LOCAL STAGE" : "GLOBAL STAGE"}
                     </span>
-                    {[0, 2, 3, 6].includes(index) ? (
-                      <span className="project-journey__milestone">
-                        {index === 0 ? "START" : index === 2 ? "LOCAL ACHIEVEMENT" : index === 3 ? "GATEWAY" : "DESTINATION"}
-                      </span>
-                    ) : null}
                   </div>
                   <h3>{step.title[locale]}</h3>
                   <span className="project-journey__translation">
