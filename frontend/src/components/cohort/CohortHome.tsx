@@ -80,6 +80,65 @@ export default function CohortHome({ locale }: { locale: Locale }) {
     },
   ] as const;
 
+  const projectJourneySteps = [
+    {
+      title: { ko: "프로젝트 제출", en: "Project Submission" },
+      description: {
+        ko: "해커톤 기간 동안 완성한 프로젝트를 NASA Space Apps 공식 시스템에 제출합니다.",
+        en: "Submit the project completed during the hackathon through the official NASA Space Apps system.",
+      },
+      stage: "local",
+    },
+    {
+      title: { ko: "서울 지역 심사", en: "Local Judging" },
+      description: {
+        ko: "제출된 프로젝트를 대상으로 Seoul Local Judges가 지역 심사를 진행합니다.",
+        en: "Seoul Local Judges evaluate the submitted projects in the local judging round.",
+      },
+      stage: "local",
+    },
+    {
+      title: { ko: "서울 지역 시상", en: "Local Awards" },
+      description: {
+        ko: "지역 심사 결과에 따라 Seoul Local Awards 및 우수 프로젝트를 선정합니다.",
+        en: "Seoul Local Awards and outstanding projects are selected based on the local judging results.",
+      },
+      stage: "local",
+    },
+    {
+      title: { ko: "Local Top Teams 선정", en: "Local Top Teams" },
+      description: {
+        ko: "서울 지역의 우수 프로젝트 중 Global Judging에 진출할 팀을 선정합니다.",
+        en: "Teams advancing to Global Judging are selected from Seoul's outstanding local projects.",
+      },
+      stage: "local",
+    },
+    {
+      title: { ko: "Global 진출", en: "Global Advancement" },
+      description: {
+        ko: "선정된 Local Top Teams의 프로젝트가 NASA Space Apps Global Judging 단계로 진출합니다.",
+        en: "Projects from the selected Local Top Teams advance to NASA Space Apps Global Judging.",
+      },
+      stage: "global",
+    },
+    {
+      title: { ko: "Global 심사", en: "Global Judging" },
+      description: {
+        ko: "전 세계 Local Events에서 진출한 프로젝트를 대상으로 Global Judging이 진행됩니다.",
+        en: "Projects advancing from Local Events around the world are evaluated in Global Judging.",
+      },
+      stage: "global",
+    },
+    {
+      title: { ko: "Global Finalists", en: "Global Finalists" },
+      description: {
+        ko: "Global Judging을 통해 NASA Space Apps Global Finalists가 선정됩니다.",
+        en: "NASA Space Apps Global Finalists are selected through Global Judging.",
+      },
+      stage: "global",
+    },
+  ] as const;
+
   return (
     <CohortPage
       locale={locale}
@@ -157,6 +216,37 @@ export default function CohortHome({ locale }: { locale: Locale }) {
             </li>
           ))}
         </ol>
+      </section>
+
+      <section className="cohort-section project-journey-section">
+        <div className="section-heading project-journey__heading">
+          <p className="section-label">PROJECT JOURNEY</p>
+          <h2>{locale === "ko" ? "프로젝트 진출 과정" : "Project journey"}</h2>
+          <p className="project-journey__intro">
+            {locale === "ko"
+              ? "해커톤에서 제출된 프로젝트는 서울 지역 심사를 거쳐 우수 프로젝트가 선정되며, 선정된 Local Top Teams는 NASA Space Apps Global Judging 단계로 진출합니다."
+              : "Submitted projects move through Seoul's local judging process. Selected Local Top Teams then advance to NASA Space Apps Global Judging."}
+          </p>
+        </div>
+        <div className="project-journey" aria-label={locale === "ko" ? "프로젝트 진출 단계" : "Project advancement stages"}>
+          <ol className="project-journey__steps">
+            {projectJourneySteps.map((step, index) => (
+              <li className={`project-journey__step project-journey__step--${step.stage}`} key={step.title.en}>
+                <span className="project-journey__number">{String(index + 1).padStart(2, "0")}</span>
+                <div className="project-journey__copy">
+                  <span className="project-journey__stage">
+                    {step.stage === "local" ? "LOCAL STAGE" : "GLOBAL STAGE"}
+                  </span>
+                  <h3>{step.title[locale]}</h3>
+                  <span className="project-journey__translation">
+                    {locale === "ko" ? step.title.en : step.title.ko}
+                  </span>
+                  <p>{step.description[locale]}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
 
       <section className="cohort-section">
