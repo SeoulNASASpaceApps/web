@@ -41,8 +41,8 @@ export const cohorts: Cohort[] = [
     eventStatus: "REGISTRATION_OPEN",
     eventType: "NASA International Space Apps Challenge",
     format: {
-      ko: "온라인 중심 + 일부 오프라인 프로그램",
-      en: "Virtual + Selected Offline Programs",
+      ko: "온라인 중심\n+ 일부 오프라인 프로그램",
+      en: "Virtual\n+ Selected Offline Programs",
     },
     heroImage: null,
   },
@@ -60,7 +60,7 @@ export const registrationConfigs: RegistrationConfig[] = [
     cohort: 2026,
     mode: "EXTERNAL",
     published: true,
-    nasaRegistrationUrl: null,
+    nasaRegistrationUrl: "https://www.spaceappschallenge.org/2026/local-events/seoul/",
     seoulParticipationUrl: null,
   },
 ];
