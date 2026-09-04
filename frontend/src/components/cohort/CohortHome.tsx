@@ -229,30 +229,39 @@ export default function CohortHome({ locale }: { locale: Locale }) {
           </p>
         </div>
         <div className="project-journey" aria-label={locale === "ko" ? "프로젝트 진출 단계" : "Project advancement stages"}>
-          <svg className="project-journey__arrow" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+          <svg className="project-journey__arrow" viewBox="0 0 40 1000" preserveAspectRatio="none" aria-hidden="true">
             <defs>
-              <marker id="project-journey-arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <linearGradient id="project-journey-gradient" gradientUnits="userSpaceOnUse" x1="20" y1="960" x2="20" y2="42">
+                <stop offset="0%" stopColor="#003cff" />
+                <stop offset="72%" stopColor="#087dff" />
+                <stop offset="82%" stopColor="#54c8ff" />
+                <stop offset="91%" stopColor="#d8f53c" />
+                <stop offset="100%" stopColor="#f4ff55" />
+              </linearGradient>
+              <marker id="project-journey-arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
                 <path d="M 0 0 L 10 5 L 0 10 z" />
               </marker>
             </defs>
-            <path className="project-journey__arrow-path" d="M 170 925 C 30 790, 250 660, 80 520 C -20 430, 80 250, 418 82" />
+            <path className="project-journey__arrow-path" d="M 20 960 L 20 42" />
           </svg>
           <ol className="project-journey__steps">
             {projectJourneySteps.map((step, index) => (
               <li className={`project-journey__step project-journey__step--${step.stage}`} key={step.title.en}>
-                <span className="project-journey__number">{String(index + 1).padStart(2, "0")}</span>
-                <div className="project-journey__copy">
-                  <div className="project-journey__labels">
-                    <span className="project-journey__stage">
-                      {index === 3 ? "LOCAL → GLOBAL" : step.stage === "local" ? "LOCAL STAGE" : "GLOBAL STAGE"}
-                    </span>
-                  </div>
-                  <h3>{step.title[locale]}</h3>
-                  <span className="project-journey__translation">
-                    {locale === "ko" ? step.title.en : step.title.ko}
+                {index === 6 || index === 3 || index === 2 ? (
+                  <span className="project-journey__stage-heading">
+                    {index === 6 ? "GLOBAL STAGE" : index === 3 ? "LOCAL → GLOBAL" : "LOCAL STAGE"}
                   </span>
-                  <p>{step.description[locale]}</p>
-                </div>
+                ) : null}
+                <article className="project-journey__card">
+                  <span className="project-journey__number">{String(index + 1).padStart(2, "0")}</span>
+                  <div className="project-journey__copy">
+                    <h3>{step.title[locale]}</h3>
+                    <span className="project-journey__translation">
+                      {locale === "ko" ? step.title.en : step.title.ko}
+                    </span>
+                    <p>{step.description[locale]}</p>
+                  </div>
+                </article>
               </li>
             ))}
           </ol>
