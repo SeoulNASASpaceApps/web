@@ -106,15 +106,15 @@ export default function CohortHome({ locale }: { locale: Locale }) {
       stage: "local",
     },
     {
-      title: { ko: "Local Top Teams 선정", en: "Local Top Teams" },
+      title: { ko: "Global Nominee 추천", en: "Global Nominee Recommendation" },
       description: {
-        ko: "서울 지역의 우수 프로젝트 중 Global Judging에 진출할 팀을 선정합니다.",
-        en: "Teams advancing to Global Judging are selected from Seoul's outstanding local projects.",
+        ko: "서울 지역의 우수 프로젝트 중 Global Judging에 추천할 팀을 선정합니다.",
+        en: "Teams recommended for Global Judging are selected from Seoul's outstanding local projects.",
       },
       stage: "local",
     },
     {
-      title: { ko: "Global 진출", en: "Global Advancement" },
+      title: { ko: "Global Nominees", en: "Global Nominees" },
       description: {
         ko: "선정된 Local Top Teams의 프로젝트가 NASA Space Apps Global Judging 단계로 진출합니다.",
         en: "Projects from the selected Local Top Teams advance to NASA Space Apps Global Judging.",
@@ -229,14 +229,30 @@ export default function CohortHome({ locale }: { locale: Locale }) {
           </p>
         </div>
         <div className="project-journey" aria-label={locale === "ko" ? "프로젝트 진출 단계" : "Project advancement stages"}>
+          <svg className="project-journey__arrow" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <marker id="project-journey-arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" />
+              </marker>
+            </defs>
+            <path className="project-journey__arrow-path project-journey__arrow-path--desktop" d="M 42 910 C 8 790, 35 670, 105 565 C 180 450, 135 310, 220 205 C 252 164, 275 124, 316 82" />
+            <path className="project-journey__arrow-path project-journey__arrow-path--mobile" d="M 35 70 C 8 220, 48 350, 22 500 C 2 650, 48 785, 65 930" />
+          </svg>
           <ol className="project-journey__steps">
             {projectJourneySteps.map((step, index) => (
               <li className={`project-journey__step project-journey__step--${step.stage}`} key={step.title.en}>
                 <span className="project-journey__number">{String(index + 1).padStart(2, "0")}</span>
                 <div className="project-journey__copy">
-                  <span className="project-journey__stage">
-                    {step.stage === "local" ? "LOCAL STAGE" : "GLOBAL STAGE"}
-                  </span>
+                  <div className="project-journey__labels">
+                    <span className="project-journey__stage">
+                      {index === 2 ? "LOCAL AWARDS" : index === 3 ? "LOCAL → GLOBAL" : step.stage === "local" ? "LOCAL STAGE" : "GLOBAL STAGE"}
+                    </span>
+                    {[0, 2, 3, 6].includes(index) ? (
+                      <span className="project-journey__milestone">
+                        {index === 0 ? "START" : index === 2 ? "LOCAL ACHIEVEMENT" : index === 3 ? "GATEWAY" : "DESTINATION"}
+                      </span>
+                    ) : null}
+                  </div>
                   <h3>{step.title[locale]}</h3>
                   <span className="project-journey__translation">
                     {locale === "ko" ? step.title.en : step.title.ko}
