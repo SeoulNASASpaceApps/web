@@ -159,8 +159,21 @@ export default function CohortHome({ locale }: { locale: Locale }) {
         </div>
         <dl className="event-facts">
           <div><dt>{locale === "ko" ? "일정" : "When"}</dt><dd>{cohort.displayDates[locale]}</dd></div>
-          <div><dt>{locale === "ko" ? "방식 및 장소" : "Format & place"}</dt><dd>{cohort.format[locale]}<br />{cohort.location[locale]}</dd></div>
-          <div><dt>{locale === "ko" ? "참가비" : "Participation"}</dt><dd>{cohort.participationFee[locale]}</dd></div>
+          <div>
+            <dt>{locale === "ko" ? "방식 및 장소" : "Format & place"}</dt>
+            <dd className="event-facts__format">
+              {cohort.format[locale].split("\n").map((line) => <span key={line}>{line}</span>)}
+              <span className="event-facts__location">{cohort.location[locale]}</span>
+            </dd>
+          </div>
+          <div>
+            <dt>{locale === "ko" ? "참가비" : "Participation"}</dt>
+            <dd className="event-facts__fee">
+              <strong>{cohort.participationFee[locale]}</strong>
+              <span className="event-facts__fee-divider" aria-hidden="true" />
+              <span className="event-facts__fee-copy">Bring your ideas.<br />Build what’s next.</span>
+            </dd>
+          </div>
         </dl>
       </BannerSlider>
 
@@ -175,7 +188,7 @@ export default function CohortHome({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="cohort-section">
+      <section className="cohort-section registration-section">
         <div className="section-heading">
           <p className="section-label">REGISTRATION</p>
           <h2>{locale === "ko" ? "등록 및 서울 참가 확인" : "Registration & Seoul confirmation"}</h2>
@@ -184,28 +197,52 @@ export default function CohortHome({ locale }: { locale: Locale }) {
           <article>
             <span>01</span>
             <h3>{locale === "ko" ? "NASA 공식 등록" : "NASA Official Registration"}</h3>
-            <RegistrationLink href={registration?.nasaRegistrationUrl} label={locale === "ko" ? "공식 등록" : "Official registration"} />
+            <p>
+              {locale === "ko"
+                ? "NASA Space Apps 공식 사이트에서 Seoul Local Event에 등록하세요."
+                : "Register for the Seoul Local Event on the official NASA Space Apps website."}
+            </p>
+            <RegistrationLink href={registration?.nasaRegistrationUrl} label={locale === "ko" ? "NASA 공식 등록하기 ↗" : "Register with NASA ↗"} />
           </article>
           <span className="registration-flow__arrow" aria-hidden="true">→</span>
           <article>
             <span>02</span>
             <h3>{locale === "ko" ? "Seoul 참가 확인" : "Seoul Participation Confirmation"}</h3>
-            <RegistrationLink href={registration?.seoulParticipationUrl} label={locale === "ko" ? "서울 참가 확인" : "Confirm Seoul participation"} />
+            <p>
+              {locale === "ko" ? (
+                <>NASA 등록 확인 후 발송되는 <strong className="registration-flow__email-subject">「나사 서울 2026 참가 확인」</strong> 이메일을 확인하세요. Google Form 또는 Naver Form 중 하나만 제출하면 됩니다.</>
+              ) : (
+                <>Check the <strong className="registration-flow__email-subject">“NASA Seoul 2026 Participation Confirmation”</strong> email sent after your NASA registration is verified. Submit either the Google Form or Naver Form.</>
+              )}
+            </p>
+            <small className="registration-flow__dispatch-note">
+              {locale === "ko" ? "매주 화·목 순차 발송" : "Sent sequentially every Tuesday and Thursday"}
+            </small>
           </article>
           <span className="registration-flow__arrow" aria-hidden="true">→</span>
           <article>
             <span>03</span>
             <h3>{locale === "ko" ? "참가 확인 완료" : "Participation Confirmed"}</h3>
-            <p>{locale === "ko" ? "두 절차 완료 후 참가가 확인됩니다." : "Participation is confirmed after both steps are complete."}</p>
+            <p>
+              {locale === "ko"
+                ? "서울 참가 확인이 완료되면 확인 안내 이메일을 보내드립니다. 이후 Open Kakao 참여(선택) 및 Welcome Benefits 안내를 확인하세요."
+                : "We will send a confirmation email once your Seoul participation confirmation is complete. Then review the optional Open Kakao participation and Welcome Benefits information."}
+            </p>
           </article>
         </div>
-        <p className="registration-note">{locale === "ko" ? "Seoul Participation Confirmation은 NASA 공식 등록을 대체하지 않습니다." : "Seoul Participation Confirmation does not replace NASA Official Registration."}</p>
+        <div className="registration-note">
+          <p>{locale === "ko" ? "Seoul Participation Confirmation은 NASA 공식 등록을 대체하지 않습니다." : "Seoul Participation Confirmation does not replace NASA Official Registration."}</p>
+          <small>{locale === "ko" ? "NASA 공식 등록 + Seoul 참가 확인 = 서울 참가 확인 완료" : "NASA Official Registration + Seoul Participation Confirmation = Seoul Participation Confirmed"}</small>
+        </div>
       </section>
 
-      <section className="cohort-section">
+      <section className="cohort-section participation-section">
         <div className="section-heading">
           <p className="section-label">HOW TO PARTICIPATE</p>
-          <h2>{locale === "ko" ? "참가 흐름" : "Participation flow"}</h2>
+          <div className="participation-section__title-row">
+            <h2>{locale === "ko" ? "참가 흐름" : "Participation flow"}</h2>
+            <span>NOW IN PROGRESS</span>
+          </div>
         </div>
         <ol className="steps-grid steps-grid--six">
           {participationSteps.map((step, index) => (

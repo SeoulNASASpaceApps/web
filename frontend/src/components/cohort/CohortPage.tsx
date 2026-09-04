@@ -10,6 +10,7 @@ interface CohortPageProps {
   title: string;
   description: string;
   introMeta?: string;
+  introContent?: ReactNode;
   children: ReactNode;
 }
 
@@ -20,17 +21,18 @@ export default function CohortPage({
   title,
   description,
   introMeta,
+  introContent,
   children,
 }: CohortPageProps) {
   return (
     <div className="cohort-site" lang={locale}>
       <SiteHeader year={2026} locale={locale} activeSlug={activeSlug} />
       <main className="cohort-main">
-        <header className="page-intro">
+        <header className={`page-intro${activeSlug ? " page-intro--detail" : " page-intro--home"}`}>
           <p>{eyebrow}</p>
           <h1>{title}</h1>
           {introMeta ? <strong className="page-intro__meta">{introMeta}</strong> : null}
-          <span>{description}</span>
+          {introContent ?? <span>{description}</span>}
         </header>
         {children}
       </main>
