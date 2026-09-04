@@ -108,24 +108,24 @@ export default function CohortHome({ locale }: { locale: Locale }) {
     {
       title: { ko: "Global Nominee 추천", en: "Global Nominee Recommendation" },
       description: {
-        ko: "서울 지역의 우수 프로젝트 중 Global Judging에 추천할 팀을 선정합니다.",
-        en: "Teams recommended for Global Judging are selected from Seoul's outstanding local projects.",
+        ko: "서울 지역의 우수 프로젝트 중 Global Judging 대상으로 추천할 프로젝트를 선정하여 NASA Space Apps에 제출합니다.",
+        en: "Seoul selects outstanding local projects to recommend for Global Judging and submits them to NASA Space Apps.",
       },
       stage: "local",
     },
     {
       title: { ko: "Global Nominees", en: "Global Nominees" },
       description: {
-        ko: "선정된 Local Top Teams의 프로젝트가 NASA Space Apps Global Judging 단계로 진출합니다.",
-        en: "Projects from the selected Local Top Teams advance to NASA Space Apps Global Judging.",
+        ko: "NASA Space Apps의 공식 절차를 거쳐 Global Nominees가 발표됩니다.",
+        en: "Global Nominees are announced through the official NASA Space Apps process.",
       },
       stage: "global",
     },
     {
       title: { ko: "Global 심사", en: "Global Judging" },
       description: {
-        ko: "전 세계 Local Events에서 진출한 프로젝트를 대상으로 Global Judging이 진행됩니다.",
-        en: "Projects advancing from Local Events around the world are evaluated in Global Judging.",
+        ko: "전 세계 Global Nominees를 대상으로 Global Judging이 진행됩니다.",
+        en: "Global Judging is conducted for Global Nominees from around the world.",
       },
       stage: "global",
     },
@@ -224,8 +224,8 @@ export default function CohortHome({ locale }: { locale: Locale }) {
           <h2>{locale === "ko" ? "프로젝트 진출 과정" : "Project journey"}</h2>
           <p className="project-journey__intro">
             {locale === "ko"
-              ? "해커톤에서 제출된 프로젝트는 서울 지역 심사를 거쳐 우수 프로젝트가 선정되며, 선정된 Local Top Teams는 NASA Space Apps Global Judging 단계로 진출합니다."
-              : "Submitted projects move through Seoul's local judging process. Selected Local Top Teams then advance to NASA Space Apps Global Judging."}
+              ? "해커톤에서 제출된 프로젝트는 서울 지역 심사와 시상을 거치며, 우수 프로젝트는 NASA Space Apps Global Judging 대상으로 추천될 수 있습니다. 이후 Global 단계는 NASA Space Apps의 공식 절차에 따라 진행됩니다."
+              : "Projects submitted during the hackathon go through Seoul local judging and awards, and outstanding projects may be recommended for NASA Space Apps Global Judging. The Global stages then proceed according to the official NASA Space Apps process."}
           </p>
         </div>
         <div className="project-journey" aria-label={locale === "ko" ? "프로젝트 진출 단계" : "Project advancement stages"}>
