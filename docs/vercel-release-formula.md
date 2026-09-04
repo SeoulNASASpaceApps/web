@@ -1,45 +1,57 @@
-# NASA Space Apps Seoul 배포 공식
+# NASA Space Apps Seoul Vercel 릴리스 절차
 
-현재 운영 배포의 기본 공식은 다음과 같다.
+현재 운영 릴리스의 기본 흐름은 다음과 같습니다.
 
-> **Draft → Branch → Local Check → Preview → Approval → Main → Verify**
+> **Local Draft → Feature Branch → Local Approval → Checks → Single Push → Preview → Owner Approval → Main → Production Verify**
 
-`SeoulNASASpaceApps/web`가 배포 기준 원본이다. 개인 저장소나 로컬 폴더는 작업
-공간으로 사용할 수 있지만, 운영 배포는 공식 저장소의 검토된 변경만 사용한다.
+`SeoulNASASpaceApps/web`가 배포 기준 원본입니다. 개인 repository나 local folder,
+`review` remote는 작업 또는 참고 공간일 뿐 Production source of truth가 아닙니다.
 
-## 1. 브랜치와 배포 환경
+## 1. Git 상태와 배포 환경
 
 | Git 상태 | Vercel 동작 | 용도 |
 | --- | --- | --- |
-| `codex/*` 등 feature branch push | Preview 자동 배포 | 검토와 모바일/다국어 확인 |
-| Pull Request | Preview 갱신 | 변경 내역 승인 |
-| `main` merge/push | Production 자동 배포 | 공식 사이트 반영 |
-| 로컬 변경만 존재 | 배포 없음 | 작성 중인 초안 |
+| 로컬 변경만 존재 | 배포 없음 | 작성과 반복 검토 |
+| Feature branch push | Preview 자동 배포 | 최종 다국어·반응형 QA |
+| Pull Request update | Preview 갱신 | 발견된 문제 수정 확인 |
+| `main` merge/push | Production 자동 배포 | 소유자가 승인한 공식 반영 |
 
-따라서 `main`에는 직접 작업하지 않는다. 운영에 반영할 의도가 없다면 feature
-branch까지만 push하고 Preview URL에서 확인한다.
+`main`에는 직접 작업하거나 push하지 않습니다. 프로젝트 소유자의 명시적 승인
+없이 `main`에 merge하거나 다른 방법으로 Production을 시작하지 않습니다.
 
-## 2. 표준 릴리스 절차
-
-### Draft
-
-- 공지는 `frontend/content/cohorts/2026/bulletin/`에서 작성한다.
-- 이미지와 문구는 공개 승인을 받은 자료만 사용한다.
-- 미확정 공지는 `published: false`로 유지한다.
-
-### Branch
+## 2. Local Draft와 Branch
 
 ```sh
 git switch main
 git pull --ff-only origin main
-git switch -c codex/<작업명>
+git switch -c feature/<작업명>
 ```
 
-### Local Check
+Codex 작업은 `codex/<작업명>`을 사용합니다. 작업 중인 변경이 있으면 무리하게
+switch, rebase 또는 reset하지 말고 먼저 현재 상태를 보존합니다.
+
+다음 단계는 localhost에서 반복합니다.
 
 ```sh
 cd frontend
 corepack yarn install --frozen-lockfile
+corepack yarn dev
+```
+
+- 한국어와 영어
+- desktop과 mobile
+- 변경한 2026 route
+- shared 변경이면 `/2025/**` archive
+- 미확정 콘텐츠와 `published: false` Bulletin 비노출
+
+이 단계에서는 불필요한 commit, push 또는 Preview 배포를 만들지 않습니다.
+
+## 3. Local Approval과 Checks
+
+하나의 일관된 작업 단위가 localhost에서 승인되면 개발 서버를 종료하고 실행합니다.
+
+```sh
+cd frontend
 corepack yarn lint
 corepack yarn tsc --noEmit
 corepack yarn build
@@ -50,58 +62,65 @@ git diff --check
 git status --short
 ```
 
-한국어와 영어, 데스크톱과 모바일, `/2025/` 아카이브를 함께 확인한다.
+실패한 검증을 우회하지 않습니다. 문서만 변경했다면 `git diff --check`와 link,
+현재 cohort 및 hosting 설명의 일관성을 확인합니다.
 
-### Preview
+## 4. Single Push와 Pull Request
+
+승인된 작업 단위만 stage하고 diff를 다시 확인한 뒤 commit과 push를 준비합니다.
+commit과 push는 사용자가 명시적으로 요청한 경우에만 수행합니다.
 
 ```sh
 git add <변경한 파일>
 git commit -m "<변경 설명>"
-git push -u origin codex/<작업명>
+git push -u origin <feature-branch>
 ```
 
-Vercel이 생성한 Preview URL에서 다음을 확인한다.
+원칙적으로 로컬 검토를 끝낸 한 번의 정리된 push로 Preview를 만듭니다. Preview에서
+문제가 발견되면 feature branch에서 수정·재검증하고 문제 해결 단위로 추가 push할
+수 있습니다.
+
+Pull Request에는 변경 범위, 실행한 검증, Preview URL, 2025 회귀 여부, 콘텐츠
+승인 상태와 Production 영향을 기록합니다.
+
+## 5. Preview QA와 Owner Approval
+
+Vercel Preview에서 다음을 확인합니다.
 
 - `/2026/ko/`와 `/2026/en/`
-- 변경한 목록 및 상세 route
-- 공개하면 안 되는 초안이 노출되지 않는지
-- 데스크톱과 모바일 레이아웃
-- `/2025/` 및 대표 2025 하위 URL
+- 변경한 목록과 상세 route
+- desktop과 mobile layout
+- `/2025/` 및 대표 2025 하위 route
+- 비공개 초안과 개인정보 비노출
+- 승인되지 않은 이미지, 기관명, logo 비노출
 
-### Approval
+Repository maintainer의 기술 검토와 project owner의 Production 승인은 별개의
+책임일 수 있습니다. `main` merge 전에 project owner의 명시적 승인이 PR에
+기록되어야 합니다.
 
-운영 담당자가 Preview를 확인한 후 Pull Request를 승인한다. 승인 전에는
-`main`에 merge하지 않는다.
+## 6. Main과 Production Verify
 
-### Main
+승인된 Pull Request를 `main`에 merge하면 Vercel Production이 자동 시작됩니다.
+별도의 Vercel Deploy 버튼이나 AWS 명령은 일반 릴리스에 필요하지 않습니다.
 
-Pull Request를 `main`에 merge하면 Vercel Production 배포가 자동 시작된다.
-별도의 Vercel Deploy 버튼이나 AWS 명령은 필요하지 않다.
-
-### Verify
-
-Production 상태가 `Ready`가 된 후 아래 주소를 확인한다.
+Production이 Ready가 된 뒤 확인합니다.
 
 - `https://nasaspaceappskr.org/`
 - `https://nasaspaceappskr.org/2026/ko/`
 - `https://nasaspaceappskr.org/2026/en/`
 - `https://nasaspaceappskr.org/2025/`
 
-## 3. 실패 시 중단과 롤백
+## 7. 실패와 롤백
 
-- Preview가 실패하면 `main`에 merge하지 않고 feature branch에서 수정한다.
-- Production에 문제가 생기면 Vercel의 직전 정상 Production Deployment로
-  rollback하거나 문제 commit을 `git revert`한다.
-- DNS, Squarespace, AWS, CloudFront 설정은 일반 콘텐츠 배포 중 변경하지 않는다.
-- 비밀값, 로그인 정보, API key는 저장소에 커밋하지 않는다.
+- Preview 실패 시 `main`에 merge하지 않고 feature branch에서 수정합니다.
+- Production 문제는 project owner 승인하에 직전 정상 Vercel deployment로
+  rollback하거나 문제 commit을 `git revert`합니다.
+- 일반 콘텐츠 릴리스 중 DNS, Squarespace, AWS 또는 CloudFront를 변경하지 않습니다.
+- rollback도 Production 변경이므로 project owner의 명시적 승인이 필요합니다.
 
-## 4. 공지 한 건을 배포하는 최소 절차
+## 8. Bulletin 추가 사항
 
-1. `notice-template.md`를 복사해 영문 소문자 kebab-case 파일명을 정한다.
-2. frontmatter와 한국어/영어 제목, Markdown 본문을 작성한다.
-3. 검토 중에는 `published: false`로 Preview를 확인한다.
-4. 공개 승인 후 `published: true`로 바꾸고 다시 Preview를 확인한다.
-5. PR을 승인·merge하고 Production에서 목록, 상세, Main 최근 공지를 확인한다.
-
-공지 파일 하나만 추가해도 Bulletin 목록, 상세 페이지, Main Latest Bulletin 최대
-3개가 build 시 자동 생성된다. React/TypeScript 페이지를 수정할 필요가 없다.
+Bulletin 작성 형식은 `frontend/content/README.md`를 따릅니다. 검토 중에는
+`published: false`로 유지하고, 공개 승인 후 `published: true` 상태를 Preview에서
+다시 확인합니다. Markdown 한 건이 목록, 상세 route와 Main의 최신 Bulletin에
+자동 반영되므로 React page를 직접 수정할 필요가 없습니다.

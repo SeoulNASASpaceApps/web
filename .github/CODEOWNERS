@@ -1,0 +1,11 @@
+# Project-owner review is required for every repository change.
+* @SeoulNASASpaceApps
+
+# Explicit sensitive/shared paths make ownership visible during review.
+/.github/** @SeoulNASASpaceApps
+/AGENTS.md @SeoulNASASpaceApps
+/CONTRIBUTING.md @SeoulNASASpaceApps
+/docs/** @SeoulNASASpaceApps
+/frontend/AGENTS.md @SeoulNASASpaceApps
+/frontend/vercel.json @SeoulNASASpaceApps
+/infra/** @SeoulNASASpaceApps

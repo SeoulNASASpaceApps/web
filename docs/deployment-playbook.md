@@ -5,13 +5,19 @@
 > 이 문서는 이전 S3/CloudFront 환경을 복구하거나 별도 승인하에 재사용할 때만
 > 참고하며, 현재 운영 배포 절차가 아니다.
 
+실제 AWS 작업, CloudFront association 또는 DNS 변경은 project owner의 명시적
+승인 후에만 수행한다. 계정, 권한, MFA와 복구 수단의 inventory는 이 공개 저장소가
+아닌 접근 제한된 password manager 또는 private runbook에서 관리한다. 아래 resource
+identifier는 credential이 아니며 실제 접근 권한을 부여하지 않는다.
+
 이 문서는 정적 Next.js 사이트를 S3에 올리고 CloudFront 캐시를 갱신한 뒤,
 루트 도메인을 최신 연도 경로로 리디렉트하는 절차를 설명한다.
 
-## 1. 배포 대상
+## 1. Legacy 환경 정보
 
 - 대표 진입점: `https://nasaspaceappskr.org/`
-- 최신 아카이브: `https://nasaspaceappskr.org/2025/`
+- 현재 source의 root redirect 목적지: `/2026/ko/`
+- 보존 archive: `https://nasaspaceappskr.org/2025/`
 - S3 버킷: `nasa-space-app-frontend`
 - CloudFront 배포 ID: `E2YXIKKQFK315W`
 - CloudFront 도메인: `d59q30zryhd0u.cloudfront.net`
@@ -180,8 +186,9 @@ Request에 다른 함수가 이미 연결돼 있다면 덮어쓰지 말고 중�
 1. CloudFront → Functions에서 `nasa-space-apps-redirect-latest`를 생성한다.
 2. JavaScript runtime 2.0을 선택한다.
 3. `infra/cloudfront-functions/redirect-root.js`의 내용을 함수 코드로 저장한다.
-4. URI `/` 테스트가 302와 `Location: /2025/`를 반환하는지 확인한다.
-5. URI `/2025/` 테스트가 원래 request를 반환하는지 확인한다.
+4. URI `/` 테스트가 302와 현재 source에 정의된 `Location: /2026/ko/`를 반환하는지
+   확인한다.
+5. URI `/2025/`와 `/2026/ko/` 테스트가 원래 request를 반환하는지 확인한다.
 6. 함수를 `LIVE`로 게시한다.
 7. 배포 `E2YXIKKQFK315W`에 Association을 추가한다.
 8. 캐시 동작은 Default (`*`), 이벤트는 Viewer Request를 선택한다.
@@ -200,10 +207,12 @@ Request에 다른 함수가 이미 연결돼 있다면 덮어쓰지 말고 중�
 - [CloudFront 배포에 함수 연결](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/associate-function.html)
 - [CloudFront 캐시 무효화](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation_Requests.html)
 
-## 9. 운영 검증
+## 9. 승인된 Legacy 연결 후 검증
 
 ```sh
 curl -sS -D - -o /dev/null https://nasaspaceappskr.org/
+curl -sS -D - -o /dev/null https://nasaspaceappskr.org/2026/ko/
+curl -sS -D - -o /dev/null https://nasaspaceappskr.org/2026/en/
 curl -sS -D - -o /dev/null https://nasaspaceappskr.org/2025/
 curl -sS -D - -o /dev/null https://nasaspaceappskr.org/2025/ko/index/
 curl -sS -D - -o /dev/null https://nasaspaceappskr.org/2025/en/index/
@@ -211,8 +220,8 @@ curl -sS -D - -o /dev/null https://nasaspaceappskr.org/2025/en/index/
 
 정상 결과는 다음과 같다.
 
-- `/`: 302, `Location: /2025/`, `Cache-Control: max-age=0, must-revalidate`
-- `/2025/`와 한국어·영어 페이지: 200
+- `/`: 302, `Location: /2026/ko/`, `Cache-Control: max-age=0, must-revalidate`
+- `/2026/ko/`, `/2026/en/`, `/2025/`와 대표 2025 하위 페이지: 200
 - 브라우저 페이지 이동 시 폰트와 로고 크기 플래시 없음
 - 챗봇 페이지에 행사 종료 안내가 표시되고 입력이 비활성화됨
 - 모바일 메뉴가 페이지 이동 후 닫힘
@@ -235,4 +244,4 @@ aws cloudfront create-invalidation \
 
 루트 리디렉트에 문제가 있으면 CloudFront 콘솔에서 해당 Viewer Request
 Association을 제거한다. `frontend/src/app/page.tsx`의 meta refresh가 fallback으로
-남아 있으므로 루트 진입은 계속 `/2025/`로 이동한다.
+남아 있으므로 현재 source 기준 루트 진입은 계속 `/2026/ko/`로 이동한다.

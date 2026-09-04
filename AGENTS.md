@@ -1,68 +1,95 @@
 # 저장소 작업 지침
 
-## 적용 범위
+## 적용 범위와 우선순위
 
-이 지침은 저장소 전체에 적용한다. `frontend/AGENTS.md`와
-`infra/AGENTS.md`의 세부 지침은 해당 디렉터리 안에서 이 문서보다 우선한다.
+이 지침은 저장소 전체에 적용한다. `frontend/AGENTS.md`와 `infra/AGENTS.md`의
+세부 지침은 해당 디렉터리 안에서 이 문서보다 우선한다.
 
-## 프로젝트 구조
+사람이 참여하는 방법과 승인 책임은 `CONTRIBUTING.md`, 상세 릴리스 절차는
+`docs/vercel-release-formula.md`를 기준으로 한다.
 
-- `frontend/`: NASA Space Apps Seoul 2025 정적 Next.js 사이트
-- `infra/`: 운영 CloudFront 동작을 재현하는 함수 코드와 검증
-- `docs/`: 행사 콘텐츠와 일회성 프로젝트 기록
+## 현재 프로젝트 구조
 
-챗봇 페이지는 행사 종료 안내를 보여주는 정적 기록이며 채팅 API는 없다.
+- `frontend/src/app/2025/`: URL과 화면을 보존하는 2025 아카이브
+- `frontend/src/app/2026/`: 현재 활성 행사 사이트
+- `frontend/src/components/cohort/`, `src/content/`, `src/data/`, `src/domain/`:
+  2026 이후 cohort에 사용하는 공통 계층
+- `frontend/content/cohorts/{year}/`: 연도별 파일 기반 공개 콘텐츠
+- `infra/`: 이전 AWS/CloudFront 운영 환경을 위한 legacy 코드와 검증
+- `docs/`: 아키텍처, 릴리스, 운영 기록
 
-## URL과 연도별 아카이브
+2025 챗봇 페이지는 행사 종료 안내를 보여주는 정적 기록이며 채팅 API는 없다.
 
-- 대표 진입 주소는 `https://nasaspaceappskr.org/`이다.
-- 루트(`/`)는 최신 행사인 `/2025/`로 임시 리디렉트하고, 연도별 경로는
-  이후에도 아카이브 URL로 유지한다.
-- CloudFront 리디렉트가 적용되지 않았거나 S3 웹사이트 엔드포인트로 직접
-  접근할 때는 `frontend/src/app/page.tsx`의 meta refresh를 fallback으로 쓴다.
-- 최신 연도를 바꿀 때는 CloudFront Function과 위 fallback의 목적지를 함께
-  변경한다.
+## 현재 URL과 호스팅
 
-## 운영 호스팅과 DNS
+- 대표 주소는 `https://nasaspaceappskr.org/`이고 현재 `/2026/ko/`로 이동한다.
+- Vercel이 현재 Production을 호스팅한다.
+- `/2025/**`는 이후에도 유지해야 하는 아카이브 URL이다.
+- `frontend/src/app/page.tsx`와 `infra/cloudfront-functions/redirect-root.js`는 최신
+  cohort 목적지를 함께 유지한다. 후자는 legacy AWS 복구용이며 저장소 코드가
+  현재 운영에 연결됐다고 가정하지 않는다.
+- DNS, 도메인, 인증서, Vercel Production, AWS, CloudFront 또는 S3 설정 변경은
+  프로젝트 소유자의 별도 명시적 승인이 필요하다.
 
-- 현재 최신 연도 아카이브 주소는 `https://nasaspaceappskr.org/2025/`이다.
-- 도메인은 Squarespace에 등록되어 있으며 권한 DNS는
-  `ns-cloud-e1`부터 `ns-cloud-e4.googledomains.com`까지 사용한다.
-  Route 53은 사용하지 않는다.
-- 루트 도메인은 외부 DNS의 ALIAS/CNAME flattening을 통해 CloudFront 배포
-  `E2YXIKKQFK315W`(`d59q30zryhd0u.cloudfront.net`)를 가리킨다.
-- CloudFront는 공개 S3 웹사이트 오리진
-  `nasa-space-app-frontend.s3-website.ap-northeast-2.amazonaws.com`을
-  제공하며 HTTP 요청을 HTTPS로 리다이렉트한다.
-- 루트 리디렉트 코드는 `infra/cloudfront-functions/redirect-root.js`에 있다.
-  운영 연결 대상은 배포 `E2YXIKKQFK315W`의 Default 캐시 동작 Viewer
-  Request이며, 저장소 코드의 존재만으로 배포된 것으로 간주하지 않는다.
-- ACM 인증서는 `us-east-1`에 있으며 `nasaspaceappskr.org`만 포함한다.
-  `www.nasaspaceappskr.org`는 지원하지 않아 현재 HTTPS가 실패하고 403을
-  반환한다.
-- DNS, 인증서, CloudFront, S3 호스팅 변경은 사용자의 명시적 승인이
-  필요하다. 이 도메인에 Route 53 명령이 적용된다고 가정하지 않는다.
+## 개발·승인 원칙
 
-## 작업 원칙
+- 로컬 개발을 기본으로 한다. 디자인, UI, 콘텐츠는 localhost에서 충분히
+  반복·검토하고 불필요한 commit, push, Preview 배포를 만들지 않는다.
+- `main`에서 직접 작업하거나 직접 push하지 않는다. 일관된 작업 단위는 feature
+  branch에서 준비한다.
+- 사용자가 명시적으로 요청하지 않으면 commit, push 또는 배포하지 않는다.
+- 로컬 승인이 끝난 작업은 필수 검증 후 한 번의 정리된 feature-branch push를
+  준비하고 Vercel Preview에서 최종 QA한다.
+- 프로젝트 소유자의 명시적 승인 없이 `main`에 merge하거나 Production 배포를
+  시작하지 않는다. 현재는 `main` merge/push가 Vercel Production을 자동 시작한다.
+- 코드 변경과 GitHub/Vercel/AWS 운영 설정 변경을 구분하고, 실제로 수행한 범위를
+  완료 보고에 명시한다.
 
-- 요청받은 영역만 수정하며 당장 필요하지 않은 추상화나 의존성을 추가하지
-  않는다.
-- 새 구현보다 기존 페이지, 로케일, 스타일 패턴을 우선 재사용한다.
-- 다국어 페이지를 변경할 때 한국어와 영어 콘텐츠를 함께 유지한다.
-- 자격 증명을 커밋하거나 비밀값을 출력하지 않는다.
-- 사용자가 명시적으로 요청하지 않으면 AWS 리소스를 배포하거나 변경하지
-  않는다.
-- 저장소의 인프라 코드를 수정하는 것과 운영 AWS에 게시·연결하는 것을
-  구분하고, 실제 배포 여부를 완료 보고에 명시한다.
-- 생성 결과물(`frontend/.next/`, `frontend/out/`)과 외부 의존성 코드는
-  직접 수정하지 않는다.
+## 변경 경계
 
-## 로컬 실행
+- 요청받은 영역만 수정하며 당장 필요하지 않은 추상화나 의존성을 추가하지 않는다.
+- 새 구현보다 기존 페이지, locale, 스타일 패턴을 우선 재사용한다.
+- 사용자에게 보이는 콘텐츠를 변경할 때 한국어와 영어를 함께 유지한다.
+- `frontend/src/app/2025/`와 기존 2025 URL·콘텐츠를 명시적 요청 없이 현대화하거나
+  재구성하지 않는다.
+- 루트 layout, 전역 CSS, 패키지/잠금 파일, Next 설정, 폰트, favicon, 공용 logo는
+  2025와 2026에 모두 영향을 줄 수 있으므로 두 연도를 회귀 검증한다.
+- 생성 결과물(`frontend/.next/`, `frontend/out/`)과 외부 의존성 코드는 직접
+  수정하거나 commit하지 않는다.
 
-`frontend/`에서 `yarn dev`를 실행한다. 프론트엔드는 3000번 포트를 사용한다.
+## 자격 증명과 운영 접근
 
-## 작업 완료 전 확인
+- 비밀번호, 복구 코드, API key, app password, access token, 개인키 또는 세션 값을
+  저장소, 문서, issue, PR, 로그에 넣거나 출력하지 않는다.
+- 공식 이메일, 도메인/DNS, Vercel Production, AWS 등 민감한 운영 서비스 접근은
+  코드 기여 권한과 분리한다.
+- 공개 설정에 필요한 환경변수가 생기기 전에는 빈 `.env.example`을 만들지 않는다.
+  추가할 때는 변수 이름과 설명만 기록하고 실제 값은 넣지 않는다.
+- 참가자 이메일과 비공개 개인정보를 정적 콘텐츠에 추가하지 않는다.
 
-- 해당 디렉터리의 `AGENTS.md`에 적힌 최소 범위의 검증을 실행한다.
-- `git diff --check`와 `git status --short`를 확인한다.
-- 실행하지 못한 검증이 있으면 그 이유를 보고한다.
+## 로컬 실행과 검증
+
+`frontend/`에서 실행한다.
+
+```sh
+corepack yarn install --frozen-lockfile
+corepack yarn dev
+```
+
+코드, 콘텐츠, route, 설정 또는 의존성을 변경했다면 개발 서버를 종료한 뒤 다음을
+실행한다.
+
+```sh
+cd frontend
+corepack yarn lint
+corepack yarn tsc --noEmit
+corepack yarn build
+corepack yarn check:routes
+cd ..
+node infra/cloudfront-functions/redirect-root.test.js
+git diff --check
+git status --short
+```
+
+문서만 변경했다면 최소한 `git diff --check`와 `git status --short`를 확인한다.
+실행하지 못한 검증이 있으면 이유를 보고한다.
