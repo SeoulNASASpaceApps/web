@@ -1,5 +1,8 @@
 # 최신 연도 리디렉트
 
+> 현재 일반 Production 배포는 Vercel을 사용한다. 이 문서는 legacy AWS 환경을
+> project owner의 별도 승인으로 복구하거나 재사용할 때만 적용한다.
+
 `redirect-root.js`는 루트 요청(`/`)만 최신 행사 경로(`/2026/ko/`)로 302
 리디렉트한다. 연도별 경로와 그 밖의 자산 요청은 그대로 오리진으로 전달한다.
 
@@ -10,6 +13,9 @@ node infra/cloudfront-functions/redirect-root.test.js
 ```
 
 ## 운영 적용
+
+실제 함수 게시와 CloudFront association은 project owner의 명시적 승인 후에만
+수행한다. 저장소 코드 변경만으로 운영에 적용된 것으로 간주하지 않는다.
 
 CloudFront Functions에서 `nasa-space-apps-redirect-latest` 함수를 JavaScript
 runtime 2.0으로 생성하고 `redirect-root.js`를 함수 코드로 사용한다. 테스트 후

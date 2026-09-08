@@ -45,8 +45,9 @@ Cohort
 ## 2026 registration
 
 2026에는 authentication이나 자체 registration system을 사용하지 않습니다.
-`RegistrationConfig.mode`는 `EXTERNAL`이며 URL이 승인되기 전까지 `published: false`와
-`null`을 유지합니다.
+`RegistrationConfig.mode`는 `EXTERNAL`입니다. 등록 상태를 공개하더라도 외부 Form
+URL은 별도 승인을 받기 전까지 `null`로 유지하며, UI는 승인되지 않은 link를
+노출하지 않습니다.
 
 ## 미래 계정 시스템
 
