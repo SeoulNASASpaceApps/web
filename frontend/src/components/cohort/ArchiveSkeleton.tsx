@@ -1,4 +1,5 @@
 import EmptyState from "./EmptyState";
+import CollaboratorsContent, { collaboratorCopy } from "./CollaboratorsContent";
 import CohortPage from "./CohortPage";
 import type { Locale } from "@/domain/content";
 
@@ -20,8 +21,8 @@ const pageCopy = {
     en: ["JUDGES", "Judges", "Confirmed and approved 2026 judge information will appear here."],
   },
   partners: {
-    ko: ["PARTNERS", "파트너", "기관별 공식 관계와 로고 사용 승인을 구분해 관리합니다."],
-    en: ["PARTNERS", "Partners", "Official relationship types and logo approvals will be managed separately."],
+    ko: ["LOCAL COLLABORATORS", collaboratorCopy.title.ko, collaboratorCopy.description.ko],
+    en: ["LOCAL COLLABORATORS", collaboratorCopy.title.en, collaboratorCopy.description.en],
   },
   team: {
     ko: ["ORGANIZING TEAM", "운영팀", "확정되고 공개가 승인된 Seoul 운영 역할을 안내합니다."],
@@ -88,7 +89,7 @@ export default function ArchiveSkeleton({ slug, locale }: { slug: ArchiveSlug; l
       description={description}
       introContent={slug === "team" ? <TeamEditorial locale={locale} /> : undefined}
     >
-      <EmptyState title={empty.title} description={empty.description} />
+      {slug === "partners" ? <CollaboratorsContent locale={locale} /> : <EmptyState title={empty.title} description={empty.description} />}
     </CohortPage>
   );
 }

@@ -133,5 +133,9 @@ export const projects: Project[] = [];
 export const awards: Award[] = [];
 export const people: Person[] = [];
 export const personRoles: PersonRole[] = [];
-export const organizations: Organization[] = [];
-export const organizationRoles: OrganizationRole[] = [];
+export const organizations: Organization[] = [
+  { id: "modulabs", name: { ko: "모두의연구소", en: "MODULABS" }, logo: null, website: null },
+];
+export const organizationRoles: OrganizationRole[] = [
+  { organizationId: "modulabs", cohort: 2026, type: "EDUCATION", logoUsageApproved: false, published: true, displayOrder: 1 },
+];
