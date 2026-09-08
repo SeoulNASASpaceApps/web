@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { collaboratorCopy, modulabs } from "@/content/collaborators";
 import {
   getBulletins,
   getCohort,
@@ -32,7 +33,7 @@ export default function CohortHome({ locale }: { locale: Locale }) {
   const preparation = getPreparationItems(2026);
   const banners = getPublishedBanners(2026);
   const bulletins = getBulletins(2026).slice(0, 3);
-  const partners = getOrganizationsByRole(2026);
+  const collaborators = getOrganizationsByRole(2026);
 
   if (!cohort?.displayDates || !cohort.location || !cohort.format || !cohort.participationFee) {
     return null;
@@ -352,9 +353,18 @@ export default function CohortHome({ locale }: { locale: Locale }) {
           <Link className="text-link" href={`/2025/${locale}/awardees/`}>{locale === "ko" ? "2025 수상 기록 보기" : "View 2025 awardees"}</Link>
         </div>
         <div>
-          <p className="section-label">PARTNERS</p>
-          <h2>{locale === "ko" ? "2026 파트너" : "2026 partners"}</h2>
-          {partners.length ? null : <p className="muted-copy">Coming Soon</p>}
+          <p className="section-label">LOCAL COLLABORATORS</p>
+          <h2>{collaboratorCopy.title[locale]}</h2>
+          <p>{collaboratorCopy.description[locale]}</p>
+          {collaborators.map(({ organization }) => (
+            <div key={organization.id}>
+              <h3>{organization.name[locale]}</h3>
+              <p>{modulabs.category[locale]} · {modulabs.welcomeTitle[locale]}</p>
+              <Link className="text-link" href={cohortPath(2026, locale, "partners")}>
+                {locale === "ko" ? "협력 내용과 학습 혜택 보기 →" : "Explore collaboration and learning benefits →"}
+              </Link>
+            </div>
+          ))}
         </div>
       </section>
     </CohortPage>

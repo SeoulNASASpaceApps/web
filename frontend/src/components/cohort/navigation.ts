@@ -6,7 +6,7 @@ export const pageNavigation = [
   { slug: "hall-of-fame", label: { ko: "명예의 전당", en: "Hall of Fame" } },
   { slug: "projects", label: { ko: "프로젝트", en: "Projects" } },
   { slug: "judges", label: { ko: "심사위원", en: "Judges" } },
-  { slug: "partners", label: { ko: "파트너", en: "Partners" } },
+  { slug: "partners", label: { ko: "협력기관", en: "Local Collaborators" } },
   { slug: "team", label: { ko: "운영팀", en: "Team" } },
   { slug: "mentors", label: { ko: "멘토", en: "Mentors" } },
 ] as const;
