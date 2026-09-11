@@ -24,8 +24,10 @@ export default function CohortPage({
   introContent,
   children,
 }: CohortPageProps) {
+  const pageClass = activeSlug === "partners" ? " cohort-site--collaborators" : activeSlug === "team" ? " cohort-site--team" : "";
+
   return (
-    <div className={`cohort-site${activeSlug === "partners" ? " cohort-site--collaborators" : ""}`} lang={locale}>
+    <div className={`cohort-site${pageClass}`} lang={locale}>
       <SiteHeader year={2026} locale={locale} activeSlug={activeSlug} />
       <main className="cohort-main">
         <header className={`page-intro${activeSlug ? " page-intro--detail" : " page-intro--home"}`}>

@@ -1,6 +1,7 @@
 import EmptyState from "./EmptyState";
 import CollaboratorsContent, { collaboratorCopy } from "./CollaboratorsContent";
 import CohortPage from "./CohortPage";
+import TeamProfiles from "./TeamProfiles";
 import type { Locale } from "@/domain/content";
 
 const pageCopy = {
@@ -40,20 +41,12 @@ function TeamEditorial({ locale }: { locale: Locale }) {
   return locale === "ko" ? (
     <div className="page-intro__editorial">
       <strong>참가자에서 운영진으로, 다시 다음 참가자에게</strong>
-      <p>NASA Space Apps Seoul은 한 번의 해커톤으로 끝나는 행사가 아니라, 참가 경험이 다음 기회로 이어지는 커뮤니티를 만들어가고 있습니다.</p>
-      <p>운영팀에는 이전 NASA Space Apps 참가 경험을 가진 Alumni가 함께합니다. 참가자로 시작해 다음 해에는 운영진과 멘토로 참여하고, 자신의 경험과 네트워크를 다시 새로운 참가자들과 나누는 선순환 구조를 만들어가고 있습니다.</p>
-      <p>서울 지역 행사는 운영진의 재능기부 형태의 자원봉사와 지역 기업·기관의 후원 및 협력을 바탕으로 운영됩니다.</p>
-      <p>매년 새로운 참가자가 들어오고, 그중 누군가는 다시 커뮤니티를 만드는 사람이 되는 것.</p>
-      <p>Space Apps Seoul은 사람과 경험, 기회가 계속 이어지는 커뮤니티를 만들어가고자 합니다.</p>
+      <p>NASA Space Apps Seoul은 한 번의 해커톤으로 끝나는 행사가 아니라, 참가 경험이 다음 기회로 이어지는 커뮤니티를 만들어가고 있습니다. 운영팀에는 이전 NASA Space Apps 참가 경험을 가진 Alumni가 함께합니다. 참가자로 시작해 다음 해에는 운영진과 멘토로 참여하고, <span className="page-intro__key-message">자신의 경험과 네트워크를 다시 새로운 참가자들과 나누는 선순환 구조</span>를 만들어가고 있습니다. 서울 지역 행사는 운영진의 재능기부 형태의 자원봉사와 지역 기업·기관의 후원 및 협력을 바탕으로 운영됩니다. 매년 새로운 참가자가 들어오고, 그중 누군가는 다시 커뮤니티를 만드는 사람이 되는 것. Space Apps Seoul은 사람과 경험, 기회가 계속 이어지는 커뮤니티를 만들어가고자 합니다.</p>
     </div>
   ) : (
     <div className="page-intro__editorial">
       <strong>From participants to organizers, and onward to the next participants</strong>
-      <p>NASA Space Apps Seoul is more than a one-time hackathon. We are building a community where the participant experience leads to new opportunities.</p>
-      <p>Our organizing team includes alumni with prior NASA Space Apps experience. Participants return in following years as organizers and mentors, sharing their experience and networks with new participants and continuing this cycle.</p>
-      <p>The Seoul Local Event is made possible by the organizing team&apos;s volunteer contributions and the support and collaboration of local companies and institutions.</p>
-      <p>Each year brings new participants, and some of them return to become the people who build the community.</p>
-      <p>Space Apps Seoul seeks to create a community where people, experiences, and opportunities continue to connect.</p>
+      <p>NASA Space Apps Seoul is more than a one-time hackathon. We are building a community where the participant experience leads to new opportunities. Our organizing team includes alumni with prior NASA Space Apps experience. Participants return in following years as organizers and mentors, sharing their experience and networks with new participants and continuing this cycle. The Seoul Local Event is made possible by the organizing team&apos;s volunteer contributions and the support and collaboration of local companies and institutions. Each year brings new participants, and some of them return to become the people who build the community. Space Apps Seoul seeks to create a community where people, experiences, and opportunities continue to connect.</p>
     </div>
   );
 }
@@ -89,7 +82,13 @@ export default function ArchiveSkeleton({ slug, locale }: { slug: ArchiveSlug; l
       description={description}
       introContent={slug === "team" ? <TeamEditorial locale={locale} /> : undefined}
     >
-      {slug === "partners" ? <CollaboratorsContent locale={locale} /> : <EmptyState title={empty.title} description={empty.description} />}
+      {slug === "partners" ? (
+        <CollaboratorsContent locale={locale} />
+      ) : slug === "team" ? (
+        <TeamProfiles locale={locale} />
+      ) : (
+        <EmptyState title={empty.title} description={empty.description} />
+      )}
     </CohortPage>
   );
 }
