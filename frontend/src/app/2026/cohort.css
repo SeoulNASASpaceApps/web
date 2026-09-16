@@ -1,5 +1,6 @@
 .cohort-site {
   --cohort-blue: #003cff;
+  --cohort-navy: #152b61;
   --cohort-ink: #091025;
   --cohort-muted: #5d6478;
   --cohort-line: #dce1ee;
@@ -100,8 +101,7 @@
 .team-profile-card__summary { min-width: 0; display: flex; flex: 1 1 auto; flex-direction: column; align-items: flex-start; gap: 8px; }
 .team-profile-card__summary > strong { font: clamp(21px, 2.4vw, 28px)/1.2 var(--font-rethink-bold), sans-serif; letter-spacing: -.02em; word-break: keep-all; overflow-wrap: anywhere; }
 .team-profile-card__affiliation { color: var(--cohort-muted); font-size: 14px; line-height: 1.5; word-break: keep-all; overflow-wrap: anywhere; }
-.team-profile-card__highlight { width: 100%; margin-top: 5px; color: #273657; font: 15px/1.55 var(--font-rethink-bold), sans-serif; word-break: keep-all; overflow-wrap: anywhere; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
-.team-profile-card__highlight--placeholder { color: #7a8296; font-family: var(--font-rethink-regular), sans-serif; font-style: italic; }
+.team-profile-card__highlight { width: 100%; margin-top: 5px; color: var(--cohort-navy); font: 15px/1.55 var(--font-rethink-regular), sans-serif; word-break: keep-all; overflow-wrap: anywhere; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
 .team-profile-card__toggle { position: absolute; right: 28px; bottom: 26px; display: inline-flex; align-items: center; gap: 10px; color: var(--cohort-muted); font: 12px var(--font-rethink-bold), sans-serif; }
 .team-profile-card__toggle-icon { position: relative; width: 36px; height: 36px; border: 1px solid var(--cohort-line); border-radius: 50%; background: #fff; }
 .team-profile-card__toggle-icon::before, .team-profile-card__toggle-icon::after { content: ""; position: absolute; top: 50%; left: 50%; width: 13px; height: 2px; border-radius: 2px; background: var(--cohort-blue); transform: translate(-50%, -50%); transition: transform .2s ease; }
@@ -115,8 +115,9 @@
 .team-profile-card__section p { margin: 0; }
 .team-profile-card__section p + p { margin-top: 14px; }
 .team-profile-card__section p strong { color: var(--cohort-ink); font-family: var(--font-rethink-bold), sans-serif; }
+.team-profile-card__section p .team-profile-card__navy-emphasis { color: var(--cohort-navy); }
 .team-profile-card__section ul { margin: 0; padding-left: 20px; }
-.team-profile-card__section li + li { margin-top: 6px; }
+.team-profile-card__section li + li { margin-top: 4px; }
 @media (max-width: 980px) {
   .team-profile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -188,12 +189,12 @@
 .project-journey__translation { grid-area: translation; color: var(--cohort-muted); font-size: 12px; }
 .project-journey__copy p { grid-area: description; margin: 0; color: var(--cohort-muted); font-size: 14px; line-height: 1.55; word-break: keep-all; }
 .project-journey__step--global .project-journey__card { border-color: rgba(0,60,255,.25); background: linear-gradient(115deg, rgba(255,255,255,.98), rgba(242,246,255,.96)); }
-.project-journey__step:is(:nth-child(3), :nth-child(4)) .project-journey__card { border-color: #4778bd; background: linear-gradient(125deg, #173f7c, #346cad); color: #fff; box-shadow: 0 14px 34px rgba(23,63,124,.2); }
-.project-journey__step:is(:nth-child(3), :nth-child(4)) .project-journey__translation, .project-journey__step:is(:nth-child(3), :nth-child(4)) .project-journey__copy p { color: #e8effa; }
-.project-journey__step:is(:nth-child(1), :nth-child(7)) .project-journey__card { border-color: #0a1e5c; background: linear-gradient(125deg, #07112d, #12358f); color: #fff; box-shadow: 0 17px 40px rgba(10,30,92,.26); }
-.project-journey__step:is(:nth-child(1), :nth-child(7)) .project-journey__translation, .project-journey__step:is(:nth-child(1), :nth-child(7)) .project-journey__copy p { color: #dce4ff; }
-.project-journey__step:nth-child(7) .project-journey__card { border-color: #719cff; box-shadow: 0 21px 48px rgba(10,30,92,.32), 0 0 28px rgba(0,60,255,.16); }
-.project-journey__step:is(:nth-child(1), :nth-child(3), :nth-child(4), :nth-child(7)) .project-journey__number { background: #f4ff55; color: #07112d; }
+.project-journey__step:is(:nth-child(3), :nth-child(4), :nth-child(7)) .project-journey__card { border-color: #4778bd; background: linear-gradient(125deg, #173f7c, #346cad); color: #fff; box-shadow: 0 14px 34px rgba(23,63,124,.2); }
+.project-journey__step:is(:nth-child(3), :nth-child(4), :nth-child(7)) .project-journey__translation, .project-journey__step:is(:nth-child(3), :nth-child(4), :nth-child(7)) .project-journey__copy p { color: #e8effa; }
+.project-journey__step:is(:first-child, :last-child) .project-journey__card { border-color: #0a1e5c; background: linear-gradient(125deg, #07112d, #12358f); color: #fff; box-shadow: 0 17px 40px rgba(10,30,92,.26); }
+.project-journey__step:is(:first-child, :last-child) .project-journey__translation, .project-journey__step:is(:first-child, :last-child) .project-journey__copy p { color: #dce4ff; }
+.project-journey__step:last-child .project-journey__card { border-color: #719cff; box-shadow: 0 21px 48px rgba(10,30,92,.32), 0 0 28px rgba(0,60,255,.16); }
+.project-journey__step:is(:first-child, :nth-child(3), :nth-child(4), :nth-child(7), :last-child) .project-journey__number { background: #f4ff55; color: #07112d; }
 .split-copy-section { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(30px, 7vw, 90px); align-items: start; }
 .large-body-copy { font-size: clamp(18px, 2vw, 24px); line-height: 1.6; }
 .large-body-copy p { margin: 0 0 20px; }
