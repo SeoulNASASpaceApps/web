@@ -115,7 +115,7 @@ export default function CohortHome({ locale }: { locale: Locale }) {
       stage: "local",
     },
     {
-      title: { ko: "Global Nominees", en: "Global Nominees" },
+      title: { ko: "글로벌 후보팀", en: "Global Nominees" },
       description: {
         ko: "NASA Space Apps의 공식 절차를 거쳐 Global Nominees가 발표됩니다.",
         en: "Global Nominees are announced through the official NASA Space Apps process.",
@@ -123,7 +123,7 @@ export default function CohortHome({ locale }: { locale: Locale }) {
       stage: "global",
     },
     {
-      title: { ko: "Global 심사", en: "Global Judging" },
+      title: { ko: "글로벌 심사", en: "Global Judging" },
       description: {
         ko: "전 세계 Global Nominees를 대상으로 Global Judging이 진행됩니다.",
         en: "Global Judging is conducted for Global Nominees from around the world.",
@@ -131,10 +131,18 @@ export default function CohortHome({ locale }: { locale: Locale }) {
       stage: "global",
     },
     {
-      title: { ko: "Global Finalists", en: "Global Finalists" },
+      title: { ko: "글로벌 파이널리스트", en: "Global Finalists" },
       description: {
         ko: "Global Judging을 통해 NASA Space Apps Global Finalists가 선정됩니다.",
         en: "NASA Space Apps Global Finalists are selected through Global Judging.",
+      },
+      stage: "global",
+    },
+    {
+      title: { ko: "글로벌 수상팀", en: "Global Winners" },
+      description: {
+        ko: "NASA Space Apps Global Winners는 Executive Judging을 통해 Global Finalists 중에서 선정됩니다.",
+        en: "NASA Space Apps Global Winners are selected from the Global Finalists through Executive Judging.",
       },
       stage: "global",
     },
@@ -285,9 +293,9 @@ export default function CohortHome({ locale }: { locale: Locale }) {
           <ol className="project-journey__steps">
             {projectJourneySteps.map((step, index) => (
               <li className={`project-journey__step project-journey__step--${step.stage}`} key={step.title.en}>
-                {index === 6 || index === 3 || index === 2 ? (
+                {index === projectJourneySteps.length - 1 || index === 3 || index === 2 ? (
                   <span className="project-journey__stage-heading">
-                    {index === 6 ? "GLOBAL STAGE" : index === 3 ? "LOCAL → GLOBAL" : "LOCAL STAGE"}
+                    {index === projectJourneySteps.length - 1 ? "GLOBAL STAGE" : index === 3 ? "LOCAL → GLOBAL" : "LOCAL STAGE"}
                   </span>
                 ) : null}
                 <article className="project-journey__card">

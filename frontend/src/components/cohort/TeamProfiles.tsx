@@ -25,49 +25,55 @@ export default function TeamProfiles({ locale }: { locale: Locale }) {
       </header>
 
       <div className="team-profile-grid">
-        {organizingTeamProfiles.map((profile) => (
-          <details key={profile.id} className="team-profile-card">
-            <summary>
-              <span className="team-profile-card__summary">
-                <strong>{profile.name}</strong>
-                {profile.affiliation ? <span className="team-profile-card__affiliation">{profile.affiliation}</span> : null}
-                <span
-                  className={`team-profile-card__highlight${profile.highlightPlaceholder ? " team-profile-card__highlight--placeholder" : ""}`}
-                >
-                  {profile.highlight}
-                </span>
-              </span>
-              <span className="team-profile-card__toggle" aria-hidden="true">
-                <span className="team-profile-card__toggle-label">{copy.details}</span>
-                <span className="team-profile-card__toggle-icon" />
-              </span>
-            </summary>
+        {organizingTeamProfiles.map((profile) => {
+          const profileCopy = profile.copy[locale];
 
-            <div className="team-profile-card__body">
-              {profile.sections.map((section) => (
-                <section key={section.title} className="team-profile-card__section">
-                  <h3>{section.title}</h3>
-                  {section.bullets ? (
-                    <ul>
-                      {section.bullets.map((bullet) => (
-                        <li key={bullet}>{bullet}</li>
-                      ))}
-                    </ul>
-                  ) : null}
-                  {section.paragraphs?.map((paragraph) =>
-                    paragraph.emphasized ? (
-                      <p key={paragraph.text}>
-                        <strong>{paragraph.text}</strong>
+          return (
+            <details key={profile.id} className="team-profile-card">
+              <summary>
+                <span className="team-profile-card__summary">
+                  <strong>{profile.name}</strong>
+                  <span className="team-profile-card__affiliation">{profileCopy.affiliation}</span>
+                  <span className="team-profile-card__highlight">{profileCopy.highlight}</span>
+                </span>
+                <span className="team-profile-card__toggle" aria-hidden="true">
+                  <span className="team-profile-card__toggle-label">{copy.details}</span>
+                  <span className="team-profile-card__toggle-icon" />
+                </span>
+              </summary>
+
+              <div className="team-profile-card__body">
+                {profileCopy.sections.map((section) => (
+                  <section key={section.title} className="team-profile-card__section">
+                    <h3>{section.title}</h3>
+                    {section.bullets ? (
+                      <ul>
+                        {section.bullets.map((bullet) => (
+                          <li key={bullet}>{bullet}</li>
+                        ))}
+                      </ul>
+                    ) : null}
+                    {section.paragraphs?.map((paragraph, paragraphIndex) => (
+                      <p key={paragraphIndex}>
+                        {paragraph.map((part, partIndex) =>
+                          part.tone === "navy" ? (
+                            <span className="team-profile-card__navy-emphasis" key={partIndex}>
+                              {part.text}
+                            </span>
+                          ) : part.emphasized ? (
+                            <strong key={partIndex}>{part.text}</strong>
+                          ) : (
+                            part.text
+                          ),
+                        )}
                       </p>
-                    ) : (
-                      <p key={paragraph.text}>{paragraph.text}</p>
-                    ),
-                  )}
-                </section>
-              ))}
-            </div>
-          </details>
-        ))}
+                    ))}
+                  </section>
+                ))}
+              </div>
+            </details>
+          );
+        })}
       </div>
     </section>
   );
