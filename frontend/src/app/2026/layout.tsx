@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./cohort.css";
+import "./promo.css";
 
 export const metadata: Metadata = {
   title: {

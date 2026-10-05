@@ -12,6 +12,7 @@
 
 .cohort-site *, .cohort-site *::before, .cohort-site *::after { box-sizing: border-box; }
 .cohort-site a { color: inherit; }
+.cohort-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .cohort-header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--cohort-line); background: rgba(255,255,255,.96); backdrop-filter: blur(14px); }
 .cohort-header__inner { width: min(1440px, 100%); min-height: 76px; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; gap: 24px; }
 .cohort-brand { display: inline-flex; align-items: center; gap: 8px; flex: 0 0 auto; text-decoration: none; font-family: var(--font-rethink-extrabold), sans-serif; letter-spacing: .14em; }
@@ -20,7 +21,7 @@
 .cohort-nav a { position: relative; padding: 28px 0 24px; color: #2d3447; text-decoration: none; font-family: var(--font-rethink-bold), sans-serif; font-size: 13px; text-transform: uppercase; white-space: nowrap; }
 .cohort-nav a[aria-current="page"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: 19px; height: 2px; background: var(--cohort-blue); }
 .cohort-tools { display: flex; align-items: center; gap: 10px; }
-.language-link, .cohort-switcher summary { min-height: 40px; display: inline-flex; align-items: center; border: 1px solid var(--cohort-line); border-radius: 999px; background: #fff; padding: 0 14px; text-decoration: none; font: 13px var(--font-rethink-bold), sans-serif; cursor: pointer; }
+.language-link, .my-space-link, .cohort-switcher summary { min-height: 40px; display: inline-flex; align-items: center; border: 1px solid var(--cohort-line); border-radius: 999px; background: #fff; padding: 0 14px; text-decoration: none; font: 13px var(--font-rethink-bold), sans-serif; cursor: pointer; white-space: nowrap; }
 .cohort-switcher { position: relative; }
 .cohort-switcher summary { list-style: none; gap: 6px; }
 .cohort-switcher summary::-webkit-details-marker, .mobile-navigation summary::-webkit-details-marker { display: none; }

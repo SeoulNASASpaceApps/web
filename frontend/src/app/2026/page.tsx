@@ -1,5 +1,5 @@
-import CohortHome from "@/components/cohort/CohortHome";
+import PromoHome from "@/components/cohort/PromoHome";
 
 export default function Page() {
-  return <CohortHome locale="ko" />;
+  return <PromoHome locale="ko" />;
 }

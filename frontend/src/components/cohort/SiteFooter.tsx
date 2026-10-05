@@ -15,12 +15,15 @@ export default function SiteFooter({ locale }: { locale: Locale }) {
       <nav aria-label={locale === "ko" ? "외부 링크" : "External links"}>
         <a href="https://www.spaceappschallenge.org/" target="_blank" rel="noopener noreferrer">
           Official NASA Space Apps Website
+          {" "}<span className="cohort-sr-only">{locale === "ko" ? "(새 탭)" : "(opens in new tab)"}</span>
         </a>
         <a href="https://www.instagram.com/nasaspaceapps_seoul/" target="_blank" rel="noopener noreferrer">
           Instagram
+          {" "}<span className="cohort-sr-only">{locale === "ko" ? "(새 탭)" : "(opens in new tab)"}</span>
         </a>
         <a href="https://github.com/SeoulNASASpaceApps/web" target="_blank" rel="noopener noreferrer">
           GitHub
+          {" "}<span className="cohort-sr-only">{locale === "ko" ? "(새 탭)" : "(opens in new tab)"}</span>
         </a>
         <Link href={`/2025/${locale}/contact/`}>Contact</Link>
       </nav>
