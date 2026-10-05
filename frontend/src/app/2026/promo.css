@@ -1,12 +1,4 @@
 .promo-home {
-  --promo-paper: #f7f6f2;
-  --promo-ink: #111111;
-  --promo-muted: #5d5b57;
-  --promo-red: #e51d22;
-  --promo-red-hover: #b9161a;
-  --promo-red-text: #a30f14;
-  --promo-red-on-dark: #ff7276;
-  --promo-line: #d5d2ca;
   min-height: 100vh;
   background: var(--promo-paper);
   color: var(--promo-ink);
@@ -171,8 +163,10 @@
 
 .promo-home .promo-cohort-sections { padding-bottom: 120px; }
 .promo-home .promo-cohort-sections .cohort-section { padding-top: 96px; }
-.promo-home .promo-cohort-sections .section-label { color: var(--cohort-blue); }
-.promo-home .promo-cohort-sections .text-link { border-bottom: 0; color: var(--cohort-blue) !important; }
+.promo-home .promo-cohort-sections .section-label { color: var(--promo-red-text); }
+.promo-home .promo-cohort-sections .section-heading h2, .promo-home .promo-cohort-sections .two-column-section h2 { color: var(--promo-ink); }
+.promo-home .promo-cohort-sections .bulletin-card, .promo-home .promo-cohort-sections .two-column-section > div { border-color: var(--promo-line); }
+.promo-home .promo-cohort-sections .section-heading--inline > a, .promo-home .promo-cohort-sections .text-link { border-bottom: 0; color: var(--promo-red-text) !important; text-decoration-color: var(--promo-red); text-decoration-line: underline; text-underline-offset: 4px; }
 .promo-home .promo-collaborators { grid-template-columns: 1fr; }
 .promo-home .promo-collaborators h3 { margin-top: 28px; font: 22px var(--font-rethink-bold), sans-serif; }
 
