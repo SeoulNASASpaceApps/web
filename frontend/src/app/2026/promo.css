@@ -168,7 +168,8 @@
 .promo-home .promo-cohort-sections .bulletin-card, .promo-home .promo-cohort-sections .two-column-section > div { border-color: var(--promo-line); }
 .promo-home .promo-cohort-sections .section-heading--inline > a, .promo-home .promo-cohort-sections .text-link { border-bottom: 0; color: var(--promo-red-text) !important; text-decoration-color: var(--promo-red); text-decoration-line: underline; text-underline-offset: 4px; }
 .promo-home .promo-collaborators { grid-template-columns: 1fr; }
-.promo-home .promo-collaborators h3 { margin-top: 28px; font: 22px var(--font-rethink-bold), sans-serif; }
+.promo-home .promo-collaborator-list { grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 28px 0 0; }
+.promo-home .promo-collaborator-link { display: inline-block; margin-top: 20px; }
 
 .promo-home [data-promo-reveal], .promo-home .steps li { transition: opacity .7s ease, transform .7s cubic-bezier(.16, 1, .3, 1); }
 .promo-home .reveal-pending { opacity: 0; transform: translateY(28px); }
@@ -192,6 +193,7 @@
 
 @media (max-width: 760px) {
   .promo-home .hero, .promo-home .facts dl, .promo-home .section-wrap { width: min(100% - 36px, 1380px); }
+  .promo-home .promo-collaborator-list { grid-template-columns: 1fr; }
   .promo-home #challenges, .promo-home #join, .promo-home #schedule, .promo-home #connect { scroll-margin-top: 128px; }
   .promo-home .section-nav { top: 68px; }
   .promo-home .nav-inner { justify-content: flex-start; gap: 24px; }
