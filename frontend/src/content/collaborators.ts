@@ -8,8 +8,8 @@ export const collaboratorCopy = {
 
 export const collaboratorOverview = [
   { id: "modulabs", name: { ko: "모두의연구소", en: "MODULABS" }, label: { ko: "교육 협력기관", en: "Education Collaborator" }, placeholder: false },
-  { id: "bizdata", name: { ko: "BizData", en: "BizData" }, label: { ko: "데이터·AI 협력기관", en: "Data & AI Collaborator" }, placeholder: false },
-  { id: "aws", name: { ko: "AWS", en: "AWS" }, label: { ko: "클라우드·기술 협력기관", en: "Cloud & Technology Collaborator" }, placeholder: false },
+  { id: "bizdata", name: { ko: "BizData", en: "BizData" }, label: { ko: "참가자 경험 지원", en: "Participant Experience Support" }, placeholder: false },
+  { id: "aws", name: { ko: "AWS Aerospace & Satellite Solutions APJ", en: "AWS Aerospace & Satellite Solutions APJ" }, label: { ko: "시상과 심사 협력", en: "Awards & Judging Collaborator" }, placeholder: false },
   { id: "more", name: { ko: "More coming", en: "More coming" }, label: { ko: "협력기관 추가 예정", en: "More collaborators to be announced" }, placeholder: true },
 ];
 
