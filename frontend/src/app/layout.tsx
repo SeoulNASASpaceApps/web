@@ -23,14 +23,6 @@ const rethinkExtraBold = localFont({
 export const metadata: Metadata = {
   title: "NASA Space Apps Seoul",
   description: "NASA Space Apps Challenge Seoul 2025",
-  icons: {
-    icon: [
-      {
-        url: '/favicon.ico',
-        sizes: 'any',
-      }
-    ]
-  },
   other: {
     "http-equiv": "Content-Security-Policy",
     "content": "upgrade-insecure-requests"
