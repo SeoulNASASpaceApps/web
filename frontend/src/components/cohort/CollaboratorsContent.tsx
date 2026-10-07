@@ -4,6 +4,11 @@ import type { Locale } from "@/domain/content";
 
 export { collaboratorCopy };
 
+const highlightedBenefits = [
+  "Early Registration Welcome Benefit",
+  "New Joiner Catch-up Welcome Benefit",
+] as const;
+
 export default function CollaboratorsContent({ locale }: { locale: Locale }) {
   const collaborator = getOrganizationsByRole(2026).find(({ organization }) => organization.id === "modulabs");
   if (!collaborator) return null;
@@ -41,12 +46,13 @@ export default function CollaboratorsContent({ locale }: { locale: Locale }) {
         <div className="collaborator-content__operation">
           {modulabs.operationNote[locale].split("\n\n").map((paragraph) => (
             <p key={paragraph}>
-              {paragraph.split("Early Registration Welcome Benefit").map((part, index) => (
-                <span key={index}>
-                  {index > 0 && <mark className="collaborator-benefit-highlight">Early Registration Welcome Benefit</mark>}
-                  {part}
-                </span>
-              ))}
+              {paragraph.split(/(Early Registration Welcome Benefit|New Joiner Catch-up Welcome Benefit)/g).map((part, index) =>
+                highlightedBenefits.includes(part as (typeof highlightedBenefits)[number]) ? (
+                  <mark className="collaborator-benefit-highlight" key={`${part}-${index}`}>{part}</mark>
+                ) : (
+                  <span key={`${part}-${index}`}>{part}</span>
+                ),
+              )}
             </p>
           ))}
         </div>

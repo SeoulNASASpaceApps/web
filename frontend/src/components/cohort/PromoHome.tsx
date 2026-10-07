@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { collaboratorCopy, modulabs } from "@/content/collaborators";
+import { collaboratorCopy, collaboratorOverview } from "@/content/collaborators";
 import { promoContent } from "@/content/promo";
-import { getBulletins, getOrganizationsByRole } from "@/data/content";
+import { getBulletins } from "@/data/content";
 import type { Locale } from "@/domain/content";
 import BulletinCard from "./BulletinCard";
 import EmptyState from "./EmptyState";
@@ -23,7 +23,7 @@ import {
 
 export default function PromoHome({ locale }: { locale: Locale }) {
   const bulletins = getBulletins(2026).slice(0, 3);
-  const collaborators = getOrganizationsByRole(2026);
+  const collaborators = collaboratorOverview.filter((item) => !item.placeholder);
   const ui = promoContent.ui;
 
   return (
@@ -67,13 +67,18 @@ export default function PromoHome({ locale }: { locale: Locale }) {
               <p className="section-label">{ui.collaboratorKicker[locale]}</p>
               <h2>{collaboratorCopy.title[locale]}</h2>
               <p>{collaboratorCopy.description[locale]}</p>
-              {collaborators.map(({ organization }) => (
-                <div key={organization.id}>
-                  <h3>{organization.name[locale]}</h3>
-                  <p>{modulabs.category[locale]} · {modulabs.welcomeTitle[locale]}</p>
-                  <Link className="text-link" href={cohortPath(2026, locale, "partners")}>{ui.collaboratorLink[locale]} <span aria-hidden="true">→</span></Link>
-                </div>
-              ))}
+              <ul className="collaborator-overview promo-collaborator-list" aria-label={collaboratorCopy.title[locale]}>
+                {collaborators.map((item) => (
+                  <li className="collaborator-overview__item" key={item.id}>
+                    <strong>{item.name[locale]}</strong>
+                    <span>
+                      {item.label[locale]}
+                      {item.id === "modulabs" ? " · Welcome Benefit" : ""}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <Link className="text-link promo-collaborator-link" href={cohortPath(2026, locale, "partners")}>{ui.collaboratorLink[locale]} <span aria-hidden="true">→</span></Link>
             </div>
           </section>
         </div>
