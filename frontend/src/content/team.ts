@@ -190,7 +190,7 @@ export const organizingTeamProfiles: readonly TeamProfile[] = [
             "인증·인가 및 회원 시스템 개발",
             "OIDC/OAuth2 기반 인증 시스템 구축",
             "Java·Spring 기반 백엔드 서비스 및 클라우드 환경 개발",
-            "NASA Space Apps Challenge 2024 참가 및 우승팀 ‘가지니’ 멤버",
+            "NASA International Space Apps Challenge Alumni — 2024 Global Finalist, Team 가지니",
           ] },
           { title: "Introduction", paragraphs: [
             [text("아이디어가 실제로 동작하는 서비스가 되는 과정에 관심이 있습니다.", true)],
@@ -210,7 +210,7 @@ export const organizingTeamProfiles: readonly TeamProfile[] = [
             "Development of authentication, authorization, and member systems",
             "OIDC/OAuth2-based authentication system development",
             "Java and Spring backend services and cloud development",
-            "Member of ‘Gajini,’ a winning team at NASA Space Apps Challenge 2024",
+            "NASA International Space Apps Challenge Alumni — 2024 Global Finalist, Team Gajini",
           ] },
           { title: "Introduction", paragraphs: [
             [text("I am interested in the process of turning ideas into services that work in practice.", true)],
@@ -243,7 +243,7 @@ export const organizingTeamProfiles: readonly TeamProfile[] = [
             [navyText("알라딘커뮤니케이션에서 AI Engineer로 근무하며 LLM과 추천 시스템을 중심으로 AI 모델 기반 서비스를 개발하고 있습니다."), text(" 서비스 설계부터 데이터 탐색과 파이프라인 구축, 모델 개발, 실제 서비스 적용까지 전반적인 개발 과정을 경험하며 아이디어를 실제로 동작하는 서비스로 만들어가고 있습니다.")],
             [text("2024년 팀 ‘가지니’로 Space Apps에 참가해 NASA 공개 데이터를 활용한 프로젝트를 진행했고, Global Finalist에 선정되었습니다.", true)],
             [text("당시 팀 ‘가지니’로 NASA 공개 데이터를 활용한 프로젝트를 진행해 Global Finalist에 선정되었습니다. 어떤 문제를 풀 것인지 정의하는 것부터 필요한 데이터를 직접 찾고 구조를 설계하는 과정까지 많은 시행착오를 경험했고, 제한된 시간 안에 수많은 데이터와 아이디어 가운데 가능성 있는 방향을 선택해 실제 결과물로 만들어가는 과정이 Space Apps에서 가장 기억에 남는 경험이 되었습니다.")],
-            [text("해커톤에서는 좋은 아이디어만큼 "), text("무슨 문제를 풀 것인지, 어떤 데이터를 사용할 것인지, 제한된 시간 안에 어디까지 구현할 것인지", true), text("를 빠르게 결정하는 과정이 중요하다고 생각합니다. 참가자들이 막연한 아이디어를 구체적인 문제로 정의하고, 필요한 데이터를 찾아 분석하며, AI와 기술을 활용해 실제 구현 가능한 서비스와 결과물로 발전시키는 과정에서 제 경험을 나누고 싶습니다.")],
+            [text("해커톤에서는 좋은 아이디어만큼 무슨 문제를 풀 것인지, 어떤 데이터를 사용할 것인지, 제한된 시간 안에 어디까지 구현할 것인지를 빠르게 결정하는 과정이 중요하다고 생각합니다. 참가자들이 막연한 아이디어를 구체적인 문제로 정의하고, 필요한 데이터를 찾아 분석하며, AI와 기술을 활용해 실제 구현 가능한 서비스와 결과물로 발전시키는 과정에서 제 경험을 나누고 싶습니다.")],
           ] },
         ],
       },
@@ -263,7 +263,97 @@ export const organizingTeamProfiles: readonly TeamProfile[] = [
             [navyText("I work as an AI Engineer at Aladin Communication, developing AI-powered services centered on LLMs and recommendation systems."), text(" My work spans service design, data exploration, pipeline construction, model development, and production deployment, giving me experience turning ideas into services that work in practice.")],
             [text("In 2024, I participated in Space Apps as a member of Team ‘Gajini,’ worked on a project using NASA open data, and was selected as a Global Finalist.", true)],
             [text("As a member of Team ‘Gajini,’ I worked on a project using NASA open data and was selected as a Global Finalist. From defining the problem to finding the right data and designing its structure, the project involved plenty of trial and error. Choosing a promising direction from many datasets and ideas and turning it into a real outcome under time constraints remains my most memorable Space Apps experience.")],
-            [text("In a hackathon, a good idea matters, but so does quickly deciding "), text("which problem to solve, which data to use, and how much to build within the available time", true), text(". I want to share my experience as participants turn broad ideas into concrete problems, find and analyze the data they need, and use AI and technology to develop feasible services and outcomes.")],
+            [text("In a hackathon, a good idea matters, but so does quickly deciding which problem to solve, which data to use, and how much to build within the available time. I want to share my experience as participants turn broad ideas into concrete problems, find and analyze the data they need, and use AI and technology to develop feasible services and outcomes.")],
+          ] },
+        ],
+      },
+    },
+  },
+  {
+    id: "ubin-choe",
+    name: "최우빈 Ubin Choe",
+    copy: {
+      ko: {
+        affiliation: "알라딘커뮤니케이션 데이터 엔지니어",
+        highlight: "검색 개발자이자 데이터 엔지니어로 근무하며 검색과 데이터 관련 업무를 수행하고 있습니다.",
+        sections: [
+          { title: "Background", bullets: [
+            "알라딘커뮤니케이션 검색 및 데이터 엔지니어",
+            "한국공학대학교 공학석사 (컴퓨터공학)",
+            "한국공학대학교 컴퓨터공학 학사",
+            "NASA International Space Apps Challenge Alumni — 2024 Global Finalist, Team 가지니",
+          ] },
+          { title: "Introduction", paragraphs: [
+            [text("특정 현상이나 문제를 있는 그대로 바라보는 데 그치지 않고, 핵심 구조와 관계를 추출해 추상적인 모델로 변환한 뒤, 수학적 방법론이나 다른 분야에서 검증된 접근법을 연결하여 새로운 해결책을 찾는 과정을 선호합니다.", true)],
+            [navyText("알라딘커뮤니케이션에서 검색 개발자이자 데이터 엔지니어로 일하고 있습니다."), text(" 이전에는 공정 자동화 분야에서 센서와 비전 데이터를 다뤘습니다.")],
+            [text("NASA Space Apps 2024에서 ‘가지니’ 팀으로 참가해 Global Finalist에 선정되었습니다.", true)],
+            [text("해커톤 과정에서 팀원들과 의견 충돌도 겪고 여러 시행착오를 거쳤지만, 이틀 동안 하나의 목표를 향해 쉼 없이 달렸던 경험은 잊지 못할 소중한 추억으로 남아 있습니다.")],
+            [text("공정 자동화 분야에서 센서와 비전 데이터를 다뤄온 경험을 바탕으로 참가자들에게 도움을 드리고자 합니다.")],
+          ] },
+        ],
+      },
+      en: {
+        affiliation: "Data Engineer, Aladin Communication",
+        highlight: "I work as a search developer and data engineer, handling search- and data-related responsibilities.",
+        sections: [
+          { title: "Background", bullets: [
+            "Search and Data Engineer, Aladin Communication",
+            "M.S. in Computer Engineering, Tech University of Korea",
+            "B.S. in Computer Engineering, Tech University of Korea",
+            "NASA International Space Apps Challenge Alumni — 2024 Global Finalist, Team Gajini",
+          ] },
+          { title: "Introduction", paragraphs: [
+            [text("Rather than taking a phenomenon or problem at face value, I prefer to identify its core structures and relationships, translate them into abstract models, and connect mathematical methods or proven approaches from other fields to discover new solutions.", true)],
+            [navyText("I work at Aladin Communication as a search developer and data engineer."), text(" I previously worked with sensor and vision data in process automation.")],
+            [text("I participated in NASA Space Apps 2024 as a member of Team ‘Gajini’ and was selected as a Global Finalist.", true)],
+            [text("During the hackathon, our team worked through differing opinions and plenty of trial and error. Even so, the experience of pursuing one shared goal without pause for two days remains an unforgettable and meaningful memory.")],
+            [text("I hope to support participants by drawing on my experience working with sensor and vision data in process automation.")],
+          ] },
+        ],
+      },
+    },
+  },
+  {
+    id: "gihyeon-hong",
+    name: "홍기현 Gi Hyeon Hong",
+    copy: {
+      ko: {
+        affiliation: "AI 영상 모니터링 백엔드 개발자",
+        highlight: "AI 영상 모니터링 서비스의 백엔드를 개발하며 데이터 처리와 서버 시스템을 다루고 있습니다.",
+        sections: [
+          { title: "Background", bullets: [
+            "강남대학교 학사",
+            "교육 AI 스타트업 글로랑 백엔드 인턴",
+            "AI 영상 모니터링 백엔드 개발",
+            "강남대학교 학사정보 AI 챗봇 ‘강냉봇’ 개발",
+            "NASA International Space Apps Challenge Seoul Alumni — 2025 Impact Maker Recognition, Team Leafline",
+          ] },
+          { title: "Introduction", paragraphs: [
+            [text("AI와 백엔드 기술을 실제 서비스로 구현하고 운영하는 과정에 관심이 있습니다.", true)],
+            [navyText("AI 영상 모니터링 서비스의 백엔드를 개발하며 데이터 처리와 서버 시스템을 다루고 있습니다."), text(" 교육 AI 스타트업 글로랑에서 약 8개월간 백엔드 인턴으로 근무했고, 대학에서는 학사정보를 안내하는 AI 챗봇 ‘강냉봇’을 개발했습니다.")],
+            [text("2025년 팀 ‘Leafline’으로 NASA Space Apps 서울에 참가해 Impact Maker Recognition을 받았고, 올해는 운영진으로 함께하고 있습니다.", true)],
+            [text("2025년 참가 당시 NASA MODIS EVI 위성 데이터를 활용해 개화 시기를 예측하는 게임 및 대시보드 프로젝트 ‘BloomWatch’를 기획·개발했습니다. 프로젝트 매니저와 백엔드 개발을 맡아 전체 방향과 아이디어를 구체화하고, 제한된 시간 안에 효율적으로 개발할 수 있도록 팀원들의 시간 배분과 업무 할당을 조율했습니다. 또한 데이터 처리와 서버 구축을 담당해 서비스가 원활하게 동작하도록 구현했습니다.")],
+            [text("지난해 참가자로서 ‘NASA’와 ‘우주’라는 방대하고 어려운 주제 앞에서 도전을 망설였던 경험이 있습니다. 올해는 멘토링과 SNS·기관 협력 등 다양한 홍보 콘텐츠를 통해 해커톤의 문턱을 낮추고, 저처럼 참가를 망설이는 분들에게 용기를 전하고 싶습니다. 운영 과정을 직접 경험하며 커뮤니티에 기여하고자 합니다.")],
+          ] },
+        ],
+      },
+      en: {
+        affiliation: "Backend Developer, AI Video Monitoring",
+        highlight: "I develop backend systems for AI video monitoring services, working with data processing and server infrastructure.",
+        sections: [
+          { title: "Background", bullets: [
+            "Bachelor’s degree, Kangnam University",
+            "Backend Intern at Glorang, an education AI startup",
+            "Backend development for AI video monitoring",
+            "Developer of ‘Gangnaengbot,’ an AI chatbot for university academic information",
+            "NASA International Space Apps Challenge Seoul Alumni — 2025 Impact Maker Recognition, Team Leafline",
+          ] },
+          { title: "Introduction", paragraphs: [
+            [text("I am interested in building and operating real-world services with AI and backend technologies.", true)],
+            [navyText("I develop backend systems for AI video monitoring services, working with data processing and server infrastructure."), text(" I previously spent about eight months as a backend intern at Glorang, an education AI startup, and developed ‘Gangnaengbot,’ an AI chatbot that answers university academic-information questions.")],
+            [text("I participated in NASA Space Apps Seoul in 2025 as a member of Team ‘Leafline,’ received the Impact Maker Recognition, and joined this year’s organizing team.", true)],
+            [text("For the 2025 event, I helped plan and develop ‘BloomWatch,’ a game and dashboard that uses NASA MODIS EVI satellite data to predict flowering periods. As project manager and backend developer, I shaped the project direction and concept, coordinated task assignments and the team’s limited hackathon time, and implemented the data processing and server infrastructure needed to keep the service running smoothly.")],
+            [text("As a participant last year, I initially hesitated in the face of subjects as broad and challenging as NASA and space. This year, I want to lower the barrier to the hackathon through mentoring and outreach content across social media and institutional partnerships, encouraging people who may be hesitant to participate. I also hope to learn how the event is planned and operated while contributing to the community.")],
           ] },
         ],
       },
