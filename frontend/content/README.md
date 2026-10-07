@@ -2,19 +2,33 @@
 
 ## 2026 Bulletin 작성 방법
 
-1. `content/cohorts/2026/bulletin/notice-template.md`를 복사합니다.
-2. 파일명을 `registration-guide.md`처럼 영문 소문자 kebab-case slug로 변경합니다.
-3. frontmatter와 Markdown 본문을 작성합니다.
+1. `content/cohorts/2026/bulletin/notice-template.ko.md`를 복사합니다.
+2. 파일명을 `registration-guide.ko.md`처럼 영문 소문자 kebab-case slug로 변경합니다.
+3. 한국어 frontmatter와 Markdown 본문을 작성합니다. 영어 번역은 `notice-template.en.md`를 복사해 같은 slug의 `registration-guide.en.md`에 작성합니다.
 4. 검토 중에는 `published: false`, 공개 준비가 끝나면 `published: true`로 설정합니다.
 5. `yarn build` 후 생성된 목록과 상세 페이지를 확인합니다.
 
-필수 frontmatter:
+`slug.ko.md`의 필수 frontmatter:
 
-- `titleKo`, `titleEn`: 한국어/영어 제목
+- `title`: 비어 있지 않은 한국어 제목
 - `publishedAt`, `updatedAt`: `YYYY-MM-DD`
 - `category`: `REGISTRATION`, `TEAM`, `EVENT`, `SUBMISSION`, `AWARDS`, `NOTICE` 중 하나
 - `pinned`, `published`: `true` 또는 `false`
 - `thumbnail`: `/images/...` 경로 또는 `null`
+
+`slug.en.md`는 선택 사항이며, 비어 있지 않은 `title`과 공백을 제외하고 비어 있지 않은 영어 본문을 작성합니다. 영어 파일이 없으면 EN 페이지에서도 한국어 제목과 본문을 표시합니다. 공유 메타데이터(`publishedAt`, `updatedAt`, `category`, `pinned`, `published`, `thumbnail`)는 `.ko.md`에만 작성하며, 영어 파일의 `title` 이외 frontmatter는 무시됩니다.
+
+기존 `slug.md`도 계속 지원합니다. 기존 형식은 `titleKo`, `titleEn`과 공유 메타데이터를 사용하고 본문을 두 언어에서 공유합니다. 선택적으로 `slug.en.md`를 함께 두면 영어 제목과 본문을 해당 파일에서 읽습니다. 이때 공유 메타데이터는 기존 `slug.md`에서 읽습니다.
+
+다음 경우에는 파일명을 포함한 오류가 발생합니다.
+
+- slug가 영문 소문자·숫자의 kebab-case 형식이 아닌 경우
+- 같은 slug의 `.md`와 `.ko.md`가 모두 있는 경우
+- `.en.md`에 대응하는 `.ko.md` 또는 `.md` base 파일이 없는 경우
+- `.ja.md` 등 ko/en 이외 locale 접미사를 사용하는 경우
+- 필수 제목이 비어 있거나 문자열이 아닌 경우, 영어 본문이 공백뿐인 경우, base 파일의 공유 메타데이터가 유효하지 않은 경우
+
+언어 파일은 하나의 공지로 묶이며 URL의 slug에는 `.ko`나 `.en`이 붙지 않습니다. 예를 들어 `registration-guide.ko.md`와 `registration-guide.en.md`는 `/2026/ko/bulletin/registration-guide/`, `/2026/en/bulletin/registration-guide/`에서 같은 slug를 사용합니다.
 
 공개 글은 pinned 글을 먼저, 이후 `publishedAt` 최신순으로 정렬합니다. 새 파일은 Bulletin 목록과 상세 route, Main의 Latest Bulletin 최대 3개에 자동 반영됩니다. `published: false`인 파일은 public export에 포함되지 않습니다.
 

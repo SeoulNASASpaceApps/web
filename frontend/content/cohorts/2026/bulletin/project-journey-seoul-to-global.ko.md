@@ -1,6 +1,5 @@
 ---
-titleKo: "서울에서 글로벌 무대로 — 프로젝트 진출 과정"
-titleEn: "From Seoul to the Global Stage — Project Journey"
+title: "서울에서 글로벌 무대로 — 프로젝트 진출 과정"
 publishedAt: "2026-10-07"
 updatedAt: "2026-10-07"
 category: "AWARDS"
@@ -29,26 +28,3 @@ thumbnail: null
 - **08 글로벌 수상팀 (Global Winners)** — 글로벌 파이널리스트 중 최종 심사를 통해 선정됩니다.
 
 NASA Space Apps의 공식 심사·시상 절차는 [NASA Space Apps 공식 Awards 안내](https://www.spaceappschallenge.org/2025/awards/)와 [2026 참가자 FAQ](https://www.spaceappschallenge.org/resources/participant-faqs/)에서 확인할 수 있습니다.
-
----
-
-## English Guide
-
-How does a project built during the hackathon make its way to the global stage?
-
-Submitted projects go through Seoul local judging and awards, and outstanding projects may be recommended as candidates for global judging. Global Nominees, Global Finalists, and Global Winners are then selected through the official NASA Space Apps process.
-
-The image above shows the full journey from project submission to the global awards.
-
-### The 8-Step Project Journey
-
-- **01 Project Submission** — Completed hackathon projects are submitted through the official platform.
-- **02 Local Judging** — Local judges evaluate projects submitted in Seoul.
-- **03 Local Awards** — Seoul award recipients are selected based on local judging results.
-- **04 Global Nominee Recommendation** — Outstanding Seoul projects are recommended for global consideration.
-- **05 Global Nominees** — Announced through the official NASA Space Apps process.
-- **06 Global Judging** — Projects nominated worldwide are evaluated at the global level.
-- **07 Global Finalists** — Selected through Global Judging.
-- **08 Global Winners** — Selected from the Global Finalists through Executive Judging.
-
-Learn more about the official judging and awards process on the [NASA Space Apps Awards page](https://www.spaceappschallenge.org/2025/awards/) and the [2026 Participant FAQs](https://www.spaceappschallenge.org/resources/participant-faqs/).

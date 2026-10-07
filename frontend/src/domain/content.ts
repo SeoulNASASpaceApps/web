@@ -86,7 +86,8 @@ export interface BulletinPost {
   pinned: boolean;
   published: boolean;
   thumbnail: string | null;
-  body: string;
+  body: LocalizedText;
+  contentLocale: Record<Locale, Locale>;
 }
 
 export interface Project {
