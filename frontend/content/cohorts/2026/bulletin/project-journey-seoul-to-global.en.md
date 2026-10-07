@@ -8,7 +8,7 @@ Submitted projects go through Seoul local judging and awards, and outstanding pr
 
 The image below shows the full journey from project submission to the global awards.
 
-![The 8-step project journey from project submission through Seoul local judging and awards, Global Nominees, Global Judging, Global Finalists, and Global Winners](/images/2026/bulletin/project-journey-seoul-to-global.webp)
+![The 8-step project journey from project submission through Seoul local judging and awards, Global Nominees, Global Judging, Global Finalists, and Global Winners](/images/2026/bulletin/project-journey-seoul-to-global-en.webp)
 
 ## The 8-Step Project Journey
 
