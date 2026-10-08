@@ -116,7 +116,7 @@ export const promoContent = {
       ko: "공식 Challenge Summary를 바탕으로 요약했습니다. 상세 요건과 자료는 각 챌린지의 공식 페이지에서 확인하세요.",
       en: "These summaries are based on the official Challenge Summaries. Check each challenge page for complete requirements and resources.",
     },
-    officialChallengeLink: { ko: "NASA 공식 챌린지 보기", en: "Open the official NASA challenge" },
+    officialChallengeLink: { ko: "NASA Space Apps 공식 챌린지 보기", en: "Open the official NASA Space Apps challenge" },
   },
   challenges: [
     {
@@ -222,14 +222,14 @@ export const promoContent = {
     kicker: { ko: "03 / HOW TO JOIN", en: "03 / HOW TO JOIN" },
     title: { ko: "서울 참가,\n이 순서로 진행해요.", en: "Join Seoul\nin six steps." },
     steps: [
-      { title: { ko: "NASA 공식 사이트에서 등록", en: "Register on the NASA site" }, description: { ko: "2026 Seoul Local Event에 먼저 등록하세요.", en: "Start by registering for the 2026 Seoul Local Event." }, link: { url: "https://www.spaceappschallenge.org/2026/local-events/seoul/", label: { ko: "NASA 등록 페이지", en: "NASA registration page" }, external: true } },
+      { title: { ko: "NASA Space Apps 공식 사이트에서 등록", en: "Register on the official NASA Space Apps site" }, description: { ko: "2026 Seoul Local Event에 먼저 등록하세요.", en: "Start by registering for the 2026 Seoul Local Event." }, link: { url: "https://www.spaceappschallenge.org/2026/local-events/seoul/", label: { ko: "NASA Space Apps 등록 페이지", en: "NASA Space Apps registration page" }, external: true } },
       { title: { ko: "서울 참가 확인", en: "Confirm your Seoul participation" }, description: { ko: "매주 화·목 순차 발송되는 「나사 서울 2026 참가 확인」 이메일을 확인하세요. Google Form 또는 Naver Form 중 하나를 제출하면 됩니다.", en: "Check the “NASA Seoul 2026 Participation Confirmation” email sent in batches every Tuesday and Thursday. Submit either the Google Form or the Naver Form." } },
       { title: { ko: "Challenge 선택", en: "Choose a challenge" }, description: { ko: "공개된 NASA Space Apps Challenge를 확인하고 관심 있는 문제를 선택하세요.", en: "Review the published NASA Space Apps Challenges and choose a problem that interests you." }, link: { url: "#challenges", label: { ko: "14개 챌린지 둘러보기", en: "Browse the 14 challenges" }, external: false } },
       { title: { ko: "팀 구성", en: "Form or join a team" }, description: { ko: "팀을 만들거나 기존 팀에 합류해 함께 도전할 문제를 정하고 준비하세요.", en: "Create a team or join one, then agree on a challenge and prepare together." }, link: { url: "https://www.spaceappschallenge.org/2026/find-a-team/", label: { ko: "공식 팀 찾기", en: "Official team finder" }, external: true } },
       { title: { ko: "해커톤 참가", en: "Take part in the hackathon" }, description: { ko: "2026년 11월 14–15일, 이틀 동안 팀과 함께 아이디어를 프로젝트로 완성합니다.", en: "On November 14–15, 2026, work with your team to turn an idea into a project." } },
       { title: { ko: "프로젝트 제출", en: "Submit your project" }, description: { ko: "NASA Space Apps 공식 플랫폼에 프로젝트를 제출하세요. 세부 마감 시간과 제출 방법은 공식 안내를 확인해주세요.", en: "Submit your project through the official NASA Space Apps platform. Check the official guidance for the deadline and submission process." } },
     ],
-    note: { ko: "NASA 공식 등록과 서울 참가 확인을 모두 완료해야 합니다. 안내된 기간 내 확인을 마치지 않으면 대기 명단으로 전환될 수 있습니다.", en: "Complete both NASA registration and the Seoul participation confirmation. If confirmation is not completed within the stated period, you may be moved to the waitlist." },
+    note: { ko: "NASA Space Apps 공식 등록과 서울 참가 확인을 모두 완료해야 합니다. 안내된 기간 내 확인을 마치지 않으면 대기 명단으로 전환될 수 있습니다.", en: "Complete both NASA Space Apps registration and the Seoul participation confirmation. If confirmation is not completed within the stated period, you may be moved to the waitlist." },
   },
   timeline: {
     kicker: { ko: "04 / SAVE THE DATES", en: "04 / SAVE THE DATES" },
@@ -238,7 +238,7 @@ export const promoContent = {
     bulletinLink: { ko: "서울 공식 공지 확인", en: "See the Seoul bulletin" },
     pastSuffix: { ko: "(지난 일정)", en: "(past)" },
     items: [
-      { date: "2026-08-26", displayDate: { ko: "08.26", en: "AUG 26" }, title: { ko: "참가 등록 시작", en: "Registration opens" }, description: { ko: "NASA 공식 등록 + 서울 참가 확인", en: "NASA registration + Seoul confirmation" } },
+      { date: "2026-08-26", displayDate: { ko: "08.26", en: "AUG 26" }, title: { ko: "참가 등록 시작", en: "Registration opens" }, description: { ko: "NASA Space Apps 공식 등록 + 서울 참가 확인", en: "NASA Space Apps registration + Seoul confirmation" } },
       { date: "2026-09-17", displayDate: { ko: "09.17", en: "SEP 17" }, title: { ko: "챌린지 요약 공개", en: "Challenge Summaries released" }, description: { ko: "14개 주제에서 관심 분야 찾기", en: "Explore 14 challenge topics" } },
       { date: "2026-10-15", displayDate: { ko: "10.15", en: "OCT 15" }, title: { ko: "Catch-up Welcome Benefits 마감", en: "Catch-up Welcome Benefits close" }, description: { ko: "10월 15일까지 팀 합류", en: "Join a team by Oct 15" } },
       { date: "2026-10-28", displayDate: { ko: "10.28", en: "OCT 28" }, title: { ko: "챌린지 상세 내용 공개", en: "Challenge Statements released" }, description: { ko: "Challenge Statement", en: "Full Challenge Statements" } },
@@ -258,7 +258,7 @@ export const promoContent = {
       { label: { ko: "2025 Global Honorable Mention", en: "2025 Global Honorable Mention" }, value: "1", unit: { ko: "팀", en: "team" } },
     ],
     source: { ko: "2025년 서울 행사 성과", en: "2025 Seoul event results" },
-    officialSeoul: { ko: "NASA 공식 서울 소개", en: "Official NASA Seoul page" },
+    officialSeoul: { ko: "NASA Space Apps 공식 서울 소개", en: "Official NASA Space Apps Seoul page" },
     teamLink: { ko: "서울 운영팀 알아보기", en: "Meet the Seoul team" },
     partnersLink: { ko: "협력기관 · 교육 혜택", en: "Partners · learning benefits" },
   },
@@ -276,7 +276,7 @@ export const promoContent = {
   closing: {
     kicker: { ko: "11.14 — 11.15 / 2026", en: "11.14 — 11.15 / 2026" },
     title: { ko: "우주 좋아하는 사람들,\n11월에 만나요.", en: "Space people,\nsee you in November." },
-    cta: { ko: "NASA 공식 사이트에서 등록하기", en: "Register on the NASA Space Apps site" },
+    cta: { ko: "NASA Space Apps 공식 사이트에서 등록하기", en: "Register on the official NASA Space Apps site" },
     ctaUrl: nasaSeoulUrl,
   },
   connect: {
