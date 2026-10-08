@@ -19,7 +19,7 @@ export default function BulletinArticle({ post, locale }: { post: BulletinPost; 
 
     return isExternal ? (
       <a {...rest} href={href} target="_blank" rel="noopener noreferrer">
-        {children}{" "}<span className="cohort-sr-only">{locale === "ko" ? "(새 탭)" : "(opens in new tab)"}</span>
+        {children}<span className="cohort-sr-only">{locale === "ko" ? " (새 탭)" : " (opens in new tab)"}</span>
       </a>
     ) : <a {...rest} href={href}>{children}</a>;
   };
