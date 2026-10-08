@@ -179,7 +179,7 @@ export const organizingTeamProfiles: readonly TeamProfile[] = [
   },
   {
     id: "hyunji-na",
-    name: "나현지",
+    name: "나현지 Hyunji Na",
     copy: {
       ko: {
         affiliation: "알라딘커뮤니케이션 백엔드 개발자",
