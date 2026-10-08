@@ -128,6 +128,7 @@
 .promo-home .results { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin: 58px 0 30px; }
 .promo-home .results > div { border-top: 1px solid #65625e; padding-top: 20px; }
 .promo-home .results dt { color: #c2beb6; font-size: 13px; }
+.promo-home .results dt strong { color: #eeeae3; font-weight: 700; }
 .promo-home .results dd { margin: 14px 0 0; font: 76px/1 Impact, sans-serif; }
 .promo-home .results dd span { margin-left: 8px; font: 14px Arial, sans-serif; }
 .promo-home .global-stage .source-note { color: #c2beb6; }

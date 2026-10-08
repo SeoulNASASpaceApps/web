@@ -36,12 +36,9 @@ function dateString(data: Record<string, unknown>, key: string, filename: string
   return normalized;
 }
 
-function parseBulletin(year: CohortYear, filename: string): BulletinPost {
-  const slug = filename.replace(/\.md$/, "");
-  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
-    throw new Error(`${filename}: filename must be a lowercase kebab-case slug.`);
-  }
+type BulletinFiles = { base?: string; en?: string };
 
+function parseBulletin(year: CohortYear, slug: string, filename: string, englishFilename?: string): BulletinPost {
   const source = fs.readFileSync(path.join(bulletinDirectory(year), filename), "utf8");
   const { data, content } = matter(source);
   const category = requiredString(data, "category", filename);
@@ -53,13 +50,26 @@ function parseBulletin(year: CohortYear, filename: string): BulletinPost {
     throw new Error(`${filename}: frontmatter 'thumbnail' must be a path string or null.`);
   }
 
+  const isLegacy = !filename.endsWith(".ko.md");
+  const koreanTitle = requiredString(data, isLegacy ? "titleKo" : "title", filename);
+  let englishTitle = isLegacy ? requiredString(data, "titleEn", filename) : koreanTitle;
+  let englishBody = content.trim();
+  if (englishFilename) {
+    const english = matter(fs.readFileSync(path.join(bulletinDirectory(year), englishFilename), "utf8"));
+    englishTitle = requiredString(english.data, "title", englishFilename);
+    englishBody = english.content.trim();
+    if (!englishBody) {
+      throw new Error(`${englishFilename}: body must be non-empty.`);
+    }
+  }
+
   return {
     id: `${year}-${slug}`,
     cohort: year,
     slug,
     title: {
-      ko: requiredString(data, "titleKo", filename),
-      en: requiredString(data, "titleEn", filename),
+      ko: koreanTitle,
+      en: englishTitle,
     },
     summary: { ko: "", en: "" },
     publishedAt: dateString(data, "publishedAt", filename),
@@ -68,7 +78,8 @@ function parseBulletin(year: CohortYear, filename: string): BulletinPost {
     pinned: requiredBoolean(data, "pinned", filename),
     published: requiredBoolean(data, "published", filename),
     thumbnail: typeof data.thumbnail === "string" && data.thumbnail.trim() ? data.thumbnail.trim() : null,
-    body: content.trim(),
+    body: { ko: content.trim(), en: englishBody },
+    contentLocale: { ko: "ko", en: englishFilename || isLegacy ? "en" : "ko" },
   };
 }
 
@@ -76,10 +87,35 @@ export function getAllBulletinDocuments(year: CohortYear) {
   const directory = bulletinDirectory(year);
   if (!fs.existsSync(directory)) return [];
 
-  return fs
-    .readdirSync(directory)
-    .filter((filename) => filename.endsWith(".md"))
-    .map((filename) => parseBulletin(year, filename));
+  const groups = new Map<string, BulletinFiles>();
+  for (const filename of fs.readdirSync(directory).filter((name) => name.endsWith(".md"))) {
+    const stem = filename.slice(0, -3);
+    const suffix = stem.includes(".") ? stem.slice(stem.lastIndexOf(".") + 1) : undefined;
+    if (suffix !== undefined && suffix !== "ko" && suffix !== "en") {
+      throw new Error(`${filename}: unsupported locale suffix '${suffix}'.`);
+    }
+    const slug = suffix === undefined ? stem : stem.slice(0, stem.lastIndexOf("."));
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+      throw new Error(`${filename}: filename must be a lowercase kebab-case slug.`);
+    }
+    const files = groups.get(slug) ?? {};
+    if (suffix === "en") {
+      files.en = filename;
+    } else {
+      if (files.base) {
+        throw new Error(`${filename}: duplicate base file; cannot have both '${files.base}' and '${filename}'.`);
+      }
+      files.base = filename;
+    }
+    groups.set(slug, files);
+  }
+
+  return Array.from(groups, ([slug, files]) => {
+    if (!files.base) {
+      throw new Error(`${files.en}: English file requires a .ko.md or .md base file.`);
+    }
+    return parseBulletin(year, slug, files.base, files.en);
+  });
 }
 
 export function getPublishedBulletins(year: CohortYear) {

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Locale } from "@/domain/content";
 
 export default function SiteFooter({ locale }: { locale: Locale }) {
@@ -14,18 +13,18 @@ export default function SiteFooter({ locale }: { locale: Locale }) {
       </div>
       <nav aria-label={locale === "ko" ? "외부 링크" : "External links"}>
         <a href="https://www.spaceappschallenge.org/" target="_blank" rel="noopener noreferrer">
-          Official NASA Space Apps Website
+          Official NASA Space Apps <span aria-hidden="true">↗</span>
           {" "}<span className="cohort-sr-only">{locale === "ko" ? "(새 탭)" : "(opens in new tab)"}</span>
         </a>
         <a href="https://www.instagram.com/nasaspaceapps_seoul/" target="_blank" rel="noopener noreferrer">
-          Instagram
+          Instagram <span aria-hidden="true">↗</span>
           {" "}<span className="cohort-sr-only">{locale === "ko" ? "(새 탭)" : "(opens in new tab)"}</span>
         </a>
-        <a href="https://github.com/SeoulNASASpaceApps/web" target="_blank" rel="noopener noreferrer">
-          GitHub
+        <a href="https://blog.naver.com/nasaspaceapps_pangyo" target="_blank" rel="noopener noreferrer">
+          Naver Blog <span aria-hidden="true">↗</span>
           {" "}<span className="cohort-sr-only">{locale === "ko" ? "(새 탭)" : "(opens in new tab)"}</span>
         </a>
-        <Link href={`/2025/${locale}/contact/`}>Contact</Link>
+        <a href="mailto:info@nasaspaceappskr.org">info@nasaspaceappskr.org</a>
       </nav>
     </footer>
   );

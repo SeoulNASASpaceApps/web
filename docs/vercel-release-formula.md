@@ -120,7 +120,9 @@ Production이 Ready가 된 뒤 확인합니다.
 
 ## 8. Bulletin 추가 사항
 
-Bulletin 작성 형식은 `frontend/content/README.md`를 따릅니다. 검토 중에는
+Bulletin 작성 형식은 `frontend/content/README.md`를 따릅니다. `slug.ko.md`와 선택적인
+`slug.en.md`를 한 쌍으로 작성하며, 공유 메타데이터는 한국어 파일에서 관리합니다.
+영어 파일이 없으면 EN 페이지에도 한국어 제목과 본문이 표시됩니다. 검토 중에는
 `published: false`로 유지하고, 공개 승인 후 `published: true` 상태를 Preview에서
 다시 확인합니다. Markdown 한 건이 목록, 상세 route와 Main의 최신 Bulletin에
 자동 반영되므로 React page를 직접 수정할 필요가 없습니다.

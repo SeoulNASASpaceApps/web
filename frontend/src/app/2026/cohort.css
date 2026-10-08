@@ -270,6 +270,9 @@
 .markdown-body h1, .markdown-body h2, .markdown-body h3 { margin: 2em 0 .7em; font-family: var(--font-rethink-bold), sans-serif; line-height: 1.25; }
 .markdown-body h1:first-child, .markdown-body h2:first-child, .markdown-body h3:first-child { margin-top: 0; }
 .markdown-body p, .markdown-body ul, .markdown-body ol, .markdown-body blockquote { margin: 0 0 1.3em; }
+.bulletin-article .markdown-body ul, .bulletin-article .markdown-body ol { padding-left: 1.5em; }
+.bulletin-article .markdown-body img { display: block; width: 100%; max-width: 100%; height: auto; border: 1px solid var(--promo-line); }
+.bulletin-article .markdown-body hr { margin: 2.5em 0; border: 0; border-top: 1px solid var(--promo-line); }
 .markdown-body a { color: var(--promo-red-text); text-decoration-color: var(--promo-red); text-underline-offset: 4px; }
 .markdown-body a:focus-visible { outline: 3px solid var(--promo-red-text); outline-offset: 3px; }
 .markdown-body blockquote { border-left: 4px solid var(--promo-red); margin-left: 0; padding: 4px 0 4px 22px; color: var(--promo-muted); }

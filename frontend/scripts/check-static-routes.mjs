@@ -38,11 +38,41 @@ for (const route of routes) {
 }
 
 const bulletinDirectory = path.join("content", "cohorts", "2026", "bulletin");
+const bulletinFiles = new Map();
 for (const filename of fs.readdirSync(bulletinDirectory).filter((name) => name.endsWith(".md"))) {
-  const slug = filename.replace(/\.md$/, "");
+  const stem = filename.slice(0, -3);
+  const suffix = stem.includes(".") ? stem.slice(stem.lastIndexOf(".") + 1) : undefined;
+  if (suffix !== undefined && suffix !== "ko" && suffix !== "en") {
+    throw new Error(`${filename}: unsupported locale suffix '${suffix}'.`);
+  }
+  const slug = suffix === undefined ? stem : stem.slice(0, stem.lastIndexOf("."));
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+    throw new Error(`${filename}: filename must be a lowercase kebab-case slug.`);
+  }
+  const files = bulletinFiles.get(slug) ?? {};
+  if (suffix === "en") {
+    files.en = filename;
+  } else {
+    if (files.base) {
+      throw new Error(`${filename}: duplicate base file; cannot have both '${files.base}' and '${filename}'.`);
+    }
+    files.base = filename;
+  }
+  bulletinFiles.set(slug, files);
+}
+
+for (const [slug, files] of bulletinFiles) {
+  if (!files.base) {
+    throw new Error(`${files.en}: English file requires a .ko.md or .md base file.`);
+  }
+  const filename = files.base;
   const { data } = matter(fs.readFileSync(path.join(bulletinDirectory, filename), "utf8"));
   for (const locale of ["ko", "en"]) {
     const output = path.join("out", "2026", locale, "bulletin", slug, "index.html");
+    for (const suffix of ["ko", "en"]) {
+      const duplicate = path.join("out", "2026", locale, "bulletin", `${slug}.${suffix}`);
+      assert.ok(!fs.existsSync(duplicate), `Locale file must not create a duplicate bulletin route: ${duplicate}`);
+    }
     if (data.published === true) {
       assert.ok(fs.existsSync(output), `Missing published bulletin route: ${output}`);
     } else {
