@@ -84,7 +84,7 @@ export function PromoGlobalStage({ locale }: { locale: Locale }) {
         <h2 id="global-title">{section.title[locale]}</h2>
         <p className="global-description">{section.description[locale]}</p>
         <dl className="results">
-          {section.stats.map((stat) => <div key={stat.label.en}><dt>{stat.label[locale]}</dt><dd>{stat.value}<span>{stat.unit[locale]}</span></dd></div>)}
+          {section.stats.map((stat) => <div key={stat.label.en}><dt>{"emphasis" in stat && stat.emphasis ? <strong>{stat.label[locale]}</strong> : stat.label[locale]}</dt><dd>{stat.value}<span>{stat.unit[locale]}</span></dd></div>)}
         </dl>
         <p className="source-note">
           {section.source[locale]}{" · "}

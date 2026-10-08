@@ -27,4 +27,4 @@ thumbnail: null
 - **07 글로벌 파이널리스트 (Global Finalists)** — 글로벌 심사를 통해 선정됩니다.
 - **08 글로벌 수상팀 (Global Winners)** — 글로벌 파이널리스트 중 최종 심사를 통해 선정됩니다.
 
-NASA Space Apps의 공식 심사·시상 절차는 [NASA Space Apps 공식 Awards 안내](https://www.spaceappschallenge.org/2025/awards/)와 [2026 참가자 FAQ](https://www.spaceappschallenge.org/resources/participant-faqs/)에서 확인할 수 있습니다.
+NASA Space Apps의 공식 심사·시상 절차는 [NASA Space Apps 2025 Awards 사례](https://www.spaceappschallenge.org/2025/awards/)와 [2026 참가자 FAQ](https://www.spaceappschallenge.org/resources/participant-faqs/)에서 확인할 수 있습니다.

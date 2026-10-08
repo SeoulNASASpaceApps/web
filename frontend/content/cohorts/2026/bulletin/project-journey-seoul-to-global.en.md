@@ -21,4 +21,4 @@ The image below shows the full journey from project submission to the global awa
 - **07 Global Finalists** — Selected through Global Judging.
 - **08 Global Winners** — Selected from the Global Finalists through Executive Judging.
 
-Learn more about the official judging and awards process on the [NASA Space Apps Awards page](https://www.spaceappschallenge.org/2025/awards/) and the [2026 Participant FAQs](https://www.spaceappschallenge.org/resources/participant-faqs/).
+Learn more about the official judging and awards process on the [NASA Space Apps 2025 Awards reference](https://www.spaceappschallenge.org/2025/awards/) and the [2026 Participant FAQs](https://www.spaceappschallenge.org/resources/participant-faqs/).
