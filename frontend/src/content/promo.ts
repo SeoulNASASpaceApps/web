@@ -255,7 +255,7 @@ export const promoContent = {
       { label: { ko: "2025 서울 완주 팀", en: "2025 Seoul teams completed" }, value: "37", unit: { ko: "팀", en: "teams" } },
       { label: { ko: "2025 글로벌 심사 진출", en: "2025 advanced to Global Judging" }, value: "4", unit: { ko: "팀", en: "teams" } },
       { label: { ko: "2025 Global Finalists", en: "2025 Global Finalists" }, value: "2", unit: { ko: "팀", en: "teams" } },
-      { label: { ko: "2025 Global Honorable Mention", en: "2025 Global Honorable Mention" }, value: "1", unit: { ko: "팀", en: "team" }, emphasis: true },
+      { label: { ko: "2025 Global Honorable Mention", en: "2025 Global Honorable Mention" }, value: "1", unit: { ko: "팀", en: "team" } },
     ],
     source: { ko: "2025년 서울 행사 성과", en: "2025 Seoul event results" },
     officialSeoul: { ko: "NASA 공식 서울 소개", en: "Official NASA Seoul page" },
