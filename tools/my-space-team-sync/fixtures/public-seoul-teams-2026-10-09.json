@@ -1,0 +1,548 @@
+{
+  "schema_version": "1.0",
+  "status": "success",
+  "started_at": "2026-10-09T07:09:36.542346+00:00",
+  "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams",
+  "collection": {
+    "complete": true,
+    "endpoint": "https://api.spaceappschallenge.org/graphql",
+    "source_html_status": 200,
+    "source_html_retrieved_at": "2026-10-09T07:09:51.698601+00:00",
+    "location_id": "aWQ6NTQ1MjI=",
+    "event_id": "aWQ6NA==",
+    "ui_filter": {
+      "id": "aWQ6Nw==",
+      "parentFilter": "location",
+      "event": null,
+      "inheritEvent": true
+    },
+    "scope": "all publicly listed Seoul teams for 2026; no recruitment filter",
+    "page_size": 20,
+    "filters": [
+      {
+        "field": "event",
+        "value": "aWQ6NA==",
+        "compare": "id"
+      },
+      {
+        "field": "location",
+        "value": "aWQ6NTQ1MjI=",
+        "compare": "id"
+      }
+    ],
+    "pages": [
+      {
+        "number": 1,
+        "count": 20,
+        "total_count": 32,
+        "page_info": {
+          "hasNextPage": true,
+          "endCursor": "b2Zmc2V0OjE5"
+        },
+        "retrieved_at": "2026-10-09T07:10:19.958730+00:00"
+      },
+      {
+        "number": 2,
+        "count": 12,
+        "total_count": 32,
+        "page_info": {
+          "hasNextPage": false,
+          "endCursor": "b2Zmc2V0OjMx"
+        },
+        "retrieved_at": "2026-10-09T07:10:26.197932+00:00"
+      }
+    ],
+    "expected_total": 32,
+    "collected_total": 32
+  },
+  "teams": [
+    {
+      "official_team_id": "aWQ6NjE1NDg=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/timalroha/",
+      "team_name": "팀알로하",
+      "challenge": "Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars",
+      "seeking_members": false,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjAwMDM=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/go24/",
+      "team_name": "🐱",
+      "challenge": "The Earth Information Jukebox",
+      "seeking_members": false,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjI5NDY=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/abang-abang/",
+      "team_name": "Abang Abang",
+      "challenge": "Abandoned but not Forgotten: Storytelling about NASA's Discarded Equipment on the Moon and Mars",
+      "seeking_members": false,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NTczMjE=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/all-about-fun/",
+      "team_name": "All About Fun",
+      "challenge": "Build a Junior Astronaut Mission Trainer",
+      "seeking_members": false,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NTc4Mjc=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/amalgo/",
+      "team_name": "AMALGO",
+      "challenge": "Interplanetary Survival Guide: Martian Map",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NTc3MDQ=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/angry-unlee/",
+      "team_name": "Angry Unlee",
+      "challenge": "Space Mission Design Game",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjAwNzc=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/apogee5/",
+      "team_name": "Apogee",
+      "challenge": "Planet X and SPHEREx",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjIwMjg=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/arespath/",
+      "team_name": "AresPath",
+      "challenge": "Interplanetary Survival Guide: Martian Map",
+      "seeking_members": false,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjMzMDM=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/azas/",
+      "team_name": "AZAS",
+      "challenge": "CLPS Lunar Mission Browser",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NTUyMTQ=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/bima/",
+      "team_name": "BIMA",
+      "challenge": "Space Mission Design Game",
+      "seeking_members": false,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjM2NDQ=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/byeol/",
+      "team_name": "Byeol",
+      "challenge": "Planet X and SPHEREx",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NTYxNzU=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/fourier3/",
+      "team_name": "Fourier",
+      "challenge": "Be An Earth System Trend Detective!",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjExNjc=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/logic-craft/",
+      "team_name": "Logic craft",
+      "challenge": "CLPS Lunar Mission Browser",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjEwNzM=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/moonkeeper/",
+      "team_name": "Moonkeeper",
+      "challenge": "CLPS Lunar Mission Browser",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjE1NjE=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/nakathon/",
+      "team_name": "Nakathon",
+      "challenge": "Flame in Freefall: AI-Powered Fire Safety Insights from Microgravity Combustion Data",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NTk5Mzc=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/nasajoim/",
+      "team_name": "NASAJOIM",
+      "challenge": "CLPS Lunar Mission Browser",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NTU4MjA=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/nct/",
+      "team_name": "NCT",
+      "challenge": "Dancing with the SARs",
+      "seeking_members": false,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjM3ODI=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/our-earth/",
+      "team_name": "Our eARTh",
+      "challenge": "Be An Earth System Trend Detective!",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjEyMjg=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/p07470-is-goat/",
+      "team_name": "P07470 IS GOAT",
+      "challenge": "Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars",
+      "seeking_members": false,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjI3ODY=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/planetarium2/",
+      "team_name": "Planetarium",
+      "challenge": "Harmonization of MODIS and VIIRS Hot Spots",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:19.958730+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjQwMTQ=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/screaming-marshmallow/",
+      "team_name": "Screaming Marshmallow",
+      "challenge": "Harmonization of MODIS and VIIRS Hot Spots",
+      "seeking_members": false,
+      "retrieved_at": "2026-10-09T07:10:26.197932+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjE1NzU=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/semantix/",
+      "team_name": "SEMANTIX",
+      "challenge": "Harmonization of MODIS and VIIRS Hot Spots",
+      "seeking_members": false,
+      "retrieved_at": "2026-10-09T07:10:26.197932+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NTczNTg=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/sirius-x/",
+      "team_name": "SIRIUS-X",
+      "challenge": "CLPS Lunar Mission Browser",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:26.197932+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NTU5NTQ=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/starforce/",
+      "team_name": "StarForce",
+      "challenge": "Build a Junior Astronaut Mission Trainer",
+      "seeking_members": false,
+      "retrieved_at": "2026-10-09T07:10:26.197932+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NTc5MDg=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/starley-lab/",
+      "team_name": "STARLEY LAB",
+      "challenge": "Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:26.197932+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjM2NDg=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/sys-astro/",
+      "team_name": "SYS-ASTRO",
+      "challenge": "Create Health Monitoring Software for Astronauts on Space Missions",
+      "seeking_members": false,
+      "retrieved_at": "2026-10-09T07:10:26.197932+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjQ3NTU=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/team-cook/",
+      "team_name": "Team Cook",
+      "challenge": "Create Health Monitoring Software for Astronauts on Space Missions",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:26.197932+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NTc0MTU=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/team-sirius1/",
+      "team_name": "Team Sirius",
+      "challenge": "Build a Junior Astronaut Mission Trainer",
+      "seeking_members": false,
+      "retrieved_at": "2026-10-09T07:10:26.197932+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjEwMjM=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/temp07/",
+      "team_name": "Temp0.7",
+      "challenge": "Interplanetary Survival Guide: Martian Map",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:26.197932+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjExMDY=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/temp7/",
+      "team_name": "Temp7",
+      "challenge": "Create Health Monitoring Software for Astronauts on Space Missions",
+      "seeking_members": true,
+      "retrieved_at": "2026-10-09T07:10:26.197932+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NjE1Mjc=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/vitalnauts/",
+      "team_name": "Vitalnauts",
+      "challenge": "Create Health Monitoring Software for Astronauts on Space Missions",
+      "seeking_members": false,
+      "retrieved_at": "2026-10-09T07:10:26.197932+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    },
+    {
+      "official_team_id": "aWQ6NTY4NTM=",
+      "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/w705/",
+      "team_name": "W",
+      "challenge": "Abandoned but not Forgotten: Storytelling about NASA's Discarded Equipment on the Moon and Mars",
+      "seeking_members": false,
+      "retrieved_at": "2026-10-09T07:10:26.197932+00:00",
+      "source_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams"
+    }
+  ],
+  "validation": [
+    {
+      "official_team_id": "aWQ6NTc4Mjc=",
+      "source_url": "https://www.spaceappschallenge.org/2026/find-a-team/amalgo/",
+      "status": "matched",
+      "retrieved_at": "2026-10-09T07:10:33.221615+00:00",
+      "field_matches": {
+        "official_team_id": true,
+        "official_team_url": true,
+        "team_name": true,
+        "challenge": true,
+        "seeking_members": true
+      },
+      "detail": {
+        "official_team_id": "aWQ6NTc4Mjc=",
+        "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/amalgo/",
+        "team_name": "AMALGO",
+        "challenge": "Interplanetary Survival Guide: Martian Map",
+        "seeking_members": true,
+        "retrieved_at": "2026-10-09T07:10:33.221615+00:00",
+        "source_url": "https://www.spaceappschallenge.org/2026/find-a-team/amalgo/"
+      }
+    },
+    {
+      "official_team_id": "aWQ6NjE1NDg=",
+      "source_url": "https://www.spaceappschallenge.org/2026/find-a-team/timalroha/",
+      "status": "matched",
+      "retrieved_at": "2026-10-09T07:10:40.229718+00:00",
+      "field_matches": {
+        "official_team_id": true,
+        "official_team_url": true,
+        "team_name": true,
+        "challenge": true,
+        "seeking_members": true
+      },
+      "detail": {
+        "official_team_id": "aWQ6NjE1NDg=",
+        "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/timalroha/",
+        "team_name": "팀알로하",
+        "challenge": "Identify Earth Locations that Analog the Permanent Moon Base Locations and Mars",
+        "seeking_members": false,
+        "retrieved_at": "2026-10-09T07:10:40.229718+00:00",
+        "source_url": "https://www.spaceappschallenge.org/2026/find-a-team/timalroha/"
+      }
+    },
+    {
+      "official_team_id": "aWQ6NjQwMTQ=",
+      "source_url": "https://www.spaceappschallenge.org/2026/find-a-team/screaming-marshmallow/",
+      "status": "matched",
+      "retrieved_at": "2026-10-09T07:10:49.229419+00:00",
+      "field_matches": {
+        "official_team_id": true,
+        "official_team_url": true,
+        "team_name": true,
+        "challenge": true,
+        "seeking_members": true
+      },
+      "detail": {
+        "official_team_id": "aWQ6NjQwMTQ=",
+        "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/screaming-marshmallow/",
+        "team_name": "Screaming Marshmallow",
+        "challenge": "Harmonization of MODIS and VIIRS Hot Spots",
+        "seeking_members": false,
+        "retrieved_at": "2026-10-09T07:10:49.229419+00:00",
+        "source_url": "https://www.spaceappschallenge.org/2026/find-a-team/screaming-marshmallow/"
+      }
+    },
+    {
+      "official_team_id": "aWQ6NjAwMDM=",
+      "source_url": "https://www.spaceappschallenge.org/2026/find-a-team/go24/",
+      "status": "matched",
+      "retrieved_at": "2026-10-09T07:10:56.247871+00:00",
+      "field_matches": {
+        "official_team_id": true,
+        "official_team_url": true,
+        "team_name": true,
+        "challenge": true,
+        "seeking_members": true
+      },
+      "detail": {
+        "official_team_id": "aWQ6NjAwMDM=",
+        "official_team_url": "https://www.spaceappschallenge.org/2026/find-a-team/go24/",
+        "team_name": "🐱",
+        "challenge": "The Earth Information Jukebox",
+        "seeking_members": false,
+        "retrieved_at": "2026-10-09T07:10:56.247871+00:00",
+        "source_url": "https://www.spaceappschallenge.org/2026/find-a-team/go24/"
+      }
+    }
+  ],
+  "safety": {
+    "db_updated": false,
+    "deletion_inference_allowed": false,
+    "credentials_used": false,
+    "member_or_email_fields_requested": false,
+    "ai_api_used": false
+  },
+  "finished_at": "2026-10-09T07:10:56.313645+00:00",
+  "access_checks": [
+    {
+      "url": "https://www.spaceappschallenge.org/robots.txt",
+      "status": 200,
+      "fetched_at": "2026-10-09T07:09:44.042305+00:00",
+      "rules": "User-Agent: *\nAllow: /\nDisallow: /private/\nDisallow: /api/\n\nSitemap: https://spaceappschallenge.org/sitemap.xml\n"
+    },
+    {
+      "url": "https://api.spaceappschallenge.org/robots.txt",
+      "status": 404,
+      "fetched_at": "2026-10-09T07:09:58.375141+00:00"
+    }
+  ],
+  "request_log": [
+    {
+      "url": "https://www.spaceappschallenge.org/robots.txt",
+      "method": "GET",
+      "started_at": "2026-10-09T07:09:36.542378+00:00",
+      "status": 200,
+      "final_url": "https://www.spaceappschallenge.org/robots.txt",
+      "fetched_at": "2026-10-09T07:09:44.042305+00:00"
+    },
+    {
+      "url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams",
+      "method": "GET",
+      "started_at": "2026-10-09T07:09:44.044383+00:00",
+      "status": 200,
+      "final_url": "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams",
+      "fetched_at": "2026-10-09T07:09:51.698601+00:00"
+    },
+    {
+      "url": "https://api.spaceappschallenge.org/robots.txt",
+      "method": "GET",
+      "started_at": "2026-10-09T07:09:51.732897+00:00",
+      "status": 404,
+      "fetched_at": "2026-10-09T07:09:58.375141+00:00"
+    },
+    {
+      "url": "https://api.spaceappschallenge.org/graphql",
+      "method": "POST query (read only)",
+      "started_at": "2026-10-09T07:09:58.375329+00:00",
+      "status": 200,
+      "final_url": "https://api.spaceappschallenge.org/graphql",
+      "fetched_at": "2026-10-09T07:10:05.171819+00:00"
+    },
+    {
+      "url": "https://api.spaceappschallenge.org/graphql",
+      "method": "POST query (read only)",
+      "started_at": "2026-10-09T07:10:05.174465+00:00",
+      "status": 200,
+      "final_url": "https://api.spaceappschallenge.org/graphql",
+      "fetched_at": "2026-10-09T07:10:13.056385+00:00"
+    },
+    {
+      "url": "https://api.spaceappschallenge.org/graphql",
+      "method": "POST query (read only)",
+      "started_at": "2026-10-09T07:10:13.059495+00:00",
+      "status": 200,
+      "final_url": "https://api.spaceappschallenge.org/graphql",
+      "fetched_at": "2026-10-09T07:10:19.958730+00:00"
+    },
+    {
+      "url": "https://api.spaceappschallenge.org/graphql",
+      "method": "POST query (read only)",
+      "started_at": "2026-10-09T07:10:19.961514+00:00",
+      "status": 200,
+      "final_url": "https://api.spaceappschallenge.org/graphql",
+      "fetched_at": "2026-10-09T07:10:26.197932+00:00"
+    },
+    {
+      "url": "https://www.spaceappschallenge.org/2026/find-a-team/amalgo/",
+      "method": "GET",
+      "started_at": "2026-10-09T07:10:26.200455+00:00",
+      "status": 200,
+      "final_url": "https://www.spaceappschallenge.org/2026/find-a-team/amalgo/",
+      "fetched_at": "2026-10-09T07:10:33.221615+00:00"
+    },
+    {
+      "url": "https://www.spaceappschallenge.org/2026/find-a-team/timalroha/",
+      "method": "GET",
+      "started_at": "2026-10-09T07:10:33.238628+00:00",
+      "status": 200,
+      "final_url": "https://www.spaceappschallenge.org/2026/find-a-team/timalroha/",
+      "fetched_at": "2026-10-09T07:10:40.229718+00:00"
+    },
+    {
+      "url": "https://www.spaceappschallenge.org/2026/find-a-team/screaming-marshmallow/",
+      "method": "GET",
+      "started_at": "2026-10-09T07:10:40.289252+00:00",
+      "status": 200,
+      "final_url": "https://www.spaceappschallenge.org/2026/find-a-team/screaming-marshmallow/",
+      "fetched_at": "2026-10-09T07:10:49.229419+00:00"
+    },
+    {
+      "url": "https://www.spaceappschallenge.org/2026/find-a-team/go24/",
+      "method": "GET",
+      "started_at": "2026-10-09T07:10:49.232878+00:00",
+      "status": 200,
+      "final_url": "https://www.spaceappschallenge.org/2026/find-a-team/go24/",
+      "fetched_at": "2026-10-09T07:10:56.247871+00:00"
+    }
+  ]
+}

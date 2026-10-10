@@ -6,6 +6,7 @@ import matter from "gray-matter";
 
 const routes = [
   "index.html",
+  "my-space/index.html",
   "2025/index.html",
   "2025/ko/index/index.html",
   "2025/en/index/index.html",
@@ -35,6 +36,13 @@ for (const locale of ["ko", "en"]) {
 
 for (const route of routes) {
   assert.ok(fs.existsSync(path.join("out", route)), `Missing static route: ${route}`);
+}
+
+for (const filename of ["preview.js", "review-store.js", "review.html"]) {
+  assert.ok(
+    !fs.existsSync(path.join("out", "my-space", filename)),
+    `Review-only MY SPACE asset must not be exported: ${filename}`,
+  );
 }
 
 const bulletinDirectory = path.join("content", "cohorts", "2026", "bulletin");

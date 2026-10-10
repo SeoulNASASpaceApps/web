@@ -1,0 +1,17 @@
+{
+  "name": "space-apps-seoul-2026-hub",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "export:frontend": "node scripts/export-production.mjs",
+    "test": "node tests/status.test.cjs && node tests/static-check.cjs && node tests/match-static.test.cjs && node tests/auth-static.test.cjs && node --test tests/hub-policy.test.cjs",
+    "check": "node --check hub-policy.js && node --check match-catalog.js && node --check review-store.js && node --check status.js && node --check auth-config.js && node --check auth.js && node --check approval-flow.js && node --check match.js && node --check app.js && node --check workspace-ui.js && node --check preview.js && node --check interest-threads.js && node --check scripts/build.mjs && node --check scripts/export-production.mjs",
+    "test:roles": "npm run build && node tests/role-flow-dom.cjs",
+    "server": "node --env-file-if-exists=auth-backend/.env auth-backend/server.mjs",
+    "test:server": "node --test auth-backend/server.test.mjs auth-backend/data-tools.test.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "^30.1.2"
+  }
+}

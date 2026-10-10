@@ -19,7 +19,7 @@ export const CURRENT_COHORT: CohortYear = 2026;
 export const PUBLISHED_ENTRY_COHORT: CohortYear = 2026;
 
 export const mySpaceLink = {
-  url: "https://space-apps-seoul-2026-hub.family-1616.chatgpt.site",
+  url: "/my-space/",
   label: "MY SPACE",
 } as const;
 

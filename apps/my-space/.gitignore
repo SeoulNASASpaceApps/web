@@ -1,0 +1,17 @@
+.codex/
+node_modules/
+dist/
+test-artifacts/
+.DS_Store
+site-preview.png
+space-apps-seoul-2026-hub*.tar.gz
+upload/
+
+# Private local runtime data and credentials
+.env
+.env.*
+!.env.example
+auth-backend/private/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm

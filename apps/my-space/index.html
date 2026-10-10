@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="NASA Space Apps Seoul 2026 참가 등록, 팀 구성, Waitlist, FAQ와 공식 링크를 한곳에서 확인하는 운영 허브" />
+    <meta name="theme-color" content="#071a37" />
+    <title>NASA Space Apps Seoul 2026 · 참가 운영 허브</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="NASA Space Apps Seoul 2026 운영 허브 홈">
+        <span class="brand-mark" aria-hidden="true"><span>SEOUL</span><b>26</b></span>
+        <span class="brand-copy"><b>SPACE APPS SEOUL</b><small>PARTICIPANT HUB · 2026</small></span>
+      </a>
+      <nav aria-label="주요 메뉴">
+        <a href="#top">참가 여정</a>
+        <a href="#match">팀·팀원 찾기</a>
+        <a href="#my-space">MY SPACE</a>
+        <a href="#help">FAQ</a>
+      </nav>
+      <div class="header-actions">
+        <button class="header-start" type="button" data-open-login>로그인</button>
+        <a class="header-link" href="https://nasaspaceappskr.org/2026/ko/" target="_blank" rel="noreferrer" aria-label="서울 안내 페이지 (새 탭)">서울 안내 페이지 <span aria-hidden="true">↗</span></a>
+        <a class="header-link" href="https://www.spaceappschallenge.org/2026/local-events/seoul/" target="_blank" rel="noreferrer" aria-label="NASA SPACE APPS 공식 페이지 (새 탭)">NASA SPACE APPS 공식 페이지 <span aria-hidden="true">↗</span></a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero-section" id="top">
+        <div class="hero-copy">
+          <h1>나는 지금 어디까지 왔나요?</h1>
+          <p class="hero-status-description">확인된 서울 참가 기록을 따라, 지금 필요한 다음 행동만 안내해 드릴게요.</p>
+        </div>
+
+        <div class="status-card" id="status">
+          <div class="card-heading">
+            <div>
+              <h2 class="kicker">MY PARTICIPATION JOURNEY</h2>
+            </div>
+            <span class="verified-chip">로그인 전</span>
+          </div>
+
+          <div class="journey-progress" aria-label="참가 진행 단계" hidden>
+            <ol>
+              <li class="complete" data-journey-step="registration">
+                <span class="journey-node" aria-hidden="true">✓</span>
+                <b>참가 확인</b>
+                <small data-step-status>완료</small>
+              </li>
+              <li class="current" data-journey-step="profile">
+                <span class="journey-node" aria-hidden="true">2</span>
+                <b>프로필 확인</b>
+                <small data-step-status>현재 단계</small>
+              </li>
+              <li data-journey-step="team">
+                <span class="journey-node" aria-hidden="true">3</span>
+                <b>팀 구성</b>
+                <small data-step-status>다음</small>
+              </li>
+              <li data-journey-step="project">
+                <span class="journey-node" aria-hidden="true">4</span>
+                <b>프로젝트 참가</b>
+                <small data-step-status>11.14–15</small>
+              </li>
+              <li data-journey-step="finish">
+                <span class="journey-node" aria-hidden="true">5</span>
+                <b>제출·완주</b>
+                <small data-step-status>행사 종료 전</small>
+              </li>
+            </ol>
+          </div>
+
+          <div class="journey-action-row" aria-live="polite">
+            <div class="journey-current">
+              <span>CURRENT</span>
+              <h3 id="journey-current-title">프로필이 준비되어 있어요.</h3>
+              <p id="journey-current-body">서울 참가 완료 Survey에 작성한 희망 역할을 기준으로 준비했습니다. 지금과 달라졌다면 편하게 업데이트해 주세요.</p>
+            </div>
+            <div class="journey-next">
+              <span>NEXT ACTION</span>
+              <a id="journey-next-action" href="#match">내 프로필 <b aria-hidden="true">→</b></a>
+              <small id="journey-next-note">Random ID는 자동 배정 · 캐릭터는 선택</small>
+            </div>
+          </div>
+
+          <details class="verified-checklist">
+            <summary><span>확인된 참가 정보</span><small>간단 체크리스트 보기</small></summary>
+            <ul>
+              <li><span>NASA 2026 참가 등록</span><b class="check-mark" aria-label="확인 완료">✓</b></li>
+              <li><span>Local Event ‘Seoul’ 선택</span><b class="check-mark" aria-label="확인 완료">✓</b></li>
+              <li><span>서울 참가 확인 Form</span><b class="check-mark" aria-label="확인 완료">✓</b></li>
+            </ul>
+            <p>표시된 내용이 실제 상태와 다르면 NASA 등록 이메일과 함께 서울 운영팀에 알려주세요.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="match-section" id="match">
+        <div class="match-heading">
+          <div>
+            <span class="kicker">TEAM MATCH</span>
+            <h2>필요한 역할을 찾고,<br />관심 있는 팀에 연결됩니다.</h2>
+          </div>
+          <p class="match-intro">NASA 공식 팀 정보와 별도로, <strong>모집 중인 팀</strong>을 모았습니다.<br />로그인 후 운영팀이 확인한 참가 기록과 내 프로필이 연결됩니다.</p>
+        </div>
+
+        <div class="match-shell finder-shell">
+          <div class="match-workspace">
+            <section class="match-panel" data-match-panel="dashboard" aria-labelledby="dashboard-title">
+              <div class="team-discovery">
+                <div class="team-discovery-top">
+                  <div>
+                    <span class="kicker">5 SEOUL TOPICS</span>
+                    <h3 id="dashboard-title">주제 확인하기</h3>
+                    <p>5개 그룹은 Challenge를 쉽게 탐색하기 위한 서울 운영진의 참고 분류입니다.</p>
+                  </div>
+                  <div class="seeking-cta-wrap">
+                    <small>NASA Seoul Teams 기준 · <span id="teams-sync-time">업데이트 확인 중</span><br />고정 자료 · 자동 갱신 준비 중</small>
+                  </div>
+                </div>
+                <div class="group-bubbles" id="team-group-bubbles" aria-label="Challenge 주제별 팀 찾기"></div>
+              </div>
+
+              <div class="team-list-heading" id="team-list-title">
+                <span class="kicker">TEAM DISCOVERY</span>
+              </div>
+              <div class="directory-switch" role="group" aria-label="팀 또는 대원 찾기">
+                <button class="active" type="button" data-directory-view="teams" aria-pressed="true" aria-controls="team-directory">현재 팀원을 찾는 팀</button>
+                <button type="button" data-directory-view="participants" aria-pressed="false" aria-controls="participant-directory">현재 팀을 찾는 대원</button>
+              </div>
+              <div id="team-directory">
+                <p class="team-filter-summary" id="team-filter-summary" role="status" aria-live="polite"></p>
+                <div class="team-filters">
+                  <label><span>희망 역할</span><select id="role-filter"><option value="all">전체 역할</option></select></label>
+                  <label><span>관심 Challenge</span><select id="challenge-filter"><option value="all">전체 Challenge</option></select></label>
+                  <button type="button" id="match-profile-shortcut">내 관심사와 맞는 팀만</button>
+                </div>
+                <div class="team-grid" id="team-grid"></div>
+                <p class="match-empty" id="team-empty" hidden>조건에 맞는 모집 팀이 없습니다.</p>
+              </div>
+              <div class="participant-directory" id="participant-directory" hidden>
+                <div class="participant-login-gate" id="participant-login-gate">
+                  <h3>로그인 후 대원 정보를 볼 수 있습니다.</h3>
+                  <p>로그인하고 같은 주제에 관심 있는 대원을 찾아보세요.</p>
+                  <button type="button" class="header-start" data-open-login>로그인</button>
+                </div>
+                <div id="participant-directory-content" hidden>
+                <p class="team-filter-summary" id="participant-filter-summary" role="status" aria-live="polite"></p>
+                <div class="participant-directory-note"><b>팀을 찾는 대원</b><span>대원 정보는 화면 검토용 예시입니다. Team Owner와 대원은 상대방이 각각 동의한 범위에서 이메일로 연락할 수 있습니다.</span></div>
+                <div class="participant-card-grid">
+                  <article class="participant-card" data-email-opt-in="true" data-peer-email-opt-in="true" data-challenge-ids="earth-trend">
+                    <div><span class="participant-avatar">🌍</span><span><small>SEEKING TEAM</small><b>ORBIT-4N8Q</b></span></div>
+                    <p>Earth Observation 데이터를 이해하기 쉬운 서비스로 만드는 데 관심이 있습니다.</p>
+                    <dl><div><dt>현재 역할</dt><dd>Data · AI · Science · Research</dd></div><div><dt>희망 역할</dt><dd>Product · Planning</dd></div><div><dt>관심 Challenge</dt><dd>Earth System Trend Detective</dd></div></dl>
+                    <div class="participant-actions"><button class="interest-action" type="button" data-interest-participant="ORBIT-4N8Q">관심 보내기</button><button class="email-action" type="button" data-contact-participant="ORBIT-4N8Q">이메일 보내기</button></div>
+                  </article>
+                  <article class="participant-card" data-email-opt-in="true" data-peer-email-opt-in="true" data-challenge-ids="clps-browser">
+                    <div><span class="participant-avatar">🛰️</span><span><small>SEEKING TEAM</small><b>ORBIT-2F7M</b></span></div>
+                    <p>복잡한 미션 데이터를 명확한 화면과 스토리로 정리할 수 있습니다.</p>
+                    <dl><div><dt>현재 역할</dt><dd>UX · Visual Design</dd></div><div><dt>희망 역할</dt><dd>Storytelling · Presentation</dd></div><div><dt>관심 Challenge</dt><dd>CLPS Lunar Mission Browser</dd></div></dl>
+                    <div class="participant-actions"><button class="interest-action" type="button" data-interest-participant="ORBIT-2F7M">관심 보내기</button><button class="email-action" type="button" data-contact-participant="ORBIT-2F7M">이메일 보내기</button></div>
+                  </article>
+                  <article class="participant-card" data-email-opt-in="true" data-peer-email-opt-in="true" data-challenge-ids="astronaut-health">
+                    <div><span class="participant-avatar">🤖</span><span><small>SEEKING TEAM</small><b>ORBIT-8K3R</b></span></div>
+                    <p>빠르게 동작하는 프로토타입을 만들고 팀의 아이디어를 실제 기능으로 연결합니다.</p>
+                    <dl><div><dt>현재 역할</dt><dd>Software Development · Data · AI</dd></div><div><dt>희망 역할</dt><dd>Software Development</dd></div><div><dt>관심 Challenge</dt><dd>Astronaut Health Monitoring</dd></div></dl>
+                    <div class="participant-actions"><button class="interest-action" type="button" data-interest-participant="ORBIT-8K3R">관심 보내기</button><button class="email-action" type="button" data-contact-participant="ORBIT-8K3R">이메일 보내기</button></div>
+                  </article>
+                </div>
+                <p class="match-empty" id="participant-empty" hidden>선택한 주제에 관심 있는 대원이 없습니다.</p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="my-space-review" id="my-space">
+        <div class="section-heading my-space-heading">
+          <div><h2>MY SPACE</h2></div>
+        </div>
+
+        <div class="my-space-login-gate participant-login-gate" id="my-space-login-gate">
+          <h3 id="my-space-gate-title">로그인 후 MY SPACE를 이용할 수 있습니다.</h3>
+          <p id="my-space-gate-copy">내 참가 상태와 프로필을 확인하고, 함께할 팀을 찾아보세요.</p>
+          <button class="header-start" type="button" data-open-login>로그인</button>
+        </div>
+        <div class="case-stack" id="my-space-content" hidden>
+          <article class="case-shell participant-case">
+            <aside class="case-sidebar" aria-label="일반 참가자 MY SPACE 메뉴">
+              <div class="session-card">
+                <span class="session-label" id="profile-session-role">APPROVED PARTICIPANT</span>
+                <div class="session-identity"><span class="session-avatar" id="session-avatar" hidden aria-hidden="true"></span><strong id="session-id">ORBIT-7K2M</strong></div>
+                <small id="profile-session-status">서울 참가 확인 완료</small>
+                <button type="button" data-signout>로그아웃</button>
+              </div>
+              <div class="case-menu">
+                <a class="active" href="#profile"><span>01</span>내 프로필</a>
+                <a href="#owner-title" data-owner-navigation hidden><span>02</span>내 팀 관리</a>
+                <a href="#owner-inbox" data-owner-navigation hidden><span>03</span>받은 관심</a>
+                <a href="#received-contact-log" data-participant-navigation><span>02</span>받은 관심 | 보낸 관심</a>
+                <a href="#sent-contact-log" data-sent-navigation data-owner-navigation hidden><span>04</span>보낸 관심</a>
+              </div>
+            </aside>
+            <div class="case-workspace">
+            <section class="match-panel" id="profile" data-match-panel="profile" aria-labelledby="profile-title">
+              <div id="profile-editor">
+              <div class="workspace-heading">
+                <div><span class="kicker">MY PROFILE</span><h3 id="profile-title">내 프로필 <span class="profile-owner-badge" id="profile-owner-badge" hidden>Team Owner</span></h3></div>
+                <span class="save-state" id="profile-save-state">서울 참가 확인 기준</span>
+              </div>
+              <form id="profile-form">
+                <div class="profile-welcome" role="note">
+                  <span class="profile-welcome-avatar" id="profile-avatar-preview" aria-hidden="true">ID</span>
+                  <div>
+                    <b>프로필을 미리 준비해 두었어요.</b>
+                    <p>서울 참가 확인 시 작성한 역할을 기준으로 준비했습니다. 지금 마음과 다르다면 아래에서 편하게 업데이트해 주세요!</p>
+                    <small>Random ID는 자동 배정됩니다. 나를 나타내는 캐릭터를 넣고 싶다면 자유롭게 선택해도 좋아요.</small>
+                  </div>
+                </div>
+
+                <div class="profile-id-row">
+                  <label for="random-id-input"><span>Random ID</span><input id="random-id-input" maxlength="14" autocomplete="off" /></label>
+                  <button type="button" id="regenerate-id">새 ID 추천</button>
+                  <small>실제 운영 시 중복 확인 후 1회 변경 가능</small>
+                </div>
+
+                <div class="profile-block character-block">
+                  <div class="field-heading"><div><b>내 캐릭터</b><span>선택 사항 · 없어도 괜찮아요</span></div></div>
+                  <div class="avatar-picker" id="avatar-picker" aria-label="내 캐릭터 선택">
+                    <button type="button" data-avatar="" aria-label="캐릭터 사용 안 함">없음</button>
+                    <button type="button" data-avatar="🛰️" aria-label="인공위성">🛰️</button>
+                    <button type="button" data-avatar="🌍" aria-label="지구">🌍</button>
+                    <button type="button" data-avatar="🌙" aria-label="달">🌙</button>
+                    <button type="button" data-avatar="🚀" aria-label="로켓">🚀</button>
+                    <button type="button" data-avatar="🪐" aria-label="행성">🪐</button>
+                    <button type="button" data-avatar="🤖" aria-label="로봇">🤖</button>
+                  </div>
+                </div>
+
+                <div class="profile-block">
+                  <div class="field-heading"><div><b>현재 내가 할 수 있는 역할</b><span>최대 3개</span></div><small id="current-role-count">0 / 3</small></div>
+                  <div class="role-picker" id="current-role-picker" data-max="3"></div>
+                </div>
+
+                <div class="profile-block">
+                  <div class="field-heading"><div><b>이번 해커톤에서 맡고 싶은 역할</b><span>최대 3개</span></div><small id="desired-role-count">0 / 3</small></div>
+                  <div class="role-picker" id="desired-role-picker" data-max="3"></div>
+                </div>
+
+                <div class="profile-block">
+                  <label class="copy-field" for="profile-copy"><span><b>자기 홍보 한 줄</b><small><b id="copy-count">0</b> / 160</small></span><textarea id="profile-copy" maxlength="160" rows="3" placeholder="예: 환경 데이터를 이해하기 쉬운 인터랙티브 서비스로 만드는 데 관심이 있습니다."></textarea></label>
+                </div>
+
+                <div class="profile-block challenge-profile-block">
+                  <div class="field-heading"><div><b>관심 Challenge</b><span>최대 3개 · Seoul 운영진의 5개 참고 분류</span></div><small id="challenge-count">0 / 3</small></div>
+                  <div class="challenge-groups" id="challenge-groups"></div>
+                </div>
+
+                <div class="profile-block"><div class="profile-status-summary"><div class="profile-status-side"><fieldset class="seeking-status-options"><legend>팀 찾기 상태</legend><div class="seeking-status-choices"><label><input type="radio" name="profile-seeking-choice" value="seeking" checked /><span>팀 찾는 중</span></label><label><input type="radio" name="profile-seeking-choice" value="paused" /><span>잠시 쉬는 중</span></label><label><input type="radio" name="profile-seeking-choice" value="completed" /><span>팀 찾기 완료</span></label></div></fieldset><input type="hidden" id="profile-seeking-status" value="seeking" /><small id="profile-seeking-note">팀 찾는 중일 때만 대원 목록에 표시됩니다. 숨겨도 기존 대화는 유지됩니다.</small></div><section class="profile-challenge-summary" aria-labelledby="profile-challenge-summary-title"><b id="profile-challenge-summary-title">선택한 관심 Challenge</b><div id="selected-challenge-summary" aria-live="polite"></div></section></div></div>
+                <div class="email-preferences">
+                <label class="email-preference">
+                  <input id="profile-email-opt-in" type="checkbox" checked />
+                  <span><b>Team Owner에게 이메일 받기</b><small>Team Owner에게서 이메일을 받고 싶으면 선택해 주세요.</small></span>
+                </label>
+
+                <label class="email-preference">
+                  <input id="profile-peer-email-opt-in" type="checkbox" />
+                  <span><b>팀을 찾는 대원에게 이메일 받기</b><small>대원끼리 연락해 새 팀을 만들고 싶으면 선택해 주세요.</small></span>
+                </label>
+                </div>
+                <button class="workspace-primary" type="submit">프로필 저장</button>
+              </form>
+
+              </div>
+              <div class="interest-log-columns" id="interest-logs">
+              <section class="contact-log" id="received-contact-log" data-participant-navigation aria-labelledby="received-contact-title">
+                <div class="workspace-heading compact-heading">
+                  <div><span class="kicker">RECEIVED INTEREST</span><h3 id="received-contact-title">받은 관심</h3></div>
+                  <span class="save-state">1건</span>
+                </div>
+                <p>시작자 3회·답변자 2회까지 가능. 이메일 수신에 동의한 참가자에게만 이메일 연락 가능. 마지막 메시지 후 5일간 답변이 없으면 대화가 자동 종료됩니다.</p>
+                <div class="contact-log-list">
+                  <article><div><b>Lunar Window Lab</b><span class="log-status sent">받음</span></div><p>데이터 시각화 역할로 함께하고 싶어요. 관심 있으신가요?</p><small>오늘 · 13:10 · 검토용 예시</small></article>
+                </div>
+              </section>
+              <section class="contact-log" id="sent-contact-log" aria-labelledby="sent-contact-title">
+                <div class="workspace-heading compact-heading">
+                  <div><span class="kicker">CONTACT LOG</span><h3 id="sent-contact-title">보낸 관심</h3></div>
+                  <span class="save-state">2건</span>
+                </div>
+                <p>시작자 3회·답변자 2회까지 가능. 이메일 수신에 동의한 참가자에게만 이메일 연락 가능. 마지막 메시지 후 5일간 답변이 없으면 대화가 자동 종료됩니다.</p>
+                <div class="contact-log-list">
+                  <article><div><b>Lunar Window Lab</b><span class="log-status sent">전송됨</span></div><p>데이터 시각화와 UX 설계 역할로 함께하고 싶습니다.</p><small>오늘 · 14:20</small></article>
+                  <article><div><b>Earth Pulse</b><span class="log-status pending">확인 대기</span></div><p>Earth Observation 데이터 분석 경험을 소개했습니다.</p><small>10월 5일 · 19:42</small></article>
+                </div>
+              </section>
+              </div>
+            </section>
+            </div>
+          </article>
+
+          <article class="case-shell owner-case" hidden>
+            <aside class="case-sidebar" aria-label="Team Owner MY SPACE 메뉴">
+              <div class="session-card owner-session-card">
+                <span class="session-label">APPROVED TEAM OWNER</span>
+                <div class="session-identity"><strong>ORBIT-7K2M</strong></div>
+                <small>서울 참가 확인 · Team Owner</small>
+                <button type="button" data-signout>로그아웃</button>
+              </div>
+              <div class="case-menu">
+                <a href="#profile"><span>01</span>내 프로필</a>
+                <a class="active" href="#owner-title"><span>02</span>내 팀 관리</a>
+                <a href="#owner-inbox"><span>03</span>받은 관심</a>
+                <a href="#sent-contact-log" data-sent-navigation><span>04</span>보낸 관심</a>
+              </div>
+            </aside>
+            <div class="case-workspace">
+            <section class="match-panel" data-match-panel="owner" aria-labelledby="owner-title">
+              <div class="workspace-heading">
+                <div><span class="kicker">TEAM OWNER DESK</span><h3 id="owner-title">팀원 모집 관리</h3></div>
+                <span class="owner-status" id="owner-status">모집글 없음</span>
+              </div>
+              <div class="owner-layout">
+                <form id="owner-form">
+                  <label><span>NASA 공식 팀 URL</span><input id="owner-team-url" type="url" placeholder="https://www.spaceappschallenge.org/2026/teams/..." /></label>
+                  <div class="owner-two-column">
+                    <label><span>팀명 · NASA Space Apps 연동</span><input id="owner-team-name" readonly placeholder="공식 팀 정보 연결 후 표시됩니다" /></label>
+                    <label><span>Challenge · NASA Space Apps 연동</span><select id="owner-challenge" disabled><option value="">공식 팀 정보 연결 후 표시됩니다</option></select></label>
+                  </div>
+                  <div class="owner-two-column">
+                    <label><span>현재 팀원 수</span><input id="owner-members" type="number" min="1" max="6" value="2" /></label>
+                    <label><span>추가 모집 인원</span><input id="owner-openings" type="number" min="0" max="5" value="2" /></label>
+                  </div>
+                  <div class="owner-fieldset">
+                    <span>찾는 역할 · 최대 5개</span>
+                    <div class="role-picker" id="owner-role-picker" data-max="5"></div>
+                  </div>
+                  <label><span>팀 광고 문구</span><textarea id="owner-copy" maxlength="240" rows="4" placeholder="문제 정의, 현재 팀 구성, 함께하고 싶은 사람을 알려주세요."></textarea></label>
+                  <fieldset class="seeking-status-options"><legend>허브 팀원 모집 상태</legend><div class="seeking-status-choices"><label><input type="radio" name="owner-recruitment-choice" value="seeking" checked /><span>모집 중</span></label><label><input type="radio" name="owner-recruitment-choice" value="paused" /><span>잠시 쉬는 중</span></label><label><input type="radio" name="owner-recruitment-choice" value="completed" /><span>모집 완료</span></label></div></fieldset><input id="owner-seeking" type="checkbox" checked hidden /><small>모집 중일 때만 허브 팀 목록에 표시됩니다. 숨겨도 기존 대화와 기록은 유지됩니다. NASA 공식 팀 상태는 변경되지 않습니다.</small>
+                  <div class="owner-policy"><b>모집 상태 확인</b><span>모집 상태를 주기적으로 확인해주세요. 잠시 쉬거나 모집을 마치면 상태를 변경해주세요.</span></div>
+                  <button class="workspace-primary" type="submit">모집글 상태 확인</button>
+                </form>
+
+                <aside class="request-inbox" id="owner-inbox">
+                  <div><span class="kicker">CONTACTED MEMBERS</span><strong>우리 팀이 받은 관심 <b id="request-count">0</b>건</strong></div>
+                  <div id="request-list" class="request-list"></div>
+                  <p>시작자 3회·답변자 2회까지 가능. 이메일 수신에 동의한 참가자에게만 이메일 연락 가능. 마지막 메시지 후 5일간 답변이 없으면 대화가 자동 종료됩니다.</p>
+                  <a class="request-directory-link" href="#match" data-open-participant-directory>팀을 찾는 대원 보기</a>
+                </aside>
+              </div>
+            </section>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="journey-section" id="journey">
+        <div class="section-heading">
+          <div>
+            <span class="kicker">PARTICIPANT JOURNEY</span>
+            <h2>서울 참가까지, 이 순서입니다.</h2>
+          </div>
+          <p>각 단계의 주체를 표시했습니다. <b class="owner-tag official">NASA 공식</b>과 <b class="owner-tag seoul">서울 운영</b>을 구분해서 확인하세요.</p>
+        </div>
+
+        <ol class="journey-grid">
+          <li>
+            <span class="step-no">01</span><b class="owner-tag official">NASA 공식</b>
+            <h3>계정·대회 등록</h3>
+            <p>2026 대회에 등록하고 Local Event에서 Seoul을 선택합니다.</p>
+            <a href="https://www.spaceappschallenge.org/2026/local-events/seoul/" target="_blank" rel="noreferrer">공식 Seoul 페이지 ↗</a>
+          </li>
+          <li>
+            <span class="step-no">02</span><b class="owner-tag seoul">서울 운영</b>
+            <h3>서울 참가 확인</h3>
+            <p>등록 후 화·목 순차 발송되는 이메일에서 Google Form 또는 Naver Form 중 하나만 제출합니다.</p>
+            <a href="https://nasaspaceappskr.org/2026/ko/" target="_blank" rel="noreferrer">서울 안내 페이지 ↗</a>
+          </li>
+          <li>
+            <span class="step-no">03</span><b class="owner-tag seoul">서울 운영</b>
+            <h3>팀 구성 확인</h3>
+            <p>팀을 만들거나 합류합니다. 공식 기준은 1–6명, 서울은 다학제 2–6명을 권장합니다.</p>
+            <a href="https://www.spaceappschallenge.org/resources/team-formation-guide/" target="_blank" rel="noreferrer">Team Formation Guide ↗</a>
+          </li>
+          <li>
+            <span class="step-no">04</span><b class="owner-tag official">NASA 공식</b>
+            <h3>Challenge 선택</h3>
+            <p>공개된 14개 Challenge를 살펴보고 팀의 관심과 강점에 맞는 문제를 고릅니다.</p>
+            <a href="https://www.spaceappschallenge.org/2026/challenges/" target="_blank" rel="noreferrer">Challenge 보기 ↗</a>
+          </li>
+          <li>
+            <span class="step-no">05</span><b class="owner-tag seoul">서울 운영</b>
+            <h3>해커톤 참가</h3>
+            <p>11월 14–15일, 서울 운영 공지와 공식 일정에 맞춰 프로젝트를 완성합니다.</p>
+            <a href="#help">행사 FAQ 보기 ↓</a>
+          </li>
+          <li>
+            <span class="step-no">06</span><b class="owner-tag official">NASA 공식</b>
+            <h3>프로젝트 제출</h3>
+            <p>NASA 공식 시스템의 팀 페이지에서 마감 전 프로젝트를 제출합니다.</p>
+            <a href="https://www.spaceappschallenge.org/2026/" target="_blank" rel="noreferrer">공식 일정 확인 ↗</a>
+          </li>
+        </ol>
+
+      </section>
+
+      <section class="help-section" id="help">
+        <div class="section-heading help-heading">
+          <div>
+            <span class="kicker">FAQ &amp; OFFICIAL LINKS</span>
+            <h2>필요한 답으로 바로 이동하세요.</h2>
+          </div>
+        </div>
+
+        <div class="participant-view">
+          <div class="faq-tools">
+            <label class="faq-search">
+              <span class="search-icon" aria-hidden="true">⌕</span>
+              <span class="sr-only">FAQ 검색</span>
+              <input id="faq-search" type="search" placeholder="예: Waitlist, 팀, 미성년자" autocomplete="off" />
+            </label>
+            <div class="filter-row" aria-label="FAQ 주제 필터">
+              <button class="active" type="button" data-filter="all">전체</button>
+              <button type="button" data-filter="registration">등록</button>
+              <button type="button" data-filter="team">팀 구성</button>
+              <button type="button" data-filter="waitlist">Waitlist</button>
+              <button type="button" data-filter="event">행사·제출</button>
+              <button type="button" data-filter="rules">규정</button>
+            </div>
+          </div>
+
+          <div class="faq-layout">
+            <div class="faq-list" id="faq-list">
+              <details data-category="registration" open>
+                <summary>NASA 공식 등록만 하면 서울 참가 등록이 끝난 건가요?<span></span></summary>
+                <p>아닙니다. NASA 공식 사이트에서 2026 대회와 Seoul Local Event를 선택한 뒤, 서울 운영팀의 참가 확인 Form까지 제출해야 <strong>‘서울 참가 확인 완료’</strong> 상태가 됩니다. 서울 Form은 NASA 공식 등록을 대체하지 않습니다.</p>
+              </details>
+              <details data-category="registration">
+                <summary>서울 참가 확인 이메일을 받지 못했어요.<span></span></summary>
+                <p>메일은 화·목에 순차 발송됩니다. NASA 공식 계정에서 Seoul 선택 여부와 스팸함을 먼저 확인하세요. 다음 발송일이 지나도 오지 않으면 등록에 사용한 이메일과 함께 서울 운영팀에 문의해 주세요.</p>
+              </details>
+              <details data-category="registration waitlist">
+                <summary>Early Registration이 끝나면 NASA 등록도 끝나나요?<span></span></summary>
+                <p>아닙니다. 9월 30일은 서울의 사전 준비·우선순위 운영을 위한 기준일입니다. NASA 공식 등록 가능 기간과는 별개이며, 늦게 등록하면 서울의 일부 프로그램·혜택 또는 팀 매칭은 여건에 따라 달라질 수 있습니다.</p>
+              </details>
+              <details data-category="waitlist">
+                <summary>Waitlist면 참가할 수 없다는 뜻인가요?<span></span></summary>
+                <p>탈락을 뜻하지 않습니다. 서울 운영상 팀 구성과 제한된 프로그램 좌석·혜택의 확인이 더 필요한 상태입니다. NASA 공식 등록은 유지되며, 최신 이메일에 따라 팀 정보와 참가 의사를 업데이트해 주세요.</p>
+              </details>
+              <details data-category="team">
+                <summary>팀은 몇 명이어야 하나요?<span></span></summary>
+                <p>NASA 공식 기준은 1–6명입니다. 서울은 협업 경험과 역할 구성을 위해 2–6명의 다학제 팀을 권장합니다. 6명을 초과할 수 없습니다.</p>
+              </details>
+              <details data-category="team">
+                <summary>개인으로 먼저 등록해도 되나요?<span></span></summary>
+                <p>가능합니다. 다만 Early Registration 이후에도 팀 구성이 확인되지 않으면 Waitlist로 관리될 수 있으므로, 팀원 탐색과 운영팀의 팀 구성 안내에 참여해 주세요.</p>
+              </details>
+              <details data-category="team">
+                <summary>개발자가 아니어도 참가할 수 있나요?<span></span></summary>
+                <p>가능합니다. 개발·AI·데이터뿐 아니라 과학, 디자인, 기획, 비즈니스, 스토리텔링 등 서로 다른 강점을 연결하는 팀이 좋습니다. 실제 구현 역량을 갖춘 팀원이 함께하면 프로젝트 완성에 도움이 됩니다.</p>
+              </details>
+              <details data-category="rules">
+                <summary>미성년자도 참가할 수 있나요?<span></span></summary>
+                <p>가능하지만 보호자 등록·동의와 서울 운영팀의 별도 절차를 따라야 합니다. 온라인 참여 방식, 얼굴·음성 노출 등은 해당 연도 최신 보호자 안내를 반드시 확인해 주세요.</p>
+              </details>
+              <details data-category="rules">
+                <summary>외국 국적 학생도 Seoul에 참가할 수 있나요?<span></span></summary>
+                <p>한국에서 Seoul Local Event에 참여할 수 있고 공식 등록 요건을 충족한다면 국적만으로 제한하지 않습니다. 미성년자는 국적과 별개로 보호자 절차가 적용됩니다.</p>
+              </details>
+              <details data-category="event">
+                <summary>프로젝트는 어디에 제출하나요?<span></span></summary>
+                <p>NASA Space Apps 공식 사이트의 팀 페이지에서 제출합니다. 서울 운영팀에 별도로 파일만 보내는 것은 공식 제출이 아닙니다. 마감 시각과 필수 항목은 2026 공식 Project Submission Guide를 확인하세요.</p>
+              </details>
+              <details data-category="event rules">
+                <summary>서울 심사와 Global Nominee 추천은 어떻게 진행되나요?<span></span></summary>
+                <p>전문 심사위원이 NASA 공식 Judging Criteria에 따라 평가합니다. 운영팀은 심사 점수를 임의로 바꾸지 않습니다. 추천은 심사 결과를 기준으로 하되, 실격 또는 자격 위반이 확인되면 차순위 프로젝트가 추천될 수 있습니다.</p>
+              </details>
+              <details data-category="rules">
+                <summary>공식 규정과 서울 안내가 다르면 무엇을 따라야 하나요?<span></span></summary>
+                <p>최신 NASA 공식 규정이 우선합니다. 서울 운영 안내는 공식 규정 안에서 지역 일정·팀 구성·참가자 커뮤니케이션을 구체화한 것입니다. 충돌이 의심되면 임의로 판단하지 말고 운영팀에 알려 주세요.</p>
+              </details>
+              <p class="empty-state" id="faq-empty" hidden>검색 결과가 없습니다. 다른 단어로 찾아보세요.</p>
+            </div>
+
+            <aside class="official-links" aria-label="공식 링크">
+              <span class="kicker">VERIFIED LINKS</span>
+              <h3>공식 링크</h3>
+              <a href="https://www.spaceappschallenge.org/2026/local-events/seoul/" target="_blank" rel="noreferrer"><span><small>NASA OFFICIAL</small>Seoul Local Event</span><b>↗</b></a>
+              <a href="https://www.spaceappschallenge.org/2026/challenges/" target="_blank" rel="noreferrer"><span><small>NASA OFFICIAL</small>2026 Challenges</span><b>↗</b></a>
+              <a href="https://www.spaceappschallenge.org/resources/team-formation-guide/" target="_blank" rel="noreferrer"><span><small>NASA OFFICIAL</small>Team Formation Guide</span><b>↗</b></a>
+              <a href="https://www.spaceappschallenge.org/resources/participant-faqs/" target="_blank" rel="noreferrer"><span><small>NASA OFFICIAL</small>Participant FAQs</span><b>↗</b></a>
+              <a href="https://nasaspaceappskr.org/2026/ko/" target="_blank" rel="noreferrer"><span><small>SEOUL LOCAL</small>서울 공식 안내 사이트</span><b>↗</b></a>
+              <p>마지막 링크 점검: <time datetime="2026-09-21">2026. 09. 21</time></p>
+            </aside>
+          </div>
+        </div>
+
+      </section>
+    </main>
+
+    <dialog class="hub-dialog" id="owner-preview-dialog" aria-labelledby="owner-preview-title">
+      <div class="dialog-card">
+        <button class="dialog-close" type="button" id="owner-preview-close" aria-label="미리보기 닫기">×</button>
+        <span class="kicker">TEAM PREVIEW</span>
+        <h2 id="owner-preview-title">상대방에게 보이는 모집글</h2>
+        <p id="owner-preview-status"></p>
+        <article class="team-card" id="owner-preview-card"></article>
+        <small>미리보기의 연락 버튼은 작동하지 않습니다.</small>
+        <button class="workspace-primary" type="button" id="owner-preview-save">모집글 저장</button>
+      </div>
+    </dialog>
+
+    <footer>
+      <div><b>NASA Space Apps Seoul 2026</b><span>Participant Operations Hub</span></div>
+      <p>이 사이트는 Seoul Local Event 참가 안내 허브입니다. NASA를 대신하지 않으며, 공식 규정은 NASA Space Apps 공식 사이트에서 확인해야 합니다.</p>
+      <a href="mailto:seoul@nasaspaceappskr.org">seoul@nasaspaceappskr.org</a>
+    </footer>
+
+    <dialog class="hub-dialog" id="login-dialog">
+      <form method="dialog" class="dialog-card login-card">
+        <button class="dialog-close" value="cancel" aria-label="닫기">×</button>
+        <span class="kicker">SOCIAL LOGIN</span>
+        <h2>로그인</h2>
+        <p class="login-intro">사용하실 계정으로 로그인하세요.</p>
+        <div class="mock-auth-actions auth-provider-actions">
+          <button class="provider-google" type="button" data-auth-provider="google"><span class="provider-icon google-icon" aria-hidden="true">G</span>Google로 계속하기</button>
+          <button class="provider-naver" type="button" data-auth-provider="naver"><span class="provider-icon naver-icon" aria-hidden="true">N</span>Naver로 계속하기</button>
+        </div>
+        <p class="auth-security-note">서울 참가 확인이 완료된 분들을 위한 서비스입니다.</p>
+        <section id="approval-request-panel" hidden><b>서울 참가 기록 확인이 필요합니다.</b><p id="approval-stage-copy">NASA 등록 이메일로 인증 링크를 받으세요. 인증 후 운영팀이 참가 기록을 확인합니다.</p><label>NASA 등록 이메일<input type="email" id="approval-nasa-email" autocomplete="email" /></label><button type="button" id="approval-request-submit" class="interest-action">인증 메일 요청</button><button type="button" id="approval-resend" class="interest-action" hidden>인증 메일 다시 요청</button><button type="button" id="approval-refresh" class="interest-action" hidden>상태 새로고침</button><p id="approval-request-state" role="status"></p><a href="https://www.spaceappschallenge.org/2026/local-events/seoul/" target="_blank" rel="noreferrer">NASA Space Apps 등록</a> · <a href="https://nasaspaceappskr.org/" target="_blank" rel="noreferrer">서울 참가 확인 안내</a></section><div class="auth-connection-state" id="auth-connection-state" role="status" aria-live="polite" hidden></div>
+        <small id="auth-availability-note">인증 서버 연결을 준비하고 있습니다.</small>
+      </form>
+    </dialog>
+
+    <dialog class="hub-dialog" id="interest-dialog">
+      <form class="dialog-card" id="interest-form">
+        <button class="dialog-close" type="button" data-close-interest aria-label="닫기">×</button>
+        <span class="kicker">SEND INTEREST</span>
+        <h2 id="interest-team-name">팀에 관심 보내기</h2>
+        <p>현재 역할·희망 역할·관심 Challenge와 아래 메시지가 상대방에게 전달됩니다.</p>
+        <label for="interest-message"><span class="interest-field-label">간단한 관심 메시지 · 최대 50자 <small id="interest-message-count" aria-live="polite">0 / 50</small></span><textarea id="interest-message" maxlength="50" rows="3" required placeholder="예: 데이터 분석 가능합니다. 달 탐사 팀에 합류하고 싶어요."></textarea></label>
+        <button class="workspace-primary interest-action" type="submit">관심 보내기</button>
+        <small>보낸 관심과 상대방의 받은 관심에 기록됩니다. 행사 기간 동안 같은 상대와 최대 3개 대화를 시작할 수 있습니다.</small>
+      </form>
+    </dialog>
+
+    <dialog class="hub-dialog" id="email-dialog">
+      <form class="dialog-card contact-participant-form" id="participant-contact-form">
+        <button class="dialog-close" type="button" data-close-participant-contact aria-label="닫기">×</button>
+        <span class="kicker">EMAIL RELAY</span>
+        <h2 id="contact-participant-title">대원에게 이메일 보내기</h2>
+        <p>수신에 동의한 상대에게 보냅니다. 상대가 내 이메일로 직접 답장하며, 이후 대화는 허브 밖에서 이어집니다.</p>
+        <label for="participant-contact-message"><span>보낼 메시지</span><textarea id="participant-contact-message" maxlength="300" rows="5" required placeholder="우리 팀과 Challenge를 간단히 소개하고, 함께하고 싶은 이유를 적어주세요."></textarea></label>
+        <div class="relay-privacy-note"><b>이메일 공개 안내</b><span>보내는 사람의 이메일이 상대에게 전달됩니다. 상대방이 답장하면 상대의 이메일도 보일 수 있습니다.</span></div>
+        <label class="email-preference"><input id="sender-email-consent" type="checkbox" required /><span>내 이메일을 상대에게 공개하고 직접 답장받는 데 동의합니다.</span></label><button class="workspace-primary email-action" type="submit">이메일 보내기</button>
+        <div class="relay-submit-state" id="relay-submit-state" role="status" aria-live="polite" hidden></div>
+        <small>이메일 본문과 외부 답장은 허브에 저장하지 않습니다. 발송 시각과 처리 결과만 기록합니다.</small>
+      </form>
+    </dialog>
+
+    <div class="hub-toast" id="hub-toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="hub-policy.js"></script>
+    <script src="match-catalog.js"></script>
+    <script src="auth-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="approval-flow.js"></script>
+    <script src="contact-config.js"></script>
+    <script src="seeking-teams.js"></script>
+    <script src="match.js"></script>
+    <script src="app.js"></script>
+    <script src="workspace-ui.js"></script>
+    <script src="interest-threads.js"></script>
+  </body>
+</html>
