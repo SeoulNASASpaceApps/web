@@ -38,11 +38,24 @@ for (const route of routes) {
   assert.ok(fs.existsSync(path.join("out", route)), `Missing static route: ${route}`);
 }
 
-for (const filename of ["preview.js", "review-store.js", "review.html"]) {
-  assert.ok(
-    !fs.existsSync(path.join("out", "my-space", filename)),
-    `Review-only MY SPACE asset must not be exported: ${filename}`,
+const reviewFiles = ["preview.js", "review-store.js", "review.html"];
+const expectsReview = process.env.VERCEL_ENV === "preview" || process.env.MY_SPACE_REVIEW === "1";
+for (const filename of reviewFiles) {
+  assert.equal(
+    fs.existsSync(path.join("out", "my-space", filename)),
+    expectsReview,
+    expectsReview
+      ? `Preview review asset is missing: ${filename}`
+      : `Review-only MY SPACE asset must not be exported: ${filename}`,
   );
+}
+if (expectsReview) {
+  const reviewHtml = fs.readFileSync(path.join("out", "my-space", "review.html"), "utf8");
+  assert.match(reviewHtml, /name="robots" content="noindex, nofollow"/, "Review page must opt out of indexing");
+  assert.match(reviewHtml, /preview\.js/, "Review page must load the role selector");
+  assert.match(reviewHtml, /review-store\.js/, "Review page must load fixture storage");
+  const reviewCss = fs.readFileSync(path.join("out", "my-space", "styles.css"), "utf8");
+  assert.match(reviewCss, /\.preview-toolbar \{ position: sticky;/, "Review toolbar must remain visible at direct state URLs");
 }
 
 const bulletinDirectory = path.join("content", "cohorts", "2026", "bulletin");

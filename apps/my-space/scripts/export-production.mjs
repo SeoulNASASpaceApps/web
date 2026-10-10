@@ -1,4 +1,5 @@
-import { cp, mkdir, rm } from "node:fs/promises";
+import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { createReviewDocument, reviewAssetFiles } from "./review-document.mjs";
 
 const outputDirectory = new URL("../../../frontend/public/my-space/", import.meta.url);
 const productionFiles = [
@@ -24,4 +25,13 @@ for (const file of productionFiles) {
   await cp(new URL(`../${file}`, import.meta.url), new URL(file, outputDirectory));
 }
 
-console.log("exported MY SPACE production assets to frontend/public/my-space/");
+const includeReview = process.env.VERCEL_ENV === "preview" || process.env.MY_SPACE_REVIEW === "1";
+if (includeReview) {
+  for (const file of reviewAssetFiles) {
+    await cp(new URL(`../${file}`, import.meta.url), new URL(file, outputDirectory));
+  }
+  const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
+  await writeFile(new URL("review.html", outputDirectory), createReviewDocument(html));
+}
+
+console.log(`exported MY SPACE assets to frontend/public/my-space/${includeReview ? " with Preview review tools" : " without review tools"}`);

@@ -3,8 +3,9 @@ const fs=require('fs'); const assert=require('node:assert/strict');
 const dir=require('node:path').resolve(__dirname, '..');
 const values=new Map();
 const storage={getItem:k=>values.get(k)||null,setItem:(k,v)=>values.set(k,String(v)),removeItem:k=>values.delete(k)};
-function page(role,hash='my-space') {
- const dom=new JSDOM(fs.readFileSync(`${dir}/dist/${role==='production'?'index.html':'review.html'}`,'utf8'),{url:`https://review.test/review.html?role=${role}#${hash}`,runScripts:'outside-only'});const w=dom.window;
+function page(role,hash='my-space',stage) {
+ const query=stage?`?role=${role}&stage=${stage}`:`?role=${role}`;
+ const dom=new JSDOM(fs.readFileSync(`${dir}/dist/${role==='production'?'index.html':'review.html'}`,'utf8'),{url:`https://review.test/review.html${query}#${hash}`,runScripts:'outside-only'});const w=dom.window;
  Object.defineProperty(w,'localStorage',{value:storage});w.structuredClone=structuredClone;w.ResizeObserver=class{observe(){}};w.HTMLElement.prototype.scrollIntoView=function(){};
  w.HTMLDialogElement.prototype.showModal=function(){this.open=true};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'))};
  for(const script of w.document.querySelectorAll('script[src]'))w.eval(fs.readFileSync(`${dir}/${script.getAttribute('src')}`,'utf8'));
@@ -17,7 +18,9 @@ const anon=page('anonymous');assert.match(anon.d.querySelector('.verified-chip')
 anon.d.querySelector('[data-interest-team]').click();assert.equal(anon.d.getElementById('login-dialog').open,true);
 const pending=page('pending');assert.match(pending.d.getElementById('my-space-gate-title').textContent,/필요/);pending.d.querySelector('#my-space-login-gate button').click();assert.equal(pending.d.getElementById('login-dialog').open,true);pending.d.getElementById('approval-nasa-email').value='fixture@example.com';pending.d.getElementById('approval-request-submit').click();assert.match(pending.d.getElementById('my-space-gate-title').textContent,/인증해주세요/);assert.match(pending.d.getElementById('journey-current-title').textContent,/인증해주세요/);assert.equal(JSON.stringify([...values]).includes('fixture@example.com'),false);
 const stages=pending.d.getElementById('preview-approval-stage');stages.value='review_pending';stages.dispatchEvent(new pending.w.Event('change'));assert.match(pending.d.getElementById('my-space-gate-title').textContent,/확인하고/);assert.equal(pending.w.SEOUL_HUB_AUTH.canUseParticipantFeatures(),false);assert.equal(pending.d.getElementById('my-space-content').hidden,true);assert.equal(pending.d.getElementById('profile-email-opt-in').checked,false);
+assert.equal(new URL(pending.w.location.href).searchParams.get('stage'),'review_pending');
 stages.value='expired';stages.dispatchEvent(new pending.w.Event('change'));assert.equal(pending.d.getElementById('approval-request-submit').hidden,false);
+const directPending=page('pending','my-space','review_pending');assert.match(directPending.d.getElementById('my-space-gate-title').textContent,/확인하고/);assert.equal(directPending.d.getElementById('preview-approval-stage').value,'review_pending');assert.equal(directPending.w.SEOUL_HUB_AUTH.canUseParticipantFeatures(),false);directPending.w.close();
 const participant=page('participant','received-contact-log');const owner=page('owner','owner-inbox');
 assert.equal(participant.d.getElementById('profile-editor').hidden,true);assert.equal(visible(participant.d.getElementById('received-contact-log')),true);assert.equal(visible(owner.d.getElementById('owner-inbox')),true);assert.equal(owner.d.getElementById('owner-form').hidden,true);assert.equal(owner.d.querySelector('.owner-session-card strong').textContent,'ORBIT-OWNER');
 assert.equal(participant.d.getElementById('random-id-input').value,'ORBIT-7K2M');assert.equal(owner.d.querySelector('.journey-progress').dataset.stage,'project');
