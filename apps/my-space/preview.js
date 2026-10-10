@@ -69,14 +69,20 @@
   refreshApproval();
   const selector = document.getElementById('preview-role'); selector.value = role;
   selector.addEventListener('change', () => {
-    const target = new URL('review.html', location.href);
+    const target = new URL(location.href);
+    target.search = '';
     target.searchParams.set('role', selector.value);
     if (selector.value === 'pending') target.searchParams.set('stage', approvalStage);
     target.hash = 'my-space';
     location.assign(target);
   });
   document.addEventListener('click', event => {
-    if (event.target.closest('[data-signout]')) location.assign('review.html?role=anonymous#my-space');
+    if (event.target.closest('[data-signout]')) {
+      const target = new URL(location.href);
+      target.search = '?role=anonymous';
+      target.hash = 'my-space';
+      location.assign(target);
+    }
   });
   // Capture the email submit before the app handler: review never calls a relay.
   document.addEventListener('submit', event => {

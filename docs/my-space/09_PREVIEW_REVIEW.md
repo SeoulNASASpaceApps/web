@@ -21,10 +21,12 @@ Remove-Item Env:MY_SPACE_REVIEW
 
 | 상태 | 경로 |
 |---|---|
-| 비로그인 | `/my-space/review.html?role=anonymous#my-space` |
-| 로그인 후 참가 확인 대기 | `/my-space/review.html?role=pending&stage=required#my-space` |
-| 승인된 참가자 | `/my-space/review.html?role=participant#my-space` |
-| 승인된 팀 오너 | `/my-space/review.html?role=owner#my-space` |
+| 비로그인 | `/my-space/review/?role=anonymous#my-space` |
+| 로그인 후 참가 확인 대기 | `/my-space/review/?role=pending&stage=required#my-space` |
+| 승인된 참가자 | `/my-space/review/?role=participant#my-space` |
+| 승인된 팀 오너 | `/my-space/review/?role=owner#my-space` |
+
+Vercel의 clean URL 처리로 배포된 `review.html`은 `/my-space/review/`에서 제공된다.
 
 참가 확인 대기 화면의 선택 도구는 `required`, `email_pending`, `review_pending`을
 비롯한 기존 승인 단계를 URL의 `stage` 값과 동기화한다. 검토 화면의 역할·승인 단계는
