@@ -38,7 +38,7 @@ for (const route of routes) {
   assert.ok(fs.existsSync(path.join("out", route)), `Missing static route: ${route}`);
 }
 
-const reviewFiles = ["preview.js", "review-store.js", "review.html"];
+const reviewFiles = ["review/index.html", "review/preview.js", "review/review-store.js"];
 const expectsReview = process.env.VERCEL_ENV === "preview" || process.env.MY_SPACE_REVIEW === "1";
 for (const filename of reviewFiles) {
   assert.equal(
@@ -50,11 +50,11 @@ for (const filename of reviewFiles) {
   );
 }
 if (expectsReview) {
-  const reviewHtml = fs.readFileSync(path.join("out", "my-space", "review.html"), "utf8");
+  const reviewHtml = fs.readFileSync(path.join("out", "my-space", "review", "index.html"), "utf8");
   assert.match(reviewHtml, /name="robots" content="noindex, nofollow"/, "Review page must opt out of indexing");
   assert.match(reviewHtml, /preview\.js/, "Review page must load the role selector");
   assert.match(reviewHtml, /review-store\.js/, "Review page must load fixture storage");
-  const reviewCss = fs.readFileSync(path.join("out", "my-space", "styles.css"), "utf8");
+  const reviewCss = fs.readFileSync(path.join("out", "my-space", "review", "styles.css"), "utf8");
   assert.match(reviewCss, /\.preview-toolbar \{ position: sticky;/, "Review toolbar must remain visible at direct state URLs");
 }
 

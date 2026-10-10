@@ -27,11 +27,13 @@ for (const file of productionFiles) {
 
 const includeReview = process.env.VERCEL_ENV === "preview" || process.env.MY_SPACE_REVIEW === "1";
 if (includeReview) {
-  for (const file of reviewAssetFiles) {
-    await cp(new URL(`../${file}`, import.meta.url), new URL(file, outputDirectory));
+  const reviewDirectory = new URL("review/", outputDirectory);
+  await mkdir(reviewDirectory, { recursive: true });
+  for (const file of [...productionFiles.filter((file) => file !== "index.html"), ...reviewAssetFiles]) {
+    await cp(new URL(`../${file}`, import.meta.url), new URL(file, reviewDirectory));
   }
   const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
-  await writeFile(new URL("review.html", outputDirectory), createReviewDocument(html));
+  await writeFile(new URL("index.html", reviewDirectory), createReviewDocument(html));
 }
 
 console.log(`exported MY SPACE assets to frontend/public/my-space/${includeReview ? " with Preview review tools" : " without review tools"}`);
