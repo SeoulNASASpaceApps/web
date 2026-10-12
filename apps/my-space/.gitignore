@@ -10,8 +10,6 @@ upload/
 # Private local runtime data and credentials
 .env
 .env.*
-!.env.example
-auth-backend/private/
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm

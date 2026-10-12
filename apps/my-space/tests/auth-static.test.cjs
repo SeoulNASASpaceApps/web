@@ -11,7 +11,8 @@ for (const forbidden of ["GOOGLE_CLIENT_SECRET", "NAVER_CLIENT_SECRET", "AUTH_SE
   assert.ok(!html.includes(forbidden), `${forbidden} must not be present in HTML`);
 }
 
-assert.match(config, /backendBaseUrl: ""/, "production auth must remain disabled until a backend is connected");
+assert.match(config, /backendBaseUrl: ""/, "source auth must remain disabled until a public API origin is supplied at build time");
+assert.ok(!config.includes("http"), "source auth config must not contain an owner or deployment URL");
 assert.match(auth, /\/auth\/\$\{provider\}\/start/, "provider start endpoint contract is missing");
 assert.match(auth, /auth_status/, "callback status handling is missing");
 assert.match(auth, /pending/, "manual approval pending state is missing");

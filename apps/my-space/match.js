@@ -573,6 +573,25 @@
     updateCounts();
   }
 
+  window.addEventListener('seoul-server-workspace', () => {
+    if (window.SEOUL_HUB_PREVIEW) return;
+    const snapshot = window.SEOUL_HUB_AUTH?.getWorkspaceSnapshot?.();
+    // A server-confirmed identity must never inherit review/default fixture values.
+    state.profile = { ...window.SEOUL_HUB_CATALOG.createState().profile,
+      randomId: snapshot?.profile?.display_id || '', copy: '',
+      currentRoles: [], desiredRoles: [], challengeIds: [],
+      emailOptIn: false, peerEmailOptIn: false, completed: false };
+    state.ownerTeam = null;
+    restoreProfileForm();
+    byId('profile-save-state').textContent = snapshot ? '계정 연결 완료 · 프로필 저장과 연락 기능 연결 준비 중' : '';
+    document.querySelectorAll('#profile-form input, #profile-form textarea, #profile-form button, #profile-form select')
+      .forEach(el => { el.disabled = true; });
+    document.querySelectorAll('#owner-form input, #owner-form textarea, #owner-form select')
+      .forEach(el => { if (el.type === 'checkbox' || el.type === 'radio') el.checked = false; else el.value = ''; el.disabled = true; });
+    document.querySelectorAll('#owner-form button, #owner-preview-save').forEach(el => { el.disabled = true; });
+    byId('owner-status').textContent = snapshot?.role === 'owner' ? '오너 연결 완료 · 모집글 저장 연결 준비 중' : '';
+  });
+
   document.querySelectorAll('[name="profile-seeking-choice"]').forEach(input => input.addEventListener('change', () => {
     if (!input.checked) return;
     byId("profile-seeking-status").value = input.value;

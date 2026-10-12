@@ -4,17 +4,19 @@
   const allowedProviders = new Set(['google', 'naver']);
   const enabledProviders = new Set((config.enabledProviders || []).filter(p => allowedProviders.has(p)));
   const backendBaseUrl = (config.backendBaseUrl || '').trim().replace(/\/$/, '');
-  let session = null, ready = false;
+  let session = null, ready = false, workspace = null, sessionFlight = null, loginStarted = false;
   const byId = id => document.getElementById(id);
   function showState(message, kind = 'info') {
     const box = byId('auth-connection-state'); box.hidden = false; box.dataset.kind = kind; box.textContent = message;
   }
-  const role = () => session?.authenticated ? (session.linked_status === 'linked' ? 'connected' : 'pending') : 'anonymous';
+  const role = () => ready && session?.authenticated ? (session.workspace_access === true && workspace ? session.role : 'pending') : 'anonymous';
   const stage = () => session?.approval_stage || 'required';
   window.SEOUL_HUB_AUTH = Object.freeze({
     isAuthenticated: () => ready && session?.authenticated === true,
     // Participant data endpoints are not yet integrated; never unlock fixture writes.
     canUseParticipantFeatures: () => false,
+    canAccessMySpace: () => ready && session?.workspace_access === true && workspace !== null,
+    getWorkspaceSnapshot: () => workspace,
     getUserState: role,
     getApprovalStage: stage,
     refreshSession,
@@ -26,17 +28,28 @@
   async function api(path, data) {
     if (!backendBaseUrl) throw new Error('서버 연결을 준비 중입니다. 이메일은 저장·전송되지 않았습니다.');
     const response = await fetch(`${backendBaseUrl}${path}`, {
-      credentials: 'include', cache: 'no-store',
+      credentials: 'include', cache: 'no-store', signal: AbortSignal.timeout(15000),
       ...(data !== undefined ? {method: 'POST', headers: {'Content-Type': 'application/json', 'X-CSRF-Token': session?.csrf_token || ''}, body: JSON.stringify(data)} : {})
     });
     const result = await response.json();
     if (!response.ok) throw new Error(result.message || '요청을 처리하지 못했습니다. 다시 시도해주세요.');
     return result;
   }
-  async function refreshSession() {
+  function refreshSession() {
     if (window.SEOUL_HUB_PREVIEW || !backendBaseUrl) return;
-    try { session = await api('/auth/session'); ready = true; window.dispatchEvent(new Event('seoul-approval-refresh')); }
-    catch (_) { ready = false; session = null; showState('로그인 상태를 확인하지 못했습니다. 잠시 후 다시 시도해주세요.', 'error'); }
+    if (sessionFlight) return sessionFlight;
+    const refreshButton = byId('approval-refresh'); refreshButton.disabled = true;
+    sessionFlight = (async () => {
+    try {
+      session = await api('/auth/session'); workspace = null;
+      if (session.workspace_access === true) workspace = await api('/api/my-space');
+      ready = true;
+      window.dispatchEvent(new Event('seoul-server-workspace'));
+      window.dispatchEvent(new Event('seoul-approval-refresh'));
+    }
+    catch (_) { ready = false; session = null; workspace = null; window.dispatchEvent(new Event('seoul-approval-refresh')); showState('로그인 상태를 확인하지 못했습니다. 잠시 후 다시 시도해주세요.', 'error'); }
+    })().finally(() => { sessionFlight = null; refreshButton.disabled = false; });
+    return sessionFlight;
   }
   async function sendVerification(resend) {
     if (window.SEOUL_HUB_PREVIEW) return;
@@ -56,10 +69,12 @@
   byId('approval-refresh').addEventListener('click', refreshSession);
   document.querySelectorAll('[data-auth-provider]').forEach(button => {
     const provider = button.dataset.authProvider;
-    const available = backendBaseUrl && enabledProviders.has(provider);
-    button.setAttribute('aria-disabled', available ? 'false' : 'true');
+    const available = () => backendBaseUrl && readyProviders.has(provider);
+    button.setAttribute('aria-disabled', 'true');
     button.addEventListener('click', () => {
-      if (!available) { showState('로그인 기능을 준비 중입니다.', 'pending'); return; }
+      if (loginStarted) return;
+      if (!available()) { showState('로그인 기능을 준비 중입니다.', 'pending'); return; }
+      loginStarted = true;
       const startUrl = new URL(`${backendBaseUrl}/auth/${provider}/start`);
       startUrl.searchParams.set('return_to', `${location.pathname}${location.hash || '#my-space'}`);
       location.assign(startUrl.toString());
@@ -67,7 +82,7 @@
   });
   document.addEventListener('click', async event => {
     if (!event.target.closest('[data-signout]') || window.SEOUL_HUB_PREVIEW || !backendBaseUrl) return;
-    try { await api('/auth/logout', {}); session = null; window.dispatchEvent(new Event('seoul-approval-refresh')); }
+    try { await api('/auth/logout', {}); session = null; workspace = null; ready = false; window.dispatchEvent(new Event('seoul-server-workspace')); window.dispatchEvent(new Event('seoul-approval-refresh')); }
     catch (error) { showState(error.message, 'error'); }
   });
   byId('auth-availability-note').textContent = backendBaseUrl ? '' : '현재 화면에서는 실제 로그인·인증 메일 발송이 연결되지 않았습니다.';
@@ -78,5 +93,15 @@
     if (messages[callback]) { byId('login-dialog').showModal(); showState(messages[callback]); }
     params.delete('auth_status'); history.replaceState({}, '', `${location.pathname}${params.size ? `?${params}` : ''}${location.hash}`);
   }
+  const readyProviders = new Set();
+  async function configureProviders() {
+    if (window.SEOUL_HUB_PREVIEW || !backendBaseUrl) return;
+    try {
+      const server = await api('/auth/config');
+      if (server.storage_ready === true) (server.enabledProviders || []).forEach(p => { if (enabledProviders.has(p)) readyProviders.add(p); });
+    } catch (_) { readyProviders.clear(); }
+    document.querySelectorAll('[data-auth-provider]').forEach(button => button.setAttribute('aria-disabled', readyProviders.has(button.dataset.authProvider) ? 'false' : 'true'));
+  }
+  configureProviders();
   refreshSession();
 })();
