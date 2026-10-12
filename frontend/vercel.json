@@ -1,5 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "git": {
+    "deploymentEnabled": {
+      "codex/my-space-integration": false
+    }
+  },
   "framework": "nextjs",
   "installCommand": "yarn install --frozen-lockfile",
   "buildCommand": "yarn build",

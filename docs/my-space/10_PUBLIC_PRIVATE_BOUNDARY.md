@@ -57,6 +57,33 @@ third-party cookie 제한을 실제 계정으로 검증해야 한다.
 
 ## 2026-10-12 배포 없는 Git 보존 경계
 
+### 브랜치 한정 차단 승인 이후
+
+사용자가 codex/my-space-integration에 한정한 자동 Preview 차단을 승인했다.
+프로젝트 Root Directory인 frontend/vercel.json에 다음 규칙을 추가했다.
+
+```json
+"git": {
+  "deploymentEnabled": {
+    "codex/my-space-integration": false
+  }
+}
+```
+
+정확한 한 브랜치만 false이며 wildcard·전체 false·main 규칙은 없다. 지정되지 않은
+브랜치는 기본 true다. 프로젝트 공통 UI 설정, Git 연결, Ignored Build Step, Production
+branch와 도메인은 변경하지 않는다. main merge/push나 사이트/서버 배포는 별도 승인이다.
+fa76bab을 포함해 이 차단 commit까지 한 번에 push하며, 중간 fa76bab만 먼저 push하지 않는다.
+
+복구: 별도 Preview 승인 후 해당 브랜치에서 위 한 항목을 제거하거나 true로 변경한
+commit을 push한다. 그 push부터 Preview가 발생할 수 있다. 과거 fa76bab으로 reset/force
+push하거나 설정 없는 옛 bundle만 복구한 뒤 push하면 차단이 없어질 수 있으므로 하지 않는다.
+기존 Preview는 이 규칙으로 삭제되지 않으며 수동 배포를 막는 보안 장치도 아니다.
+팀/프로젝트 전체 설정을 원복하거나 다른 브랜치 설정을 변경할 필요가 없다.
+
+공식 근거: https://vercel.com/docs/project-configuration/git-configuration
+아래 'push 보류' 문단은 이 승인 이전 기록이다. 최신 상태는 승인된 차단 규칙을 따른다.
+
 공용 `codex/my-space-integration` 브랜치는 Vercel Preview Git 배포와 연결되어 있다.
 사이트/서버 배포 금지 요청 중에는 로컬 commit까지만 수행하고 push를 보류한다.
 자동 배포 차단을 임의로 설정하거나 commit 메시지의 skip 표시에 의존하지 않는다.
