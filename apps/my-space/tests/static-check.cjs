@@ -4,6 +4,9 @@ const fs = require("node:fs");
 const html = fs.readFileSync("index.html", "utf8");
 const css = fs.readFileSync("styles.css", "utf8");
 
+assert.match(html, /MY SPACE가 먼저 공개되었습니다/, "public preview notice is missing");
+assert.match(html, /href="#match">모집 중인 팀 보기/, "public team finder shortcut is missing");
+
 const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
 assert.equal(new Set(ids).size, ids.length, "HTML ids must be unique");
 

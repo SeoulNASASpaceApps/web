@@ -9,7 +9,10 @@
   function loadState(){
     const empty=window.SEOUL_HUB_CATALOG.createState();
     const fallback={...empty,...clone(preview.fixture),ownerRoles:preview.fixture.ownerTeam?.roles || ['software','design'],profile:{...empty.profile,...clone(preview.fixture.profile)}};
-    const loaded=read(key,fallback),state={...empty,...loaded,profile:{...empty.profile,...loaded.profile}};
+    // The explicit survey-proposal review URL must always show the unsaved
+    // synthetic proposal, even if this browser has older review localStorage.
+    const loaded=preview.fixture.profile?.proposalStatus==='suggested'?clone(fallback):read(key,fallback);
+    const state={...empty,...loaded,profile:{...empty.profile,...loaded.profile}};
     state.ownerContacts=(state.ownerContacts||[]).map(({message,...metadata})=>metadata);
     // Apply verified membership once; a later explicit seeking choice is preserved.
     if(preview.verifiedTeamMembership&&!localStorage.getItem('seoul-review-owner-membership-applied-v1')){

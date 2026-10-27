@@ -39,6 +39,21 @@
           <p class="hero-status-description">확인된 서울 참가 기록을 따라, 지금 필요한 다음 행동만 안내해 드릴게요.</p>
         </div>
 
+        <aside class="public-preview-notice" aria-labelledby="public-preview-title">
+          <div class="public-preview-icon" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="public-preview-copy">
+            <span class="public-preview-label">PUBLIC PREVIEW · 먼저 열린 MY SPACE</span>
+            <h2 id="public-preview-title">MY SPACE가 먼저 공개되었습니다</h2>
+            <p>Google·Naver 로그인, 서울 참가 기록 확인, 내 프로필, 공식 모집 팀과 참가자 디렉터리·관심 메시지를 이용할 수 있습니다. 이메일과 팀 오너 모집글은 서버 연결 후 열립니다.</p>
+          </div>
+          <div class="public-preview-actions">
+            <span><b>지금 이용 가능</b> · 로그인 · 프로필 · 팀·대원 찾기 · 관심 메시지</span>
+            <a href="#match">모집 중인 팀 보기 <b aria-hidden="true">↓</b></a>
+          </div>
+        </aside>
+
         <div class="status-card" id="status">
           <div class="card-heading">
             <div>
@@ -122,7 +137,7 @@
                     <p>5개 그룹은 Challenge를 쉽게 탐색하기 위한 서울 운영진의 참고 분류입니다.</p>
                   </div>
                   <div class="seeking-cta-wrap">
-                    <small>NASA Seoul Teams 기준 · <span id="teams-sync-time">업데이트 확인 중</span><br />고정 자료 · 자동 갱신 준비 중</small>
+                    <small>NASA Seoul Teams 기준 · <span id="teams-sync-time">업데이트 확인 중</span><br />공식 공개 목록 · 15분 단위 자동 확인</small>
                   </div>
                 </div>
                 <div class="group-bubbles" id="team-group-bubbles" aria-label="Challenge 주제별 팀 찾기"></div>
@@ -253,6 +268,7 @@
                 <div class="profile-block">
                   <div class="field-heading"><div><b>이번 해커톤에서 맡고 싶은 역할</b><span>최대 3개</span></div><small id="desired-role-count">0 / 3</small></div>
                   <div class="role-picker" id="desired-role-picker" data-max="3"></div>
+                  <p class="profile-proposal-note" id="desired-role-proposal-note" hidden>통합 서베이의 희망 역할을 바탕으로 한 초기 제안입니다. 아직 저장되지 않았으며, 지금 원하는 역할로 바꿀 수 있습니다.</p>
                 </div>
 
                 <div class="profile-block">
@@ -535,7 +551,7 @@
           <button class="provider-naver" type="button" data-auth-provider="naver"><span class="provider-icon naver-icon" aria-hidden="true">N</span>Naver로 계속하기</button>
         </div>
         <p class="auth-security-note">서울 참가 확인이 완료된 분들을 위한 서비스입니다.</p>
-        <section id="approval-request-panel" hidden><b>서울 참가 기록 확인이 필요합니다.</b><p id="approval-stage-copy">NASA 등록 이메일로 인증 링크를 받으세요. 인증 후 운영팀이 참가 기록을 확인합니다.</p><label>NASA 등록 이메일<input type="email" id="approval-nasa-email" autocomplete="email" /></label><button type="button" id="approval-request-submit" class="interest-action">인증 메일 요청</button><button type="button" id="approval-resend" class="interest-action" hidden>인증 메일 다시 요청</button><button type="button" id="approval-refresh" class="interest-action" hidden>상태 새로고침</button><p id="approval-request-state" role="status"></p><a href="https://www.spaceappschallenge.org/2026/local-events/seoul/" target="_blank" rel="noreferrer">NASA Space Apps 등록</a> · <a href="https://nasaspaceappskr.org/" target="_blank" rel="noreferrer">서울 참가 확인 안내</a></section><div class="auth-connection-state" id="auth-connection-state" role="status" aria-live="polite" hidden></div>
+        <section id="approval-request-panel" hidden><b>서울 참가 기록 확인이 필요합니다.</b><p id="approval-stage-copy">NASA 등록 이메일로 인증 링크를 받으세요. 인증 후 운영팀이 참가 기록을 확인합니다.</p><label>NASA 등록 이메일<input type="email" id="approval-nasa-email" autocomplete="email" /></label><button type="button" id="approval-request-submit" class="interest-action">인증 메일 요청</button><button type="button" id="approval-resend" class="interest-action" hidden>인증 메일 다시 요청</button><button type="button" id="approval-refresh" class="interest-action" hidden>상태 새로고침</button><button type="button" class="interest-action" data-signout>로그아웃</button><p id="approval-request-state" role="status"></p><a href="https://www.spaceappschallenge.org/2026/local-events/seoul/" target="_blank" rel="noreferrer">NASA Space Apps 등록</a> · <a href="https://nasaspaceappskr.org/" target="_blank" rel="noreferrer">서울 참가 확인 안내</a></section><div class="auth-connection-state" id="auth-connection-state" role="status" aria-live="polite" hidden></div>
         <small id="auth-availability-note">인증 서버 연결을 준비하고 있습니다.</small>
       </form>
     </dialog>
@@ -579,5 +595,6 @@
     <script src="app.js"></script>
     <script src="workspace-ui.js"></script>
     <script src="interest-threads.js"></script>
+    <script src="live-directory.js"></script>
   </body>
 </html>

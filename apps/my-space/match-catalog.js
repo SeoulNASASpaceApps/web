@@ -48,7 +48,7 @@
     { id: "abandoned", number: 1, title: "Abandoned but not Forgotten: Storytelling about NASA's Discarded Equipment on the Moon and Mars" },
     { id: "earth-trend", number: 2, title: "Be An Earth System Trend Detective!" },
     { id: "junior-astronaut", number: 3, title: "Build a Junior Astronaut Mission Trainer" },
-    { id: "clps-browser", number: 4, title: "CLPS Lunar Mission Browser" },
+    { id: "clps-browser", number: 4, title: "Lunar Landing Site Navigator" },
     { id: "astronaut-health", number: 5, title: "Create Health Monitoring Software for Astronauts on Space Missions" },
     { id: "dancing-sars", number: 6, title: "Dancing with the SARs" },
     { id: "field-shift", number: 7, title: "Field Shift: Adapting Farms with NASA Data" },

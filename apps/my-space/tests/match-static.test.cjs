@@ -1,16 +1,19 @@
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
+const vm = require("node:vm");
 
 const html = fs.readFileSync("index.html", "utf8");
 const script = fs.readFileSync("match.js", "utf8");
 const seekingData = fs.readFileSync("seeking-teams.js", "utf8");
 const contactConfig = fs.readFileSync("contact-config.js", "utf8");
+const reviewStore = fs.readFileSync("review-store.js", "utf8");
 
 assert.match(html, /SOCIAL LOGIN/, "social login flow is missing");
 assert.match(html, /사용하실 계정으로 로그인하세요/, "participant-facing sign-in copy is missing");
 assert.match(html, /확인된 서울 참가 기록을 따라/, "journey must use verified records rather than self-reporting");
 assert.match(html, /프로필을 미리 준비해 두었어요/, "Survey-prepared profile guidance is missing");
 assert.match(html, /Random ID는 자동 배정됩니다/, "automatic Random ID guidance is missing");
+assert.match(html, /통합 서베이의 희망 역할을 바탕으로 한 초기 제안입니다/, "survey proposal must be labeled as an unsaved suggestion");
 assert.equal((html.match(/data-avatar=/g) || []).length, 7, "optional character picker must include none plus six choices");
 assert.equal((html.match(/data-journey-step=/g) || []).length, 5, "participant journey must show five clear stages");
 assert.ok(!html.includes('id="status-form"'), "participant journey must not ask users to self-report confirmed status");
@@ -40,8 +43,15 @@ assert.match(contactConfig, /provider: "resend"/, "Resend provider slot is missi
 assert.ok(!/api[_-]?key|secret/i.test(contactConfig), "contact config must not contain client-side secrets");
 assert.equal((html.match(/class="check-mark"/g) || []).length, 3, "verified records must use three check icons");
 assert.match(html, /id="team-group-bubbles"/, "five-group team finder is missing");
-assert.match(html, /고정 자료 · 자동 갱신 준비 중/, "twice-daily sync schedule is missing");
-assert.equal((seekingData.match(/seeking: true/g) || []).length, 15, "current official Seeking Members list must contain fifteen teams");
+assert.match(html, /공식 공개 목록 · 15분 단위 자동 확인/, "live official team refresh notice is missing");
+assert.match(script, /fetch\('\/api\/public-teams'/, "live official team refresh call is missing");
+assert.match(script, /최근 저장본/, "team refresh fallback notice is missing");
+const seekingSandbox = {window: {}};
+vm.runInNewContext(seekingData, seekingSandbox);
+const syncedTeams = seekingSandbox.window.SEOUL_SEEKING_TEAMS_SYNC.teams;
+assert.ok(syncedTeams.length > 0, "official Seeking Members list must not be empty");
+assert.ok(syncedTeams.every(team => team.seeking === true), "only officially recruiting teams may be published");
+assert.equal(new Set(syncedTeams.map(team => team.id)).size, syncedTeams.length, "official team IDs must be unique");
 
 const catalog = fs.readFileSync("match-catalog.js", "utf8");
 const challengeRows = [...catalog.matchAll(/\{ id: "[^"]+", number: \d+, title:/g)];
@@ -52,6 +62,10 @@ assert.equal((html.match(/data-max="3"/g) || []).length, 2, "profile roles allow
 assert.match(html, /id="owner-role-picker" data-max="5"/, "owner roles allow five choices");
 assert.match(script, /currentRoles\.length} \/ 3/, "current role counter must use the three-choice limit");
 assert.match(script, /desiredRoles\.length} \/ 3/, "desired role counter must use the three-choice limit");
+assert.match(script, /proposalStatus === 'suggested'/, "local review must distinguish a survey suggestion from a saved profile");
+assert.match(script, /SEOUL_HUB_AUTH\.saveProfile/, "real profile form must call the authenticated save API");
+assert.ok(!script.includes('challengeIds: []'), "workspace DTO must use the UI challenges key");
+assert.match(reviewStore, /proposalStatus==='suggested'\?clone\(fallback\)/, "proposal review must not inherit an older saved fixture");
 assert.match(script, /members \+ openings > 6/, "NASA team-size guard is missing");
 assert.match(script, /escapeHtml\(team\.name\)/, "team names must be escaped before rendering");
 assert.match(script, /hostname\.endsWith\("\.spaceappschallenge\.org"\)/, "team links must stay on the official NASA Space Apps domain");

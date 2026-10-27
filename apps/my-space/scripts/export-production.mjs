@@ -17,6 +17,7 @@ const productionFiles = [
   "app.js",
   "workspace-ui.js",
   "interest-threads.js",
+  "live-directory.js",
 ];
 
 await rm(outputDirectory, { recursive: true, force: true });

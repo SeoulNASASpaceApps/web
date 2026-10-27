@@ -6,12 +6,15 @@
   const query = new URLSearchParams(location.search);
   const queryRole = query.get('role');
   const queryStage = query.get('stage');
+  const surveyProposal = query.get('proposal') === 'survey';
   const role = roles.includes(queryRole) ? queryRole : 'participant';
   let approvalStage = approvalStages.includes(queryStage)
     ? queryStage
     : localStorage.getItem('seoul-review-approval-stage-v2') || 'required';
   const fixture = {
-    profile: { seekingStatus: role === 'owner' ? 'completed' : 'seeking', randomId: role === 'owner' ? 'ORBIT-OWNER' : 'ORBIT-7K2M', completed: true, currentRoles: ['data-ai', 'design'], desiredRoles: ['product', 'data-ai'], copy: '환경 데이터를 이해하기 쉬운 화면과 서비스로 만드는 데 관심이 있습니다.', emailOptIn: ['participant', 'owner'].includes(role), peerEmailOptIn: ['participant', 'owner'].includes(role), challenges: ['clps-browser', 'earth-trend'] },
+    profile: surveyProposal
+      ? { seekingStatus: 'paused', randomId: 'ORBIT-7K2M', completed: false, currentRoles: [], desiredRoles: ['product', 'data-ai'], copy: '', emailOptIn: false, peerEmailOptIn: false, challenges: [], proposalStatus: 'suggested' }
+      : { seekingStatus: role === 'owner' ? 'completed' : 'seeking', randomId: role === 'owner' ? 'ORBIT-OWNER' : 'ORBIT-7K2M', completed: true, currentRoles: ['data-ai', 'design'], desiredRoles: ['product', 'data-ai'], copy: '환경 데이터를 이해하기 쉬운 화면과 서비스로 만드는 데 관심이 있습니다.', emailOptIn: ['participant', 'owner'].includes(role), peerEmailOptIn: ['participant', 'owner'].includes(role), challenges: ['clps-browser', 'earth-trend'] },
     ownerTeam: role === 'owner' ? { id: 'my-team', sample: true, name: 'Lunar Window Lab', challengeId: 'clps-browser', members: 3, openings: 3, roles: ['software','design'], copy: '달 탐사 데이터를 한눈에 살펴보는 서비스를 함께 만들 팀원을 찾습니다.', url: '', seeking: true, lastConfirmed: '검토용 예시' } : null
   };
   window.SEOUL_HUB_PREVIEW = Object.freeze({role, fixture, verifiedTeamMembership: role === 'owner'});

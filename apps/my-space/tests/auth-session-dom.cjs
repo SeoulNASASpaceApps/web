@@ -10,23 +10,30 @@ async function fixture(state,{ready=true,workspaceFails=false}={}) {
   const w=dom.window,requests=[];
   w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};
   w.SEOUL_HUB_AUTH_CONFIG={backendBaseUrl:'https://api.test',enabledProviders:['google','naver']};
-  w.fetch=async url=>{
+  w.fetch=async (url,options={})=>{
     const pathname=new URL(url).pathname;
     requests.push(pathname);
     const value=pathname==='/auth/config'?{storage_ready:ready,enabledProviders:ready?['google']:[]}:
       pathname==='/auth/session'?state:pathname==='/auth/logout'?{signed_out:true}:
-      {role:state.role,participant_id:'synthetic-id',profile:null};
+      pathname==='/api/my-space/profile'?{saved:true,row_version:2}:
+      {role:state.role,participant_id:'synthetic-id',profile:{display_id:'',avatar_code:'',current_role_ids:[],
+        desired_role_ids:['product'],bio:'',challenge_ids:[],email_from_owner_opt_in:false,
+        email_from_peer_opt_in:false,profile_status:'draft',seeking_status:'paused',row_version:1}};
     return {ok:!(pathname==='/api/my-space'&&workspaceFails),json:async()=>value};
   };
   w.eval(fs.readFileSync(path.join(dir,'auth.js'),'utf8'));
   await new Promise(resolve=>setTimeout(resolve,5));
   return {w,requests,close:()=>w.close()};
 }
-test('server-backed approval enables MY SPACE identity view while unsupported writes stay locked',async()=>{
-  const f=await fixture({authenticated:true,workspace_access:true,role:'participant',linked_status:'linked',approval_stage:'connected'});
+test('server-backed approval enables MY SPACE identity view and versioned profile writes',async()=>{
+  const f=await fixture({authenticated:true,workspace_access:true,profile_features_ready:true,participant_features_ready:true,csrf_token:'csrf',role:'participant',linked_status:'linked',approval_stage:'connected'});
   assert.equal(f.w.SEOUL_HUB_AUTH.getUserState(),'participant');
   assert.equal(f.w.SEOUL_HUB_AUTH.canAccessMySpace(),true);
-  assert.equal(f.w.SEOUL_HUB_AUTH.canUseParticipantFeatures(),false);
+  assert.equal(f.w.SEOUL_HUB_AUTH.canSaveProfile(),true);
+  assert.equal(f.w.SEOUL_HUB_AUTH.canUseParticipantFeatures(),true);
+  assert.equal(f.w.document.getElementById('auth-connection-state').textContent,'로그인이 완료되었습니다. 다음 인증 또는 승인 단계를 진행해주세요.');
+  assert.equal((await f.w.SEOUL_HUB_AUTH.saveProfile({row_version:1})).row_version,2);
+  assert.ok(f.requests.includes('/api/my-space/profile'));
   assert.equal(f.w.document.querySelector('[data-auth-provider="google"]').getAttribute('aria-disabled'),'false');
   assert.equal(f.w.document.querySelector('[data-auth-provider="naver"]').getAttribute('aria-disabled'),'true');
   f.close();
@@ -44,6 +51,7 @@ test('missing settings and callback query alone never enable login or approved v
   const f=await fixture({authenticated:false},{ready:false});
   assert.equal(f.w.SEOUL_HUB_AUTH.canAccessMySpace(),false);
   assert.equal(f.w.SEOUL_HUB_AUTH.getUserState(),'anonymous');
+  assert.equal(f.w.document.getElementById('auth-connection-state').textContent,'로그인 세션을 확인하지 못했습니다. 같은 브라우저에서 다시 로그인해주세요.');
   assert.ok([...f.w.document.querySelectorAll('[data-auth-provider]')].every(b=>b.getAttribute('aria-disabled')==='true'));
   f.close();
 });
