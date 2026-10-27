@@ -4,7 +4,7 @@
   const allowedProviders = new Set(['google', 'naver']);
   const enabledProviders = new Set((config.enabledProviders || []).filter(p => allowedProviders.has(p)));
   const backendBaseUrl = (config.backendBaseUrl || '').trim().replace(/\/$/, '');
-  let session = null, ready = false, workspace = null, sessionFlight = null, loginStarted = false;
+  let session = null, ready = false, workspace = null, sessionFlight = null, loginStarted = false, callbackNotice = null;
   const byId = id => document.getElementById(id);
   function showState(message, kind = 'info') {
     const box = byId('auth-connection-state'); box.hidden = false; box.dataset.kind = kind; box.textContent = message;
@@ -13,13 +13,23 @@
   const stage = () => session?.approval_stage || 'required';
   window.SEOUL_HUB_AUTH = Object.freeze({
     isAuthenticated: () => ready && session?.authenticated === true,
-    // Participant data endpoints are not yet integrated; never unlock fixture writes.
-    canUseParticipantFeatures: () => false,
+    canUseParticipantFeatures: () => ready && session?.participant_features_ready === true && session?.workspace_access === true && workspace !== null,
+    canSaveProfile: () => ready && session?.profile_features_ready === true && session?.workspace_access === true && workspace !== null,
     canAccessMySpace: () => ready && session?.workspace_access === true && workspace !== null,
     getWorkspaceSnapshot: () => workspace,
     getUserState: role,
     getApprovalStage: stage,
     refreshSession,
+    async saveProfile(profile) {
+      if (!this.canSaveProfile()) throw new Error('프로필 저장 권한을 확인하지 못했습니다. 다시 로그인해주세요.');
+      const result = await api('/api/my-space/profile', profile);
+      await refreshSession();
+      return result;
+    },
+    listDirectory: () => api('/api/directory'),
+    listInterests: () => api('/api/interests'),
+    createInterest: (recipientParticipantId, messageText) => api('/api/interests', {recipient_participant_id: recipientParticipantId, message_text: messageText}),
+    replyInterest: (threadId, version, messageText) => api(`/api/interests/${encodeURIComponent(threadId)}/messages`, {version, message_text: messageText}),
     requireLogin(message) {
       window.dispatchEvent(new Event('seoul-approval-refresh'));
       byId('login-dialog').showModal(); showState(message); return false;
@@ -46,6 +56,12 @@
       ready = true;
       window.dispatchEvent(new Event('seoul-server-workspace'));
       window.dispatchEvent(new Event('seoul-approval-refresh'));
+      if (callbackNotice) {
+        callbackNotice = null;
+        showState(session.authenticated
+          ? '로그인이 완료되었습니다. 다음 인증 또는 승인 단계를 진행해주세요.'
+          : '로그인 세션을 확인하지 못했습니다. 같은 브라우저에서 다시 로그인해주세요.', session.authenticated ? 'success' : 'error');
+      }
     }
     catch (_) { ready = false; session = null; workspace = null; window.dispatchEvent(new Event('seoul-approval-refresh')); showState('로그인 상태를 확인하지 못했습니다. 잠시 후 다시 시도해주세요.', 'error'); }
     })().finally(() => { sessionFlight = null; refreshButton.disabled = false; });
@@ -82,7 +98,14 @@
   });
   document.addEventListener('click', async event => {
     if (!event.target.closest('[data-signout]') || window.SEOUL_HUB_PREVIEW || !backendBaseUrl) return;
-    try { await api('/auth/logout', {}); session = null; workspace = null; ready = false; window.dispatchEvent(new Event('seoul-server-workspace')); window.dispatchEvent(new Event('seoul-approval-refresh')); }
+    try {
+      await api('/auth/logout', {}); session = null; workspace = null; ready = true;
+      byId('approval-request-panel').hidden = true;
+      document.querySelector('.auth-provider-actions').hidden = false;
+      document.querySelector('.login-intro').textContent = '사용하실 계정으로 로그인하세요.';
+      window.dispatchEvent(new Event('seoul-server-workspace')); window.dispatchEvent(new Event('seoul-approval-refresh'));
+      showState('로그아웃되었습니다.', 'success');
+    }
     catch (error) { showState(error.message, 'error'); }
   });
   byId('auth-availability-note').textContent = backendBaseUrl ? '' : '현재 화면에서는 실제 로그인·인증 메일 발송이 연결되지 않았습니다.';
@@ -90,7 +113,7 @@
   if (callback) {
     // Callback query values never establish identity or approval.
     const messages = {pending: '서버에서 인증·승인 상태를 확인하고 있습니다.', approved: '서버에서 계정 연결 결과를 확인하고 있습니다.', rejected: '계정 연결을 확인하지 못했습니다.', error: '로그인을 완료하지 못했습니다.'};
-    if (messages[callback]) { byId('login-dialog').showModal(); showState(messages[callback]); }
+    if (messages[callback]) { callbackNotice = callback; byId('login-dialog').showModal(); showState(messages[callback]); }
     params.delete('auth_status'); history.replaceState({}, '', `${location.pathname}${params.size ? `?${params}` : ''}${location.hash}`);
   }
   const readyProviders = new Set();

@@ -4,10 +4,11 @@
   const OFFICIAL_TEAMS_URL = "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams";
   const contactConfig = window.SEOUL_HUB_CONTACT_CONFIG || {};
   const contactEndpoint = typeof contactConfig.endpoint === "string" ? contactConfig.endpoint.trim() : "";
+  const liveCollaborationReady = false;
 
   const {ROLES,CHALLENGE_GROUPS,CHALLENGES}=window.SEOUL_HUB_CATALOG;
-  const officialTeamSync = window.SEOUL_SEEKING_TEAMS_SYNC || { syncedAt: "", teams: [] };
-  const OFFICIAL_SEEKING_TEAMS = Array.isArray(officialTeamSync.teams) ? officialTeamSync.teams : [];
+  let officialTeamSync = window.SEOUL_SEEKING_TEAMS_SYNC || { syncedAt: "", teams: [] };
+  let OFFICIAL_SEEKING_TEAMS = Array.isArray(officialTeamSync.teams) ? officialTeamSync.teams : [];
 
   const reviewStore = window.SEOUL_REVIEW_STORE;
   let state = reviewStore ? reviewStore.loadState() : window.SEOUL_HUB_CATALOG.createState();
@@ -213,6 +214,22 @@
     return teams;
   }
 
+  async function refreshOfficialTeams() {
+    const response = await fetch('/api/public-teams', {
+      headers: { Accept: 'application/json' },
+      credentials: 'same-origin'
+    });
+    if (!response.ok) throw new Error(`Team sync failed (${response.status})`);
+    const payload = await response.json();
+    if (!Array.isArray(payload.teams) || !payload.teams.every(team => team && typeof team.id === 'string' && team.seeking === true)) {
+      throw new Error('Team sync returned an invalid payload');
+    }
+    OFFICIAL_SEEKING_TEAMS = payload.teams;
+    officialTeamSync = { syncedAt: payload.syncedAt || '', teams: payload.teams };
+    setupTeamGroupBubbles();
+    renderTeams();
+  }
+
   function challengeGroupFor(team) {
     return CHALLENGE_GROUPS.find((group) => group.challengeIds.includes(team.challengeId));
   }
@@ -250,6 +267,19 @@
 
   function renderParticipants() {
     const authenticated = window.SEOUL_HUB_AUTH?.canUseParticipantFeatures() === true;
+    if (authenticated && !window.SEOUL_HUB_PREVIEW) {
+      if (window.SEOUL_LIVE_DIRECTORY?.ready === true) {
+        byId("participant-login-gate").hidden = true;
+        byId("participant-directory-content").hidden = false;
+        return;
+      }
+      byId("participant-login-gate").hidden = false;
+      byId("participant-directory-content").hidden = true;
+      byId('participant-login-gate').querySelector('h3').textContent = '대원 찾기 기능을 준비 중입니다.';
+      byId('participant-login-gate').querySelector('p').textContent = '공식 팀 목록과 내 프로필은 지금 이용할 수 있습니다. 참가자 간 관심·이메일 기능은 서버 연결 후 열립니다.';
+      byId('participant-login-gate').querySelector('button').hidden = true;
+      return;
+    }
     byId("participant-login-gate").hidden = authenticated;
     byId("participant-directory-content").hidden = !authenticated;
     if (!authenticated) {
@@ -328,8 +358,8 @@
         <div class="team-role-list">${visibleSkills.map((skill) => `<span>${escapeHtml(skill)}</span>`).join("")}${skills.length > visibleSkills.length ? `<span>+${skills.length - visibleSkills.length}</span>` : ""}</div>
         ${score ? `<p class="match-score">내 프로필과 ${score === 3 ? "Challenge·역할" : score === 2 ? "Challenge" : "역할"} 일치</p>` : ""}
         <div class="team-actions${authenticated ? "" : " login-required"}">
-          <button class="interest-action" type="button" data-interest-team="${escapeHtml(team.id)}">관심 보내기</button>
-          <button class="email-action" type="button" data-email-team="${escapeHtml(team.id)}" ${!authenticated || teamEmailAllowed(team) ? "" : 'disabled title="이메일 수신에 동의한 참가자에게만 보낼 수 있습니다."'}>이메일 보내기</button>
+          <button class="interest-action" type="button" data-interest-team="${escapeHtml(team.id)}" ${liveCollaborationReady ? '' : 'disabled title="참가자 간 관심 기능은 준비 중입니다."'}>${liveCollaborationReady ? '관심 보내기' : '관심 기능 준비 중'}</button>
+          <button class="email-action" type="button" data-email-team="${escapeHtml(team.id)}" ${liveCollaborationReady && (!authenticated || teamEmailAllowed(team)) ? "" : 'disabled title="이메일 기능은 준비 중입니다."'}>${liveCollaborationReady ? '이메일 보내기' : '이메일 준비 중'}</button>
         </div>`;
       grid.append(card);
     });
@@ -564,7 +594,10 @@
     if (byId("profile-seeking-status").value === 'completed' && window.SEOUL_HUB_PREVIEW?.verifiedTeamMembership) byId("profile-seeking-note").textContent = '소속 팀이 확인되어 팀 찾기 완료로 설정됐습니다. 팀원 모집은 내 팀 관리에서 설정하세요.';
     byId("profile-email-opt-in").checked = state.profile.emailOptIn !== false;
     byId("profile-peer-email-opt-in").checked = state.profile.peerEmailOptIn === true;
-    if (state.profile.completed) byId("profile-save-state").textContent = "프로필 저장됨";
+    const proposalNote = byId("desired-role-proposal-note");
+    proposalNote.hidden = state.profile.proposalStatus !== 'suggested';
+    if (state.profile.proposalStatus === 'suggested') byId("profile-save-state").textContent = "서베이 역할 제안 · 아직 저장되지 않음";
+    else if (state.profile.completed) byId("profile-save-state").textContent = "프로필 저장됨";
     setupRolePicker("current-role-picker", "currentRoles");
     setupRolePicker("desired-role-picker", "desiredRoles");
     setupRolePicker("owner-role-picker", "ownerRoles");
@@ -577,15 +610,20 @@
     if (window.SEOUL_HUB_PREVIEW) return;
     const snapshot = window.SEOUL_HUB_AUTH?.getWorkspaceSnapshot?.();
     // A server-confirmed identity must never inherit review/default fixture values.
+    const profile = snapshot?.profile;
     state.profile = { ...window.SEOUL_HUB_CATALOG.createState().profile,
-      randomId: snapshot?.profile?.display_id || '', copy: '',
-      currentRoles: [], desiredRoles: [], challengeIds: [],
-      emailOptIn: false, peerEmailOptIn: false, completed: false };
+      randomId: profile?.display_id || randomId(), avatar: profile?.avatar_code || '', copy: profile?.bio || '',
+      currentRoles: profile?.current_role_ids || [], desiredRoles: profile?.desired_role_ids || [],
+      challenges: profile?.challenge_ids || [], emailOptIn: profile?.email_from_owner_opt_in === true,
+      peerEmailOptIn: profile?.email_from_peer_opt_in === true,
+      seekingStatus: profile?.seeking_status || 'paused', completed: profile?.profile_status === 'completed',
+      proposalStatus: profile?.profile_status === 'draft' && (profile?.desired_role_ids || []).length ? 'suggested' : '',
+      rowVersion: Number(profile?.row_version || 0) };
     state.ownerTeam = null;
     restoreProfileForm();
-    byId('profile-save-state').textContent = snapshot ? '계정 연결 완료 · 프로필 저장과 연락 기능 연결 준비 중' : '';
+    byId('profile-save-state').textContent = profile?.profile_status === 'draft' ? '서베이 역할 제안 · 아직 저장되지 않음' : profile ? '프로필 저장됨' : '';
     document.querySelectorAll('#profile-form input, #profile-form textarea, #profile-form button, #profile-form select')
-      .forEach(el => { el.disabled = true; });
+      .forEach(el => { el.disabled = !window.SEOUL_HUB_AUTH?.canSaveProfile?.(); });
     document.querySelectorAll('#owner-form input, #owner-form textarea, #owner-form select')
       .forEach(el => { if (el.type === 'checkbox' || el.type === 'radio') el.checked = false; else el.value = ''; el.disabled = true; });
     document.querySelectorAll('#owner-form button, #owner-preview-save').forEach(el => { el.disabled = true; });
@@ -736,7 +774,7 @@
 
   byId("profile-copy").addEventListener("input", updateCounts);
 
-  byId("profile-form").addEventListener("submit", (event) => {
+  byId("profile-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     const proposedId = byId("random-id-input").value.trim().toUpperCase();
     if (!/^[A-Z0-9-]{4,14}$/.test(proposedId)) {
@@ -760,6 +798,19 @@
     if (window.SEOUL_HUB_PREVIEW) {
       const party = window.SEOUL_HUB_AUTH.getUserState() === "owner" ? "review-owner" : "review-participant";
       localStorage.setItem(`seoul-review-seeking-${party}`, state.profile.seekingStatus);
+    }
+    if (!window.SEOUL_HUB_PREVIEW) {
+      const submit = event.currentTarget.querySelector('button[type="submit"]');
+      submit.disabled = true;byId("profile-save-state").textContent = "저장 중";
+      try {
+        await window.SEOUL_HUB_AUTH.saveProfile({display_id: proposedId,avatar_code: state.profile.avatar,
+          current_role_ids: [...state.profile.currentRoles],desired_role_ids: [...state.profile.desiredRoles],
+          bio: state.profile.copy,challenge_ids: [...state.profile.challenges],
+          email_from_owner_opt_in: state.profile.emailOptIn,email_from_peer_opt_in: state.profile.peerEmailOptIn,
+          seeking_status: state.profile.seekingStatus,row_version: state.profile.rowVersion});
+      } catch (error) {
+        byId("profile-save-state").textContent = "저장 실패";showToast(error.message);submit.disabled = false;return;
+      }
     }
     state.profile.completed = true;
     publishReviewProfile();
@@ -790,12 +841,20 @@
   byId("interest-message").addEventListener("input", () => {
     byId("interest-message-count").textContent = `${byId("interest-message").value.length} / 50`;
   });
-  byId("interest-form").addEventListener("submit", (event) => {
+  byId("interest-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     if (!requireParticipantLogin("로그인 후 관심을 보낼 수 있습니다.")) return;
     const interestMessage = byId("interest-message").value.trim();
     if (!interestMessage || interestMessage.length > 50) {
       showToast("관심 메시지는 1~50자로 작성해 주세요.");
+      return;
+    }
+    if (activeInterestParticipantId && window.SEOUL_LIVE_INTEREST?.send) {
+      try {
+        await window.SEOUL_LIVE_INTEREST.send(activeInterestParticipantId, interestMessage);
+        byId("interest-dialog").close();
+        showToast('관심 메시지를 보냈습니다.');
+      } catch (error) { showToast(error.message || '관심 메시지를 보내지 못했습니다.'); }
       return;
     }
     const team = allTeams().find((candidate) => candidate.id === activeTeamId);
@@ -902,6 +961,8 @@
   });
 
   window.addEventListener('storage', () => { renderTeams(); renderParticipants(); window.dispatchEvent(new Event('seoul-interest-refresh')); });
+  window.addEventListener('seoul-live-directory-ready', renderParticipants);
+  window.addEventListener('seoul-open-participant-interest', event => openParticipantInterest(event.detail.participantId));
   window.addEventListener('seoul-approval-refresh', () => {
     syncJourneyProgress();
     window.SEOUL_APPROVAL_FLOW?.render();
@@ -915,4 +976,8 @@
   renderRequests();
   syncJourneyProgress();
   window.dispatchEvent(new Event("seoul-approval-refresh"));
+  refreshOfficialTeams().catch(() => {
+    const label = byId('teams-sync-time');
+    if (label && !label.textContent.includes('최근 저장본')) label.textContent += ' · 최근 저장본';
+  });
 })();
