@@ -28,21 +28,29 @@
     },
     listDirectory: () => api('/api/directory'),
     listInterests: () => api('/api/interests'),
+    listTeams: () => api('/api/teams'),
+    async saveTeam(team) {
+      const result=await api('/api/my-space/team',team);
+      await refreshSession();
+      return result;
+    },
+    sendRelay: data => api('/api/email-relay',data,60000),
     createInterest: (recipientParticipantId, messageText) => api('/api/interests', {recipient_participant_id: recipientParticipantId, message_text: messageText}),
+    createTeamInterest: (recipientTeamId, messageText) => api('/api/interests', {recipient_team_id:recipientTeamId,message_text:messageText}),
     replyInterest: (threadId, version, messageText) => api(`/api/interests/${encodeURIComponent(threadId)}/messages`, {version, message_text: messageText}),
     requireLogin(message) {
       window.dispatchEvent(new Event('seoul-approval-refresh'));
       byId('login-dialog').showModal(); showState(message); return false;
     }
   });
-  async function api(path, data) {
+  async function api(path, data, timeout=15000) {
     if (!backendBaseUrl) throw new Error('서버 연결을 준비 중입니다. 이메일은 저장·전송되지 않았습니다.');
     const response = await fetch(`${backendBaseUrl}${path}`, {
-      credentials: 'include', cache: 'no-store', signal: AbortSignal.timeout(15000),
+      credentials: 'include', cache: 'no-store', signal: AbortSignal.timeout(timeout),
       ...(data !== undefined ? {method: 'POST', headers: {'Content-Type': 'application/json', 'X-CSRF-Token': session?.csrf_token || ''}, body: JSON.stringify(data)} : {})
     });
     const result = await response.json();
-    if (!response.ok) throw new Error(result.message || '요청을 처리하지 못했습니다. 다시 시도해주세요.');
+    if (!response.ok) throw Object.assign(new Error(result.message || '요청을 처리하지 못했습니다. 다시 시도해주세요.'),{code:result.code});
     return result;
   }
   function refreshSession() {

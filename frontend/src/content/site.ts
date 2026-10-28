@@ -19,7 +19,7 @@ export const CURRENT_COHORT: CohortYear = 2026;
 export const PUBLISHED_ENTRY_COHORT: CohortYear = 2026;
 
 export const mySpaceLink = {
-  url: "/my-space/",
+  url: "https://my-space-ui-staging.vercel.app/#my-space",
   label: "MY SPACE",
 } as const;
 
