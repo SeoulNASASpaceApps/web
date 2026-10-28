@@ -37,8 +37,8 @@ assert.match(html, /우리 팀이 받은 관심/, "owner received-interest view 
 assert.match(script, /data-directory-view/, "team and participant directory switch is missing");
 assert.match(html, /id="participant-contact-form"/, "Team Owner contact form is missing");
 assert.match(html, /이메일 보내기/, "email relay action is missing");
-assert.match(script, /recipientParticipantId/, "email relay must address participants by internal ID");
-assert.match(script, /fetch\(contactEndpoint/, "Resend-ready relay endpoint call is missing");
+assert.match(script, /recipient_participant_id:activeParticipantId/, "email relay must address participants by internal ID");
+assert.match(script, /SEOUL_HUB_AUTH\.sendRelay/, "relay must use the authenticated CSRF-protected API");
 assert.match(contactConfig, /provider: "resend"/, "Resend provider slot is missing");
 assert.ok(!/api[_-]?key|secret/i.test(contactConfig), "contact config must not contain client-side secrets");
 assert.equal((html.match(/class="check-mark"/g) || []).length, 3, "verified records must use three check icons");
