@@ -13,6 +13,8 @@
     {"source": "/api/my-space", "destination": "https://my-space-service.vercel.app/api/my-space"},
     {"source": "/api/my-space/:path*", "destination": "https://my-space-service.vercel.app/api/my-space/:path*"},
     {"source": "/api/directory", "destination": "https://my-space-service.vercel.app/api/directory"},
+    {"source": "/api/teams", "destination": "https://my-space-service.vercel.app/api/teams"},
+    {"source": "/api/email-relay", "destination": "https://my-space-service.vercel.app/api/email-relay"},
     {"source": "/api/interests", "destination": "https://my-space-service.vercel.app/api/interests"},
     {"source": "/api/interests/:path*", "destination": "https://my-space-service.vercel.app/api/interests/:path*"},
     {"source": "/verify-email", "destination": "https://my-space-service.vercel.app/verify-email"},
