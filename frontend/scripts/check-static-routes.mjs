@@ -105,6 +105,14 @@ for (const [slug, files] of bulletinFiles) {
 const rootHtml = fs.readFileSync(path.join("out", "index.html"), "utf8");
 assert.match(rootHtml, /url=\/2026\/ko\//, "Root fallback must target /2026/ko/");
 
+const routeManifest = JSON.parse(fs.readFileSync(path.join(".next", "routes-manifest.json"), "utf8"));
+for (const requestPath of ["/auth/config", "/auth/google/callback", "/api/my-space", "/api/teams", "/api/email-relay", "/verify-email"]) {
+  assert.ok(
+    !routeManifest.redirects.some((redirect) => new RegExp(redirect.regex).test(requestPath)),
+    `Proxy request must not be intercepted by a Next.js redirect: ${requestPath}`,
+  );
+}
+
 process.stdout.write(
   `Verified ${routes.length} static routes, Markdown bulletins, and the /2026/ko/ root fallback.\n`,
 );
