@@ -4,7 +4,10 @@
   "private": true,
   "packageManager": "yarn@1.22.19",
   "scripts": {
+    "prepare:my-space": "node ../apps/my-space/scripts/export-production.mjs",
+    "predev": "yarn prepare:my-space",
     "dev": "next dev",
+    "prebuild": "yarn prepare:my-space",
     "build": "next build",
     "lint": "eslint .",
     "check:routes": "node scripts/check-static-routes.mjs"

@@ -203,6 +203,10 @@ __marimo__/
 .streamlit/secrets.toml
 
 package-lock.json
+!apps/my-space/package-lock.json
 */.aws-sam/*
 .tmp/
 .vercel/
+
+# Generated from apps/my-space during frontend dev/build.
+/frontend/public/my-space/

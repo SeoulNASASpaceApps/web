@@ -49,12 +49,8 @@ export default function SiteHeader({ year, locale, activeSlug = "" }: SiteHeader
               ))}
             </div>
           </details>
-          <a className="my-space-link" href={mySpaceLink.url} target="_blank" rel="noopener noreferrer">
+          <a className="my-space-link" href={mySpaceLink.url}>
             {mySpaceLink.label}
-            {" "}
-            <span className="cohort-sr-only">
-              {locale === "ko" ? "(새 탭)" : "(opens in new tab)"}
-            </span>
           </a>
           <Link className="language-link" href={cohortPath(year, otherLocale)} lang={otherLocale}>
             {otherLocale.toUpperCase()}
@@ -70,12 +66,8 @@ export default function SiteHeader({ year, locale, activeSlug = "" }: SiteHeader
               </Link>
             ))}
             <div className="mobile-navigation__tools">
-              <a className="my-space-link" href={mySpaceLink.url} target="_blank" rel="noopener noreferrer">
+              <a className="my-space-link" href={mySpaceLink.url}>
                 {mySpaceLink.label}
-                {" "}
-                <span className="cohort-sr-only">
-                  {locale === "ko" ? "(새 탭)" : "(opens in new tab)"}
-                </span>
               </a>
               <Link href={cohortPath(year, otherLocale)}>{otherLocale.toUpperCase()}</Link>
               {cohorts.map((cohort) => (

@@ -6,6 +6,7 @@ import matter from "gray-matter";
 
 const routes = [
   "index.html",
+  "my-space/index.html",
   "2025/index.html",
   "2025/ko/index/index.html",
   "2025/en/index/index.html",
@@ -35,6 +36,26 @@ for (const locale of ["ko", "en"]) {
 
 for (const route of routes) {
   assert.ok(fs.existsSync(path.join("out", route)), `Missing static route: ${route}`);
+}
+
+const reviewFiles = ["review/index.html", "review/preview.js", "review/review-store.js"];
+const expectsReview = process.env.VERCEL_ENV === "preview" || process.env.MY_SPACE_REVIEW === "1";
+for (const filename of reviewFiles) {
+  assert.equal(
+    fs.existsSync(path.join("out", "my-space", filename)),
+    expectsReview,
+    expectsReview
+      ? `Preview review asset is missing: ${filename}`
+      : `Review-only MY SPACE asset must not be exported: ${filename}`,
+  );
+}
+if (expectsReview) {
+  const reviewHtml = fs.readFileSync(path.join("out", "my-space", "review", "index.html"), "utf8");
+  assert.match(reviewHtml, /name="robots" content="noindex, nofollow"/, "Review page must opt out of indexing");
+  assert.match(reviewHtml, /preview\.js/, "Review page must load the role selector");
+  assert.match(reviewHtml, /review-store\.js/, "Review page must load fixture storage");
+  const reviewCss = fs.readFileSync(path.join("out", "my-space", "review", "styles.css"), "utf8");
+  assert.match(reviewCss, /\.preview-toolbar \{ position: sticky;/, "Review toolbar must remain visible at direct state URLs");
 }
 
 const bulletinDirectory = path.join("content", "cohorts", "2026", "bulletin");
@@ -83,6 +104,14 @@ for (const [slug, files] of bulletinFiles) {
 
 const rootHtml = fs.readFileSync(path.join("out", "index.html"), "utf8");
 assert.match(rootHtml, /url=\/2026\/ko\//, "Root fallback must target /2026/ko/");
+
+const routeManifest = JSON.parse(fs.readFileSync(path.join(".next", "routes-manifest.json"), "utf8"));
+for (const requestPath of ["/auth/config", "/auth/google/callback", "/api/my-space", "/api/teams", "/api/email-relay", "/verify-email"]) {
+  assert.ok(
+    !routeManifest.redirects.some((redirect) => new RegExp(redirect.regex).test(requestPath)),
+    `Proxy request must not be intercepted by a Next.js redirect: ${requestPath}`,
+  );
+}
 
 process.stdout.write(
   `Verified ${routes.length} static routes, Markdown bulletins, and the /2026/ko/ root fallback.\n`,
