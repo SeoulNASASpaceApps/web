@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const {JSDOM} = require('jsdom');
 const dir = path.resolve(__dirname, '..');
-async function fixture(state,{ready=true,workspaceFails=false,sessionFails=false,sessionWait=null,callback=true}={}) {
+async function fixture(state,{ready=true,workspaceFails=false,sessionFails=false,sessionWait=null,configWait=null,configFails=false,callback=true}={}) {
   const dom = new JSDOM(fs.readFileSync(path.join(dir,'index.html'),'utf8'),{
     url:`https://site.test/my-space/${callback?'?auth_status=approved':''}#match`,runScripts:'outside-only'});
   const w=dom.window,requests=[];
@@ -14,6 +14,10 @@ async function fixture(state,{ready=true,workspaceFails=false,sessionFails=false
   w.fetch=async (url,options={})=>{
     const pathname=new URL(url).pathname;
     requests.push(pathname);
+    if(pathname==='/auth/config') {
+      if(configWait) await configWait;
+      if(configFails) throw new Error('Connection unavailable');
+    }
     if(pathname==='/auth/session') {
       if(sessionWait) await sessionWait;
       if(sessionFails) throw new Error('Session unavailable');
@@ -112,4 +116,35 @@ test('initial load queries session once, repeated concurrent refreshes coalesce 
   assert.deepEqual(f.requests,['/auth/session','/api/my-space']);
   await new Promise(resolve=>setTimeout(resolve,30));assert.equal(f.requests.length,2);
   assert.equal(f.w.document.getElementById('approval-refresh').disabled,false);f.close();
+});
+
+test('login connection notice clears when readiness arrives and repeated clicks share the check',async()=>{
+  let release;
+  const configWait=new Promise(resolve=>{release=resolve;});
+  const f=await fixture({authenticated:false},{callback:false,configWait});
+  const button=f.w.document.querySelector('[data-auth-provider="google"]');
+  const notice=f.w.document.getElementById('auth-connection-state');
+  button.click();button.click();
+  assert.equal(notice.textContent,'로그인 연결을 확인하고 있습니다. 잠시만 기다려주세요.');
+  assert.equal(notice.dataset.kind,'pending');
+  assert.equal(f.requests.filter(p=>p==='/auth/config').length,1);
+  release();await new Promise(resolve=>setTimeout(resolve,5));
+  assert.equal(button.getAttribute('aria-disabled'),'false');
+  assert.equal(notice.hidden,true);assert.equal(notice.textContent,'');f.close();
+});
+
+test('failed login connection shows an error and a later click can recover',async()=>{
+  const f=await fixture({authenticated:false},{callback:false,configFails:true});
+  const button=f.w.document.querySelector('[data-auth-provider="google"]');
+  const notice=f.w.document.getElementById('auth-connection-state');
+  button.click();await new Promise(resolve=>setTimeout(resolve,5));
+  assert.equal(notice.textContent,'로그인 서버에 연결하지 못했습니다. 다시 시도해주세요.');
+  assert.equal(notice.dataset.kind,'error');
+  const original=f.w.fetch;
+  f.w.fetch=async(url,...args)=>new URL(url).pathname==='/auth/config'
+    ? {ok:true,json:async()=>({storage_ready:true,enabledProviders:['google']})}
+    : original(url,...args);
+  button.click();await new Promise(resolve=>setTimeout(resolve,5));
+  assert.equal(button.getAttribute('aria-disabled'),'false');
+  assert.equal(notice.hidden,true);f.close();
 });
