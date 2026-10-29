@@ -17,7 +17,7 @@ assert.match(html, /통합 서베이의 희망 역할을 바탕으로 한 초기
 assert.equal((html.match(/data-avatar=/g) || []).length, 7, "optional character picker must include none plus six choices");
 assert.equal((html.match(/data-journey-step=/g) || []).length, 5, "participant journey must show five clear stages");
 assert.ok(!html.includes('id="status-form"'), "participant journey must not ask users to self-report confirmed status");
-assert.match(html, /인증 후 운영팀이 참가 기록을 확인합니다/, "manual approval safety copy is missing");
+assert.match(html, /인증 후 승인된 서울 참가자 명단과 자동 연결됩니다/, "verified whitelist onboarding copy is missing");
 assert.ok(!html.includes("data-demo-login"), "insecure demo login controls must be removed");
 assert.match(html, /data-auth-provider="google"/, "Google auth control is missing");
 assert.match(html, /data-auth-provider="naver"/, "Naver auth control is missing");
