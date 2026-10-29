@@ -157,6 +157,7 @@
                   <label><span>관심 Challenge</span><select id="challenge-filter"><option value="all">전체 Challenge</option></select></label>
                   <button type="button" id="match-profile-shortcut">내 관심사와 맞는 팀만</button>
                 </div>
+                <p class="team-contact-legend">진한 카드: Team Owner 연결 확인 · 모집 중 / 연한 카드: 연결 확인 전·연결 대기 또는 잠시 쉬는 중. 이메일은 오너의 수신 동의가 필요합니다.</p>
                 <div class="team-grid" id="team-grid"></div>
                 <p class="match-empty" id="team-empty" hidden>조건에 맞는 모집 팀이 없습니다.</p>
               </div>
@@ -360,7 +361,7 @@
                     <div class="role-picker" id="owner-role-picker" data-max="5"></div>
                   </div>
                   <label><span>팀 광고 문구</span><textarea id="owner-copy" maxlength="240" rows="4" placeholder="문제 정의, 현재 팀 구성, 함께하고 싶은 사람을 알려주세요."></textarea></label>
-                  <fieldset class="seeking-status-options"><legend>허브 팀원 모집 상태</legend><div class="seeking-status-choices"><label><input type="radio" name="owner-recruitment-choice" value="seeking" checked /><span>모집 중</span></label><label><input type="radio" name="owner-recruitment-choice" value="paused" /><span>잠시 쉬는 중</span></label><label><input type="radio" name="owner-recruitment-choice" value="completed" /><span>모집 완료</span></label></div></fieldset><input id="owner-seeking" type="checkbox" checked hidden /><small>모집 중일 때만 허브 팀 목록에 표시됩니다. 숨겨도 기존 대화와 기록은 유지됩니다. NASA 공식 팀 상태는 변경되지 않습니다.</small>
+                  <fieldset class="seeking-status-options"><legend>허브 팀원 모집 상태</legend><div class="seeking-status-choices"><label><input type="radio" name="owner-recruitment-choice" value="seeking" checked /><span>모집 중</span></label><label><input type="radio" name="owner-recruitment-choice" value="paused" /><span>잠시 쉬는 중</span></label><label><input type="radio" name="owner-recruitment-choice" value="completed" /><span>모집 완료</span></label></div></fieldset><input id="owner-seeking" type="checkbox" checked hidden /><small>잠시 쉬는 중에는 목록에 연하게 표시되고 새 관심·이메일 연락이 중지됩니다. 모집 완료 시 목록에서 숨겨집니다. 기존 대화와 기록은 유지되며 NASA 공식 팀 상태는 변경되지 않습니다.</small>
                   <div class="owner-policy"><b>모집 상태 확인</b><span>모집 상태를 주기적으로 확인해주세요. 잠시 쉬거나 모집을 마치면 상태를 변경해주세요.</span></div>
                   <button class="workspace-primary" type="submit">모집글 상태 확인</button>
                 </form>

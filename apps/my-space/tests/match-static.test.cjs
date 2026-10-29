@@ -26,7 +26,8 @@ assert.ok(!html.includes('data-auth-provider="kakao"'), "Kakao must not be offer
 assert.match(html, /Google로 계속하기/, "participant-facing Google sign-in label is missing");
 assert.match(html, /Naver로 계속하기/, "participant-facing Naver sign-in label is missing");
 assert.ok((html.match(/data-open-login/g) || []).length >= 3, "sign-in must be easy to reach from the main participant flow");
-assert.match(html, /모집 중일 때만 허브 팀 목록에 표시됩니다/, "seeking-member rule is missing");
+assert.match(html, /잠시 쉬는 중에는 목록에 연하게 표시되고/, "paused team visibility guidance is missing");
+assert.match(html, /모집 완료 시 목록에서 숨겨집니다/, "completed team visibility guidance is missing");
 assert.match(html, /마지막 메시지 후 5일간 답변이 없으면 대화가 자동 종료됩니다/, "confirmed five-day inactivity policy is missing");
 assert.match(html, /Team Owner/, "owner workspace is missing");
 assert.match(html, /id="my-space"/, "role-based MY SPACE review section is missing");
