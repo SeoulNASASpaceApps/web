@@ -374,7 +374,7 @@
         </div>
         <div class="team-name-row"><h4>${escapeHtml(team.name)}</h4><a href="${safeExternalUrl(team.url)}" target="_blank" rel="noreferrer">Space Apps 팀 상세 ↗</a></div>
         <p class="team-challenge"><small>${challenge?'#'+String(challenge.number).padStart(2, "0"):''}</small>${escapeHtml(challenge?.title||'Challenge 미지정')}</p>
-        <p class="team-copy">${team.review||team.hub ? escapeHtml(team.copy) : skills.length ? `NASA 페이지에 공개된 희망 역량을 확인해 보세요.` : `구체적인 모집 역할과 팀 정보는 NASA 공식 팀 페이지에서 확인할 수 있습니다.`}</p>
+        <p class="team-copy">${team.review||team.hub ? escapeHtml(team.copy) : skills.length ? `NASA 페이지에 공개된 희망 역량을 확인해 보세요.` : `구체적인 모집 역할과 팀 정보는 NASA Space Apps 공식 팀 페이지에서 확인할 수 있습니다.`}</p>
         <div class="team-meta"><span>서울 분류 <b>${escapeHtml(group?.description || "기타")}</b></span><span>허브 상태 <b>${status}</b></span></div>
         <p class="team-contact-note">${note}</p>
         <div class="team-role-list">${visibleSkills.map((skill) => `<span>${escapeHtml(skill)}</span>`).join("")}${skills.length > visibleSkills.length ? `<span>+${skills.length - visibleSkills.length}</span>` : ""}</div>
