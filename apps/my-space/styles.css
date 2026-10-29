@@ -407,6 +407,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .login-card .kicker { justify-self: center; }
 .login-card h2 { font-size: 32px; }
 .login-card .login-intro { color: #41546e; font-size: 16px; line-height: 1.75; }
+.login-card .login-email-guidance { color: #41546e; font-size: 13px; line-height: 1.8; text-align: left; }
 .auth-provider-actions { display: grid; gap: 11px; }
 .auth-provider-actions button { position: relative; display: flex; align-items: center; justify-content: center; min-height: 54px; padding: 0 18px; border-radius: 12px; font: inherit; font-size: 16px; font-weight: 800; cursor: pointer; }
 .auth-provider-actions .provider-google { color: #17243a; background: #fff; border: 1px solid #ccd5e2; }

@@ -6,6 +6,8 @@
   const backendBaseUrl = (config.backendBaseUrl || '').trim().replace(/\/$/, '');
   let session = null, ready = false, workspace = null, sessionFlight = null, loginStarted = false, callbackNotice = null;
   const byId = id => document.getElementById(id);
+  const loginIntro = document.querySelector('.login-intro').textContent;
+  let loginAttempt = 0;
   function showState(message, kind = 'info') {
     const box = byId('auth-connection-state'); box.hidden = false; box.dataset.kind = kind; box.textContent = message;
   }
@@ -100,28 +102,34 @@
   byId('approval-request-submit').addEventListener('click', () => sendVerification(false));
   byId('approval-resend').addEventListener('click', () => sendVerification(true));
   byId('approval-refresh').addEventListener('click', refreshSession);
+  byId('login-dialog').addEventListener('close', () => {
+    loginAttempt++;
+    if (loginStarted) {
+      const notice = byId('auth-connection-state');
+      notice.hidden = true; notice.textContent = ''; delete notice.dataset.kind;
+    }
+    loginStarted = false;
+  });
   document.querySelectorAll('[data-auth-provider]').forEach(button => {
     const provider = button.dataset.authProvider;
     const available = () => backendBaseUrl && readyProviders.has(provider);
     button.setAttribute('aria-disabled', 'true');
-    button.addEventListener('click', () => {
+    button.addEventListener('click', async () => {
       if (loginStarted) return;
-      if (!available()) {
-        const pendingMessage = '로그인 연결을 확인하고 있습니다. 잠시만 기다려주세요.';
-        showState(pendingMessage, 'pending');
-        configureProviders().then(() => {
-          const notice = byId('auth-connection-state');
-          // A session result may have replaced this connection notice while waiting.
-          if (notice.textContent !== pendingMessage) return;
-          if (available()) {
-            notice.hidden = true; notice.textContent = ''; delete notice.dataset.kind;
-          } else {
-            showState('로그인 서버에 연결하지 못했습니다. 다시 시도해주세요.', 'error');
-          }
-        });
-        return;
-      }
       loginStarted = true;
+      const attempt = ++loginAttempt;
+      if (!available()) {
+        showState('로그인 연결을 확인하고 있습니다. 잠시만 기다려주세요.', 'pending');
+        await configureProviders();
+        if (attempt !== loginAttempt) return;
+        if (!available()) {
+          loginStarted = false;
+          showState('로그인 서버에 연결하지 못했습니다. 다시 시도해주세요.', 'error');
+          return;
+        }
+      }
+      if (session?.authenticated === true) { loginStarted = false; return; }
+      showState(`${provider === 'google' ? 'Google' : 'Naver'} 로그인으로 이동합니다.`, 'pending');
       const startUrl = new URL(`${backendBaseUrl}/auth/${provider}/start`);
       startUrl.searchParams.set('return_to', `${location.pathname}${location.hash || '#my-space'}`);
       location.assign(startUrl.toString());
@@ -133,7 +141,8 @@
       await api('/auth/logout', {}); session = null; workspace = null; ready = true;
       byId('approval-request-panel').hidden = true;
       document.querySelector('.auth-provider-actions').hidden = false;
-      document.querySelector('.login-intro').textContent = '사용하실 계정으로 로그인하세요.';
+      byId('login-email-guidance').hidden = false;
+      document.querySelector('.login-intro').textContent = loginIntro;
       window.dispatchEvent(new Event('seoul-server-workspace')); window.dispatchEvent(new Event('seoul-approval-refresh'));
       showState('로그아웃되었습니다.', 'success');
     }

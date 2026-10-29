@@ -9,7 +9,8 @@ const contactConfig = fs.readFileSync("contact-config.js", "utf8");
 const reviewStore = fs.readFileSync("review-store.js", "utf8");
 
 assert.match(html, /SOCIAL LOGIN/, "social login flow is missing");
-assert.match(html, /사용하실 계정으로 로그인하세요/, "participant-facing sign-in copy is missing");
+assert.match(html, /가급적 NASA 공식 등록에 사용한 이메일 계정으로 로그인해주세요/, "participant-facing sign-in copy is missing");
+assert.match(html, /로그인 후 NASA 등록 이메일을 추가로 인증해야 합니다/, "alternate-account verification guidance is missing");
 assert.match(html, /확인된 서울 참가 기록을 따라/, "journey must use verified records rather than self-reporting");
 assert.match(html, /프로필을 미리 준비해 두었어요/, "Survey-prepared profile guidance is missing");
 assert.match(html, /Random ID는 자동 배정됩니다/, "automatic Random ID guidance is missing");
