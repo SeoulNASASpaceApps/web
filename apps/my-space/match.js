@@ -3,6 +3,7 @@
 
   const OFFICIAL_TEAMS_URL = "https://www.spaceappschallenge.org/2026/local-events/seoul/?tab=teams";
   let managedTeams = [];
+  let managedTeamsLoaded = false;
   let relayAttempt = null;
 
   const {ROLES,CHALLENGE_GROUPS,CHALLENGES}=window.SEOUL_HUB_CATALOG;
@@ -213,7 +214,8 @@
         const index=teams.findIndex(team=>urlKey(team.url)===urlKey(record.url)||team.id===record.external_id);
         const base=index<0?{}:teams[index],published=!!record.recruitment_status;
         const item={...base,id:record.team_id,name:record.name,url:record.url,challengeId:record.challenge_id||base.challengeId,
-          roles:record.role_ids||[],skills:(record.role_ids||[]).map(roleLabel),copy:record.copy,hub:published,
+          roles:record.role_ids||[],skills:(record.role_ids||[]).map(roleLabel),copy:record.copy,hub:published&&!!record.copy,
+          ownerConfirmed:true,recruitmentStatus:record.recruitment_status||'',
           members:record.members,openings:record.openings,seeking:published?record.recruitment_status==='seeking':base.seeking===true,
           canEmail:record.can_email===true,canInterest:record.recruitment_status==='seeking'&&!!record.owner_participant_id};
         if(index<0)teams.push(item);else teams[index]=item;
@@ -340,14 +342,15 @@
     const roleFilter = byId("role-filter").value;
     const challengeFilter = byId("challenge-filter").value;
     const teams = allTeams()
-      .filter((team) => team.seeking)
+      .filter((team) => team.seeking || (team.ownerConfirmed || team.review) && team.recruitmentStatus === 'paused')
       .filter((team) => activeChallengeGroup === "all" || challengeGroupFor(team)?.id === activeChallengeGroup)
       .filter((team) => roleFilter === "all" || (team.roles || []).includes(roleFilter))
       .filter((team) => challengeFilter === "all" || team.challengeId === challengeFilter)
       .sort((a, b) => teamMatchScore(b) - teamMatchScore(a));
 
     const selectedGroup = CHALLENGE_GROUPS.find((group) => group.id === activeChallengeGroup);
-    byId("team-filter-summary").textContent = `${selectedGroup ? selectedGroup.description : "전체 주제"} · 모집 팀 ${teams.length}개`;
+    const pausedCount=teams.filter(team=>team.recruitmentStatus==='paused').length;
+    byId("team-filter-summary").textContent = `${selectedGroup ? selectedGroup.description : "전체 주제"} · 모집 팀 ${teams.length-pausedCount}개${pausedCount?` · 잠시 쉬는 팀 ${pausedCount}개`:''}`;
     const grid = byId("team-grid");
     grid.replaceChildren();
     teams.forEach((team) => {
@@ -357,7 +360,13 @@
       const skills = team.review||team.hub ? (team.roles || []).map(roleLabel) : team.skills || [];
       const visibleSkills = skills.slice(0, 5);
       const card = document.createElement("article");
-      card.className = "team-card";
+      const connected=team.ownerConfirmed===true||team.review===true;
+      const paused=connected&&team.recruitmentStatus==='paused';
+      const contactReady=connected&&team.recruitmentStatus==='seeking';
+      const status=paused?'잠시 쉬는 중':contactReady?'Team Owner 연결 확인 · 모집 중':connected?'모집 준비 중':authenticated&&(managedTeamsLoaded||window.SEOUL_HUB_PREVIEW)?'Team Owner 연결 대기':'Team Owner 연결 확인 전';
+      const note=paused?'새 관심·이메일 연락을 잠시 쉬고 있습니다. 기존 대화는 이어갈 수 있습니다.':contactReady?'관심 메시지를 보낼 수 있습니다. 이메일은 오너의 수신 동의가 필요합니다.':connected?'Team Owner가 모집글을 준비하고 있습니다.':authenticated&&(managedTeamsLoaded||window.SEOUL_HUB_PREVIEW)?'MY SPACE에 연결이 확인된 Team Owner가 없어 허브에서 연락할 수 없습니다.':'로그인 후 팀 연락 가능 여부를 확인할 수 있습니다.';
+      card.className = `team-card ${contactReady?'team-contact-active':'team-contact-muted'}`;
+      card.dataset.contactStatus=paused?'paused':contactReady?'active':connected?'preparing':'unconfirmed';
       card.innerHTML = `
         <div class="team-card-top">
           <span class="team-sample official">${team.review ? "허브 모집글 · 검토용" : team.hub ? "TEAM OWNER 모집글" : "NASA SEEKING MEMBERS"}</span>
@@ -366,12 +375,13 @@
         <div class="team-name-row"><h4>${escapeHtml(team.name)}</h4><a href="${safeExternalUrl(team.url)}" target="_blank" rel="noreferrer">Space Apps 팀 상세 ↗</a></div>
         <p class="team-challenge"><small>${challenge?'#'+String(challenge.number).padStart(2, "0"):''}</small>${escapeHtml(challenge?.title||'Challenge 미지정')}</p>
         <p class="team-copy">${team.review||team.hub ? escapeHtml(team.copy) : skills.length ? `NASA 페이지에 공개된 희망 역량을 확인해 보세요.` : `구체적인 모집 역할과 팀 정보는 NASA 공식 팀 페이지에서 확인할 수 있습니다.`}</p>
-        <div class="team-meta"><span>서울 분류 <b>${escapeHtml(group?.description || "기타")}</b></span><span>상태 <b>Seeking Members</b></span></div>
+        <div class="team-meta"><span>서울 분류 <b>${escapeHtml(group?.description || "기타")}</b></span><span>허브 상태 <b>${status}</b></span></div>
+        <p class="team-contact-note">${note}</p>
         <div class="team-role-list">${visibleSkills.map((skill) => `<span>${escapeHtml(skill)}</span>`).join("")}${skills.length > visibleSkills.length ? `<span>+${skills.length - visibleSkills.length}</span>` : ""}</div>
         ${score ? `<p class="match-score">내 프로필과 ${score === 3 ? "Challenge·역할" : score === 2 ? "Challenge" : "역할"} 일치</p>` : ""}
         <div class="team-actions${authenticated ? "" : " login-required"}">
-          <button class="interest-action" type="button" data-interest-team="${escapeHtml(team.id)}" ${!authenticated||team.review||team.canInterest?'':'disabled title="팀 오너의 모집글 공개 후 연락할 수 있습니다."'}>관심 보내기</button>
-          <button class="email-action" type="button" data-email-team="${escapeHtml(team.id)}" ${!authenticated||teamEmailAllowed(team)?'':'disabled title="팀 오너의 이메일 수신 동의가 필요합니다."'}>이메일 보내기</button>
+          <button class="interest-action" type="button" data-interest-team="${escapeHtml(team.id)}" ${(!authenticated&&!connected)||contactReady&&(team.review||team.canInterest)?'':'disabled'} title="${!authenticated?'로그인 후 연락 가능 여부를 확인해주세요.':paused?'팀 오너가 잠시 쉬는 중입니다.':!contactReady?'팀 오너 연결과 모집 상태 확인 후 연락할 수 있습니다.':'관심 메시지 보내기'}">관심 보내기</button>
+          <button class="email-action" type="button" data-email-team="${escapeHtml(team.id)}" ${(!authenticated&&!connected)||contactReady&&teamEmailAllowed(team)?'':'disabled'} title="${paused?'팀 오너가 잠시 쉬는 중입니다.':'팀 오너 연결·모집 상태와 이메일 수신 동의가 필요합니다.'}">이메일 보내기</button>
         </div>`;
       grid.append(card);
     });
@@ -453,7 +463,7 @@
       action.innerHTML = "모집 중인 팀 보기 <b aria-hidden=\"true\">→</b>";
       action.href = "#match";
       action.dataset.targetPanel = "dashboard";
-      note.textContent = "연락 가능한 팀만 표시됩니다.";
+      note.textContent = "팀별 연결·모집 상태를 확인하세요. 연결 대기 팀과 쉬는 팀은 연하게 표시됩니다.";
     } else {
       title.textContent = "팀 정보가 준비되었습니다.";
       body.textContent = "팀의 역할과 Challenge를 확인하고, 11월 14–15일 프로젝트 참가를 준비하세요.";
@@ -499,6 +509,7 @@
   }
 
   function teamEmailAllowed(team) {
+    if (team.recruitmentStatus !== 'seeking') return false;
     if(!window.SEOUL_HUB_PREVIEW)return team.canEmail===true;
     const recipient = team.review ? readReviewProfile('review-owner') : team.ownerProfile;
     return window.SEOUL_HUB_POLICY.canReceiveEmail(recipient, 'participant', true);
@@ -532,6 +543,7 @@
     if (!requireParticipantLogin("로그인 후 관심을 보낼 수 있습니다.")) return;
     const team = allTeams().find((candidate) => candidate.id === teamId);
     if (!team) return;
+    if (team.recruitmentStatus !== 'seeking' || !(team.review || team.canInterest)) return;
     activeTeamId = teamId;
     activeInterestParticipantId = "";
     byId("interest-team-name").textContent = `${team.name}에 관심 보내기`;
@@ -650,10 +662,10 @@
     document.querySelectorAll('#owner-form button, #owner-preview-save').forEach(el => { el.disabled = !ownerTeam; });
     if(ownerTeam){restoreOwnerForm();setupRolePicker('owner-role-picker','ownerRoles');}
     else byId('owner-status').textContent=snapshot?.role==='owner'?'연결된 팀을 확인하지 못했습니다.':'';
-    if(!snapshot){managedTeams=[];relayAttempt=null;}
+    if(!snapshot){managedTeams=[];managedTeamsLoaded=false;relayAttempt=null;}
     renderTeams();
   });
-  window.addEventListener('seoul-live-teams',event=>{managedTeams=event.detail;renderTeams();});
+  window.addEventListener('seoul-live-teams',event=>{managedTeams=event.detail;managedTeamsLoaded=true;renderTeams();});
 
   document.querySelectorAll('[name="profile-seeking-choice"]').forEach(input => input.addEventListener('change', () => {
     if (!input.checked) return;
@@ -941,7 +953,7 @@
 
   function showOwnerPreview(team) {
     const challenge = challengeById(team.challengeId);
-    byId("owner-preview-status").textContent = `${team.seeking ? "모집 중" : `${team.recruitmentStatus === "paused" ? "잠시 쉬는 중" : "모집 완료"} · 허브 팀 목록에서 숨김 · 기존 대화 유지`}${window.SEOUL_HUB_PREVIEW ? " · 검토용 예시, 실제 게시되지 않습니다" : ""}`;
+    byId("owner-preview-status").textContent = `${team.seeking ? "모집 중" : team.recruitmentStatus === "paused" ? "잠시 쉬는 중 · 목록에 연하게 표시 · 새 연락 중지 · 기존 대화 유지" : "모집 완료 · 허브 팀 목록에서 숨김 · 기존 대화 유지"}${window.SEOUL_HUB_PREVIEW ? " · 검토용 예시, 실제 게시되지 않습니다" : ""}`;
     byId("owner-preview-card").innerHTML = `
       <div class="team-name-row"><h4>${escapeHtml(team.name)}</h4><a href="${safeExternalUrl(team.url)}" target="_blank" rel="noreferrer">Space Apps 팀 상세 ↗</a></div>
       <p class="team-challenge">${escapeHtml(challenge.title)}</p>
