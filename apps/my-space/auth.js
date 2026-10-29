@@ -106,7 +106,21 @@
     button.setAttribute('aria-disabled', 'true');
     button.addEventListener('click', () => {
       if (loginStarted) return;
-      if (!available()) { showState('로그인 기능을 준비 중입니다.', 'pending'); return; }
+      if (!available()) {
+        const pendingMessage = '로그인 연결을 확인하고 있습니다. 잠시만 기다려주세요.';
+        showState(pendingMessage, 'pending');
+        configureProviders().then(() => {
+          const notice = byId('auth-connection-state');
+          // A session result may have replaced this connection notice while waiting.
+          if (notice.textContent !== pendingMessage) return;
+          if (available()) {
+            notice.hidden = true; notice.textContent = ''; delete notice.dataset.kind;
+          } else {
+            showState('로그인 서버에 연결하지 못했습니다. 다시 시도해주세요.', 'error');
+          }
+        });
+        return;
+      }
       loginStarted = true;
       const startUrl = new URL(`${backendBaseUrl}/auth/${provider}/start`);
       startUrl.searchParams.set('return_to', `${location.pathname}${location.hash || '#my-space'}`);
@@ -134,13 +148,18 @@
     params.delete('auth_status'); history.replaceState({}, '', `${location.pathname}${params.size ? `?${params}` : ''}${location.hash}`);
   }
   const readyProviders = new Set();
-  async function configureProviders() {
-    if (window.SEOUL_HUB_PREVIEW || !backendBaseUrl) return;
+  let providerFlight = null;
+  function configureProviders() {
+    if (window.SEOUL_HUB_PREVIEW || !backendBaseUrl) return Promise.resolve();
+    if (providerFlight) return providerFlight;
+    providerFlight = (async () => {
     try {
       const server = await api('/auth/config');
       if (server.storage_ready === true) (server.enabledProviders || []).forEach(p => { if (enabledProviders.has(p)) readyProviders.add(p); });
     } catch (_) { readyProviders.clear(); }
     document.querySelectorAll('[data-auth-provider]').forEach(button => button.setAttribute('aria-disabled', readyProviders.has(button.dataset.authProvider) ? 'false' : 'true'));
+    })().finally(() => { providerFlight = null; });
+    return providerFlight;
   }
   configureProviders();
   refreshSession();
