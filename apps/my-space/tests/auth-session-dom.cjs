@@ -7,9 +7,9 @@ const dir = path.resolve(__dirname, '..');
 async function fixture(state,{ready=true,workspaceFails=false,sessionFails=false,sessionWait=null,configWait=null,configFails=false,callback=true}={}) {
   const dom = new JSDOM(fs.readFileSync(path.join(dir,'index.html'),'utf8'),{
     url:`https://site.test/my-space/${callback?'?auth_status=approved':''}#match`,runScripts:'outside-only'});
-  const w=dom.window,requests=[];
+  const w=dom.window,requests=[],navigations=[];
   w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};
-  w.HTMLDialogElement.prototype.close=function(){this.open=false;};
+  w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};
   w.SEOUL_HUB_AUTH_CONFIG={backendBaseUrl:'https://api.test',enabledProviders:['google','naver']};
   w.fetch=async (url,options={})=>{
     const pathname=new URL(url).pathname;
@@ -30,11 +30,17 @@ async function fixture(state,{ready=true,workspaceFails=false,sessionFails=false
         email_from_peer_opt_in:false,profile_status:'draft',seeking_status:'paused',row_version:1}};
     return {ok:!(pathname==='/api/my-space'&&workspaceFails),json:async()=>value};
   };
-  w.eval(fs.readFileSync(path.join(dir,'auth.js'),'utf8'));
+  // Keep real DOM and URL behavior; capture cross-origin navigation without leaving the fixture.
+  const testLocation={
+    get pathname(){return w.location.pathname;},get search(){return w.location.search;},
+    get hash(){return w.location.hash;},set hash(value){w.location.hash=value;},
+    assign:url=>navigations.push(url)
+  };
+  w.eval(`(function(location){${fs.readFileSync(path.join(dir,'auth.js'),'utf8')}\n})`)(testLocation);
   w.eval(fs.readFileSync(path.join(dir,'approval-flow.js'),'utf8'));
   w.eval(fs.readFileSync(path.join(dir,'workspace-ui.js'),'utf8'));
   await new Promise(resolve=>setTimeout(resolve,5));
-  return {w,requests,close:()=>w.close()};
+  return {w,requests,navigations,close:()=>w.close()};
 }
 test('server-backed approval enables MY SPACE identity view and versioned profile writes',async()=>{
   const f=await fixture({authenticated:true,workspace_access:true,profile_features_ready:true,participant_features_ready:true,csrf_token:'csrf',role:'participant',linked_status:'linked',approval_stage:'connected'});
@@ -118,19 +124,20 @@ test('initial load queries session once, repeated concurrent refreshes coalesce 
   assert.equal(f.w.document.getElementById('approval-refresh').disabled,false);f.close();
 });
 
-test('login connection notice clears when readiness arrives and repeated clicks share the check',async()=>{
+test('first provider choice continues after readiness arrives without a second click',async()=>{
   let release;
   const configWait=new Promise(resolve=>{release=resolve;});
   const f=await fixture({authenticated:false},{callback:false,configWait});
   const button=f.w.document.querySelector('[data-auth-provider="google"]');
   const notice=f.w.document.getElementById('auth-connection-state');
-  button.click();button.click();
+  button.click();button.click();f.w.document.querySelector('[data-auth-provider="naver"]').click();
   assert.equal(notice.textContent,'로그인 연결을 확인하고 있습니다. 잠시만 기다려주세요.');
   assert.equal(notice.dataset.kind,'pending');
   assert.equal(f.requests.filter(p=>p==='/auth/config').length,1);
   release();await new Promise(resolve=>setTimeout(resolve,5));
   assert.equal(button.getAttribute('aria-disabled'),'false');
-  assert.equal(notice.hidden,true);assert.equal(notice.textContent,'');f.close();
+  assert.equal(notice.textContent,'Google 로그인으로 이동합니다.');
+  assert.deepEqual(f.navigations,['https://api.test/auth/google/start?return_to=%2Fmy-space%2F%23match']);f.close();
 });
 
 test('failed login connection shows an error and a later click can recover',async()=>{
@@ -146,5 +153,35 @@ test('failed login connection shows an error and a later click can recover',asyn
     : original(url,...args);
   button.click();await new Promise(resolve=>setTimeout(resolve,5));
   assert.equal(button.getAttribute('aria-disabled'),'false');
-  assert.equal(notice.hidden,true);f.close();
+  assert.equal(notice.textContent,'Google 로그인으로 이동합니다.');
+  assert.equal(f.navigations.length,1);f.close();
+});
+
+test('closing the dialog cancels pending login and a new choice works after reopening',async()=>{
+  let release;
+  const configWait=new Promise(resolve=>{release=resolve;});
+  const f=await fixture({authenticated:false},{callback:false,configWait});
+  const dialog=f.w.document.getElementById('login-dialog');dialog.showModal();
+  f.w.document.querySelector('[data-auth-provider="google"]').click();dialog.close();
+  release();await new Promise(resolve=>setTimeout(resolve,5));
+  assert.equal(f.navigations.length,0);
+  assert.equal(f.w.document.getElementById('auth-connection-state').hidden,true);
+  dialog.showModal();f.w.document.querySelector('[data-auth-provider="google"]').click();
+  assert.equal(f.navigations.length,1);f.close();
+});
+
+test('login guidance returns after signout and Naver uses its own start endpoint',async()=>{
+  const f=await fixture({authenticated:true,workspace_access:false,role:'pending',approval_stage:'required'});
+  assert.equal(f.w.document.getElementById('login-email-guidance').hidden,true);
+  f.w.document.querySelector('[data-signout]').click();await new Promise(resolve=>setTimeout(resolve,5));
+  assert.equal(f.w.document.getElementById('login-email-guidance').hidden,false);
+  assert.match(f.w.document.querySelector('.login-intro').textContent,/NASA 공식 등록/);
+  const original=f.w.fetch;
+  f.w.fetch=async(url,...args)=>new URL(url).pathname==='/auth/config'
+    ? {ok:true,json:async()=>({storage_ready:true,enabledProviders:['naver']})}
+    : original(url,...args);
+  f.w.document.querySelector('[data-auth-provider="naver"]').click();
+  await new Promise(resolve=>setTimeout(resolve,5));
+  assert.equal(f.w.document.getElementById('auth-connection-state').textContent,'Naver 로그인으로 이동합니다.');
+  assert.match(f.navigations[0],/^https:\/\/api.test\/auth\/naver\/start\?/);f.close();
 });

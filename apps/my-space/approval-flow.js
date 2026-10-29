@@ -26,6 +26,7 @@
     byId('approval-resend').hidden = stage !== 'email_pending';
     byId('approval-refresh').hidden = stage === 'required';
     document.querySelector('.auth-provider-actions').hidden = true;
+    byId('login-email-guidance').hidden = true;
     document.querySelector('.login-intro').textContent = 'NASA 등록 이메일 인증으로 서울 참가 기록을 연결합니다.';
     byId('my-space-gate-title').textContent = item.title;
     byId('my-space-gate-copy').textContent = item.copy;
