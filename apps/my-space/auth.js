@@ -66,9 +66,18 @@
       window.dispatchEvent(new Event('seoul-approval-refresh'));
       if (callbackNotice) {
         callbackNotice = null;
-        showState(session.authenticated
-          ? '로그인이 완료되었습니다. 다음 인증 또는 승인 단계를 진행해주세요.'
-          : '로그인 세션을 확인하지 못했습니다. 같은 브라우저에서 다시 로그인해주세요.', session.authenticated ? 'success' : 'error');
+        if (session.authenticated === true) {
+          const dialog = byId('login-dialog');
+          if (dialog.open) dialog.close();
+          const notice = byId('auth-connection-state');
+          notice.hidden = true; notice.textContent = ''; delete notice.dataset.kind;
+          location.hash = 'my-space';
+          const target = byId('my-space');
+          target.setAttribute('tabindex', '-1');
+          target.focus({preventScroll: true});
+        } else {
+          showState('로그인 세션을 확인하지 못했습니다. 같은 브라우저에서 다시 로그인해주세요.', 'error');
+        }
       }
     }
     catch (_) { ready = false; session = null; workspace = null; window.dispatchEvent(new Event('seoul-approval-refresh')); showState('로그인 상태를 확인하지 못했습니다. 잠시 후 다시 시도해주세요.', 'error'); }
