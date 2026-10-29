@@ -11,6 +11,16 @@
   function showState(message, kind = 'info') {
     const box = byId('auth-connection-state'); box.hidden = false; box.dataset.kind = kind; box.textContent = message;
   }
+  function completeLogin() {
+    const dialog = byId('login-dialog');
+    if (dialog.open) dialog.close();
+    const notice = byId('auth-connection-state');
+    notice.hidden = true; notice.textContent = ''; delete notice.dataset.kind;
+    location.hash = 'my-space';
+    const target = byId('my-space');
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll: true});
+  }
   const role = () => ready && session?.authenticated ? (session.workspace_access === true && workspace ? session.role : 'pending') : 'anonymous';
   const stage = () => session?.approval_stage || 'required';
   window.SEOUL_HUB_AUTH = Object.freeze({
@@ -69,14 +79,7 @@
       if (callbackNotice) {
         callbackNotice = null;
         if (session.authenticated === true) {
-          const dialog = byId('login-dialog');
-          if (dialog.open) dialog.close();
-          const notice = byId('auth-connection-state');
-          notice.hidden = true; notice.textContent = ''; delete notice.dataset.kind;
-          location.hash = 'my-space';
-          const target = byId('my-space');
-          target.setAttribute('tabindex', '-1');
-          target.focus({preventScroll: true});
+          completeLogin();
         } else {
           showState('로그인 세션을 확인하지 못했습니다. 같은 브라우저에서 다시 로그인해주세요.', 'error');
         }
@@ -128,7 +131,14 @@
           return;
         }
       }
-      if (session?.authenticated === true) { loginStarted = false; return; }
+      if (session?.authenticated === true) {
+        await refreshSession();
+        if (attempt !== loginAttempt) return;
+        loginStarted = false;
+        if (ready && session?.authenticated === true) completeLogin();
+        else showState('로그인 상태를 확인하지 못했습니다. 잠시 후 다시 시도해주세요.', 'error');
+        return;
+      }
       showState(`${provider === 'google' ? 'Google' : 'Naver'} 로그인으로 이동합니다.`, 'pending');
       const startUrl = new URL(`${backendBaseUrl}/auth/${provider}/start`);
       startUrl.searchParams.set('return_to', `${location.pathname}${location.hash || '#my-space'}`);

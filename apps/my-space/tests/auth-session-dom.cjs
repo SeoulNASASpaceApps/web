@@ -185,3 +185,35 @@ test('login guidance returns after signout and Naver uses its own start endpoint
   assert.equal(f.w.document.getElementById('auth-connection-state').textContent,'Naver 로그인으로 이동합니다.');
   assert.match(f.navigations[0],/^https:\/\/api.test\/auth\/naver\/start\?/);f.close();
 });
+
+test('an existing authenticated session completes the dialog instead of leaving a connection notice',async()=>{
+  for(const workspace_access of [true,false]) {
+    let release;
+    const configWait=new Promise(resolve=>{release=resolve;});
+    const f=await fixture({authenticated:true,workspace_access,role:workspace_access?'participant':'pending',approval_stage:workspace_access?'connected':'required'},{callback:false,configWait});
+    const dialog=f.w.document.getElementById('login-dialog');dialog.showModal();
+    f.w.document.querySelector('[data-auth-provider="google"]').click();
+    assert.equal(f.w.document.getElementById('auth-connection-state').dataset.kind,'pending');
+    release();await new Promise(resolve=>setTimeout(resolve,10));
+    assert.equal(dialog.open,false);
+    assert.equal(f.w.document.getElementById('auth-connection-state').hidden,true);
+    assert.equal(f.w.document.getElementById('my-space-content').hidden,!workspace_access);
+    assert.equal(f.w.location.hash,'#my-space');assert.equal(f.navigations.length,0);f.close();
+  }
+});
+
+test('an existing session must pass refresh before a login dialog can close',async()=>{
+  const f=await fixture({authenticated:true,workspace_access:true,role:'participant'},{callback:false});
+  const original=f.w.fetch;
+  f.w.fetch=async(url,...args)=>{
+    if(new URL(url).pathname==='/auth/session')throw new Error('Session unavailable');
+    return original(url,...args);
+  };
+  const dialog=f.w.document.getElementById('login-dialog');dialog.showModal();
+  f.w.document.querySelector('[data-auth-provider="google"]').click();
+  await new Promise(resolve=>setTimeout(resolve,10));
+  assert.equal(dialog.open,true);
+  assert.equal(f.w.document.getElementById('auth-connection-state').dataset.kind,'error');
+  assert.equal(f.w.SEOUL_HUB_AUTH.isAuthenticated(),false);
+  assert.equal(f.navigations.length,0);f.close();
+});
