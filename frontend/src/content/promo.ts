@@ -33,6 +33,18 @@ const nasaSeoulUrl = "https://www.spaceappschallenge.org/2026/local-events/seoul
 const officialChallengesUrl = "https://www.spaceappschallenge.org/2026/challenges/";
 
 export const promoContent = {
+  notice: {
+    title: { ko: "서울 참가 등록 및 대회 안내", en: "Seoul registration and event information" },
+    waitlist: {
+      ko: "2026년 10월 17일 이후 등록자는 모두 Waitlist(대기 명단)로 전환될 예정이며, 심사 대상에 포함되지 않습니다.",
+      en: "All participants who registered on or after October 17, 2026 will be moved to the Waitlist and will not be eligible for judging.",
+    },
+    description: {
+      ko: "이 페이지는 한국어 사용자를 위한 서울 행사 안내 페이지로, 업데이트가 다소 늦을 수 있습니다. 대회 관련 최신 정보는 NASA Space Apps Seoul Page를 확인해주세요.",
+      en: "This site provides Seoul event guidance for Korean-speaking participants, with an English translation. Updates may be delayed. Please refer to the NASA Space Apps Seoul Page for the latest event information.",
+    },
+    link: { ko: "NASA Space Apps Seoul Page 확인", en: "Visit the NASA Space Apps Seoul Page" },
+  },
   links: {
     nasaSeoul: nasaSeoulUrl,
     officialChallenges: officialChallengesUrl,
@@ -229,7 +241,7 @@ export const promoContent = {
       { title: { ko: "해커톤 참가", en: "Take part in the hackathon" }, description: { ko: "2026년 11월 14–15일, 이틀 동안 팀과 함께 아이디어를 프로젝트로 완성합니다.", en: "On November 14–15, 2026, work with your team to turn an idea into a project." } },
       { title: { ko: "프로젝트 제출", en: "Submit your project" }, description: { ko: "NASA Space Apps 공식 플랫폼에 프로젝트를 제출하세요. 세부 마감 시간과 제출 방법은 공식 안내를 확인해주세요.", en: "Submit your project through the official NASA Space Apps platform. Check the official guidance for the deadline and submission process." } },
     ],
-    note: { ko: "NASA Space Apps 공식 등록과 서울 참가 확인을 모두 완료해야 합니다. 안내된 기간 내 확인을 마치지 않으면 대기 명단으로 전환될 수 있습니다.", en: "Complete both NASA Space Apps registration and the Seoul participation confirmation. If confirmation is not completed within the stated period, you may be moved to the waitlist." },
+    note: { ko: "NASA Space Apps 공식 등록과 서울 참가 확인을 모두 완료해야 합니다. 안내된 기간 내 확인을 마치지 않으면 대기 명단으로 전환될 수 있습니다. 2026년 10월 17일 이후 등록자는 모두 Waitlist(대기 명단)로 전환될 예정이며, 심사 대상에 포함되지 않습니다.", en: "Complete both NASA Space Apps registration and the Seoul participation confirmation. If confirmation is not completed within the stated period, you may be moved to the waitlist. All participants who registered on or after October 17, 2026 will be moved to the Waitlist and will not be eligible for judging." },
   },
   timeline: {
     kicker: { ko: "04 / SAVE THE DATES", en: "04 / SAVE THE DATES" },
