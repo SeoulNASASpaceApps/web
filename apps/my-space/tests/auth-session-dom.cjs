@@ -74,6 +74,18 @@ test('pending/rejected/suspended state and failed workspace response cannot expo
   assert.equal(f.w.SEOUL_HUB_AUTH.canAccessMySpace(),false);
   assert.equal(f.w.document.getElementById('login-dialog').open,true);f.close();
 });
+test('an unmatched verified login can enter another registration email without gaining access',async()=>{
+  const f=await fixture({authenticated:true,workspace_access:false,role:'pending',approval_stage:'review_pending'});
+  assert.equal(f.w.document.querySelector('#approval-request-panel label').hidden,false);
+  assert.equal(f.w.document.getElementById('approval-request-submit').hidden,false);
+  assert.equal(f.w.SEOUL_HUB_AUTH.canAccessMySpace(),false);
+  f.close();
+  for(const stage of ['rejected','suspended','additional_review']){
+    const blocked=await fixture({authenticated:true,workspace_access:false,role:'pending',approval_stage:stage});
+    assert.equal(blocked.w.document.getElementById('approval-request-submit').hidden,true,stage);
+    blocked.close();
+  }
+});
 test('missing settings and callback query alone never enable login or approved view',async()=>{
   const f=await fixture({authenticated:false},{ready:false});
   assert.equal(f.w.SEOUL_HUB_AUTH.canAccessMySpace(),false);
