@@ -1,0 +1,37 @@
+.judge-profiles { max-width: 1160px; }
+.judge-profiles .team-profile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.judge-profiles .team-profile-card { background: #fff; border-top: 3px solid var(--promo-red); border-radius: 0; }
+.judge-profiles .team-profile-card summary { min-height: 405px; padding: 30px 30px 68px; }
+.judge-profiles .team-profile-card__summary { gap: 10px; }
+.judge-profiles .team-profile-card__summary > strong { font-size: 32px; font-weight: 800; letter-spacing: -.035em; }
+.judge-profiles .judge-name-en { color: var(--promo-muted); font-size: 15px; line-height: 1.5; }
+.judge-profiles .judge-affiliation { color: var(--promo-ink); font-size: 15px; font-weight: 700; line-height: 1.65; }
+.judge-profiles .judge-facts { margin: 20px 0 0; padding-top: 17px; border-top: 1px solid var(--promo-line); }
+.judge-profiles .judge-facts-label { margin: 0 0 8px; color: var(--promo-red-text); font-size: 12px; font-weight: 800; letter-spacing: .06em; }
+.judge-profiles .judge-facts ul { margin: 0; padding-left: 18px; }
+.judge-profiles .judge-facts li { margin: 5px 0; color: var(--promo-ink); font-size: 14px; line-height: 1.65; word-break: keep-all; overflow-wrap: anywhere; }
+.judge-profiles .judge-focus { margin: 14px 0 0; color: var(--promo-muted); font-size: 13px; line-height: 1.65; }
+.judge-profiles .judge-kicker { margin-bottom: 10px; color: var(--promo-red-text); font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+.judge-profiles .team-profile-card[open] { grid-column: 1 / -1; }
+.judge-profiles .team-profile-card[open] summary { min-height: 0; padding-bottom: 68px; background: #fbfaf7; }
+.judge-profiles .team-profile-card[open] .judge-facts ul { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 28px; }
+.judge-profiles .team-profile-card__body { max-width: 1000px; padding: 6px 36px 38px; }
+.judge-profiles .team-profile-card__section h3 { font-size: 15px; letter-spacing: 0; }
+.judge-profiles .team-profile-card__section p { line-height: 1.85; white-space: pre-line; }
+.judge-profiles .judge-official-links { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+.judge-profiles .judge-official-links a { display: inline-block; padding: 9px 0; color: var(--promo-red-text); font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 5px; line-height: 1.7; }
+.judge-profiles .judge-official-links a:focus-visible { outline: 3px solid var(--promo-red-text); outline-offset: 4px; }
+.judge-page-intro > span { display: block; color: var(--promo-muted); font-size: 24px; line-height: 1.6; }
+.judge-page-intro > p { max-width: 900px; margin: 18px 0 0; color: var(--promo-muted); font-size: 18px; line-height: 1.8; }
+
+@media (max-width: 700px) {
+  .judge-profiles .team-profile-grid { grid-template-columns: 1fr; gap: 18px; }
+  .judge-profiles .team-profile-card summary { min-height: 0; padding: 26px 24px 72px; }
+  .judge-profiles .team-profile-card__summary > strong { font-size: 28px; }
+  .judge-profiles .judge-affiliation, .judge-profiles .judge-facts li { font-size: 14px; }
+  .judge-profiles .team-profile-card[open] .judge-facts ul { display: block; }
+  .judge-profiles .team-profile-card__body { padding: 4px 24px 30px; }
+  .judge-profiles .team-profile-card__section p { font-size: 15px; }
+  .judge-page-intro > span { font-size: 20px; }
+  .judge-page-intro > p { font-size: 16px; }
+}
