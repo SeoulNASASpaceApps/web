@@ -33,6 +33,36 @@
 .promo-home .event-notice strong { color: var(--promo-red-text); }
 .promo-home .promo-main .event-notice a { display: inline-block; margin-top: 6px; font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
 
+.promo-home .celebration-notice { margin-top: 28px; padding: 26px 30px 22px; border: 1px solid var(--promo-line); border-top: 4px solid var(--promo-red); background: #fff; }
+.promo-home .celebration-kicker { margin: 0 0 10px; color: var(--promo-red-text); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+.promo-home .celebration-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: center; }
+.promo-home .celebration-notice h2 { margin: 0; font-size: 30px; font-weight: 800; letter-spacing: -.045em; line-height: 1.35; }
+.promo-home .celebration-description { margin: 10px 0 0; color: var(--promo-muted); font-size: 15px; line-height: 1.7; white-space: pre-line; }
+.promo-home .celebration-program { margin: 12px 0 0; font-size: 14px; font-weight: 700; line-height: 1.7; }
+.promo-home .celebration-details { min-width: 310px; padding-left: 28px; border-left: 1px solid var(--promo-line); }
+.promo-home .celebration-time { margin: 0; color: var(--promo-red-text); font-size: 20px; font-weight: 800; letter-spacing: -.03em; }
+.promo-home .celebration-place { margin: 7px 0 0; font-size: 14px; line-height: 1.7; }
+.promo-home .celebration-footer { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--promo-line); }
+.promo-home .celebration-email { margin: 0; color: var(--promo-muted); font-size: 13px; line-height: 1.7; }
+.promo-home .promo-main .celebration-link { display: inline-flex; flex-shrink: 0; align-items: center; gap: 24px; min-height: 44px; padding: 12px 18px; background: var(--promo-red); color: #fff; font-size: 14px; font-weight: 800; }
+.promo-home .celebration-link:hover { background: var(--promo-red-hover); }
+.promo-home .judging-notice { padding-top: 21px; padding-bottom: 20px; }
+.promo-home .judging-status { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 10px; color: var(--promo-red-text); font-size: 11px; font-weight: 800; letter-spacing: .06em; }
+.promo-home .judging-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--promo-red); }
+.promo-home .judging-notice h2 { margin-bottom: 9px; font-size: 21px; font-weight: 800; letter-spacing: -.025em; }
+.promo-home .judging-notice p { margin: 6px 0; line-height: 1.85; }
+.promo-home .judging-notice .judging-closing { margin-top: 9px; color: var(--promo-muted); font-size: 13px; }
+
+@media (max-width: 760px) {
+  .promo-home .celebration-notice { padding: 22px 20px 20px; }
+  .promo-home .celebration-notice h2 { font-size: 26px; }
+  .promo-home .celebration-grid { grid-template-columns: 1fr; gap: 18px; }
+  .promo-home .celebration-details { min-width: 0; padding: 16px 0 0; border-top: 1px solid var(--promo-line); border-left: 0; }
+  .promo-home .celebration-time { font-size: 18px; }
+  .promo-home .celebration-footer { flex-direction: column; align-items: stretch; gap: 14px; margin-top: 16px; }
+  .promo-home .promo-main .celebration-link { justify-content: space-between; }
+}
+
 .promo-home .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); gap: clamp(32px, 4vw, 64px); align-items: stretch; padding-block: 56px 64px; }
 .promo-home .hero-copy { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
 .promo-home .eyebrow, .promo-home .section-kicker { margin: 0; color: var(--promo-red-text); font-size: 12px; font-weight: 800; letter-spacing: .18em; }

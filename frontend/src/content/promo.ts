@@ -33,21 +33,27 @@ const nasaSeoulUrl = "https://www.spaceappschallenge.org/2026/local-events/seoul
 const officialChallengesUrl = "https://www.spaceappschallenge.org/2026/challenges/";
 
 export const promoContent = {
-  notice: {
-    title: { ko: "서울 참가 등록 및 대회 안내", en: "Seoul registration and event information" },
-    waitlist: {
-      ko: "많은 참가 수요로 인해, 10월 18일부터 서울 신규 등록자는 Waitlist(대기 명단)로만 등록되며 참가 확정으로 전환되지 않습니다.",
-      en: "Due to high demand, new Seoul registrations from October 18 are waitlist-only and will not be accepted as confirmed participants.",
-    },
-    eligibility: {
-      ko: "Waitlist는 참가 확정 상태가 아니며, 서울 지역 심사 및 이를 통한 글로벌 심사 진출 대상에 포함되지 않습니다.",
-      en: "Waitlist status does not confirm participation and does not qualify participants for Seoul Local Judging or advancement to Global Judging through Seoul.",
-    },
+  celebration: {
+    kicker: { ko: "NASA SPACE APPS SEOUL 2026 · 완주 축하 행사", en: "NASA SPACE APPS SEOUL 2026 · COMPLETION CELEBRATION" },
+    title: { ko: "11월 29일, AWS에서 만나요", en: "Join us at AWS on November 29" },
     description: {
-      ko: "이 페이지는 한국어 사용자를 위한 안내 페이지로, 업데이트가 다소 늦을 수 있습니다. 대회 관련 최신 정보는 NASA Space Apps Seoul Page를 확인해주세요.",
-      en: "This site provides Seoul event guidance for Korean-speaking participants, with an English translation. Updates may be delayed. Please refer to the NASA Space Apps Seoul Page for the latest event information.",
+      ko: "완주한 우리 모두를 축하하며,\n함께 완성한 프로젝트와 도전의 이야기를 나눕니다.",
+      en: "Celebrate everyone who completed the hackathon,\nand share the projects and stories we created together.",
     },
-    link: { ko: "NASA Space Apps Seoul Page 확인", en: "Visit the NASA Space Apps Seoul Page" },
+    program: { ko: "완주 프로젝트 소개 · 서울 로컬 시상식 · 네트워킹", en: "Completed project showcase · Seoul Local Awards · Networking" },
+    time: { ko: "11.29 (일) 오후 2–5시", en: "Nov 29 (Sun) · 2–5 PM KST" },
+    date: { ko: "2026년 11월 29일", en: "November 29, 2026" },
+    venue: "AWS Korea",
+    email: { ko: "상세 장소와 참석 방법은 이메일로 안내드립니다.", en: "The exact venue location and attendance details will be sent by email." },
+    link: { ko: "행사 상세 안내 보기", en: "View event details" },
+    slug: "completion-celebration",
+  },
+  notice: {
+    status: { ko: "SEOUL · 심사 진행 중", en: "SEOUL · JUDGING IN PROGRESS" },
+    title: { ko: "서울 프로젝트는 지금 심사 중 🔎", en: "Seoul projects are being judged 🔎" },
+    encouragement: { ko: "아이디어를 프로젝트로 완성한 여러분, 정말 수고 많았어요! 👏", en: "You turned your ideas into projects—well done, everyone! 👏" },
+    description: { ko: "이틀 동안 함께 고민하고 도전한 여러분의 완주를 축하합니다.", en: "Congratulations on completing two days of collaboration and discovery." },
+    closing: { ko: "11월 29일, 서로의 프로젝트와 이야기를 만나며 함께 축하해요.", en: "Let’s celebrate together and discover one another’s projects and stories on November 29." },
   },
   links: {
     nasaSeoul: nasaSeoulUrl,

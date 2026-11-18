@@ -39,15 +39,31 @@ export default function PromoHome({ locale }: { locale: Locale }) {
         <div className="reading-progress" aria-hidden="true" />
       </nav>
       <main className="promo-main" id="promo-main">
-        <aside className="event-notice section-wrap" aria-labelledby="event-notice-title">
+        <section className="celebration-notice section-wrap" aria-labelledby="celebration-title">
+          <p className="celebration-kicker">{promoContent.celebration.kicker[locale]}</p>
+          <div className="celebration-grid">
+            <div>
+              <h2 id="celebration-title">{promoContent.celebration.title[locale]}</h2>
+              <p className="celebration-description">{promoContent.celebration.description[locale]}</p>
+              <p className="celebration-program">{promoContent.celebration.program[locale]}</p>
+            </div>
+            <div className="celebration-details">
+              <p className="celebration-time">{promoContent.celebration.time[locale]}</p>
+              <p className="celebration-place"><time dateTime="2026-11-29T14:00:00+09:00">{promoContent.celebration.date[locale]}</time><br />{promoContent.celebration.venue}</p>
+            </div>
+          </div>
+          <div className="celebration-footer">
+            <p className="celebration-email">{promoContent.celebration.email[locale]}</p>
+            <Link className="celebration-link" href={cohortPath(2026, locale, `bulletin/${promoContent.celebration.slug}`)}>
+              {promoContent.celebration.link[locale]} <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </section>
+        <aside className="event-notice judging-notice section-wrap" aria-labelledby="event-notice-title">
+          <div className="judging-status"><span className="judging-dot" aria-hidden="true" />{promoContent.notice.status[locale]}</div>
           <h2 id="event-notice-title">{promoContent.notice.title[locale]}</h2>
-          <p><strong>{promoContent.notice.waitlist[locale]}</strong></p>
-          <p>{promoContent.notice.eligibility[locale]}</p>
-          <p>{promoContent.notice.description[locale]}</p>
-          <a href={promoContent.links.nasaSeoul} target="_blank" rel="noopener noreferrer">
-            {promoContent.notice.link[locale]} <span aria-hidden="true">↗</span>
-            <span className="promo-sr-only"> {ui.newTabHint[locale]}</span>
-          </a>
+          <p>{promoContent.notice.encouragement[locale]}<br />{promoContent.notice.description[locale]}</p>
+          <p className="judging-closing">{promoContent.notice.closing[locale]}</p>
         </aside>
         <PromoHero locale={locale} />
         <PromoInvitation locale={locale} />
